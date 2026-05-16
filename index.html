@@ -1,0 +1,912 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>鳳潤鳥宿｜鸚鵡寄宿・板橋</title>
+<meta name="description" content="鳳潤鳥宿，位於新北市板橋區，專業照顧各種鸚鵡，每日影片回傳，不用付訂金，接送時間11:00–20:00。"/>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Noto+Serif+TC:wght@300;400;500;700&family=Zen+Maru+Gothic:wght@300;400;500&display=swap" rel="stylesheet"/>
+<style>
+:root{
+  --ink:#1a1a18;--deep:#0e1a12;--forest:#1c3528;--moss:#2d5040;--sage:#4a7a60;
+  --gold:#c9a84c;--gold-lt:#e8c97a;--gold-dk:#8a6820;
+  --cream:#f5f0e8;--parch:#ede5d0;--warm:#d4c9a8;
+  --r:16px;
+}
+*{box-sizing:border-box;margin:0;padding:0;}
+html{scroll-behavior:smooth;}
+body{
+  font-family:'Zen Maru Gothic','Noto Serif TC',serif;
+  background:var(--deep);color:var(--cream);line-height:1.8;overflow-x:hidden;
+}
+body::before{
+  content:'';position:fixed;inset:0;z-index:0;pointer-events:none;
+  background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
+  opacity:0.35;
+}
+
+/* NAV */
+nav{
+  position:fixed;top:0;left:0;right:0;z-index:300;
+  display:flex;align-items:center;justify-content:space-between;
+  padding:0 2.5rem;height:68px;
+  background:rgba(14,26,18,0.88);backdrop-filter:blur(18px);
+  border-bottom:1px solid rgba(201,168,76,0.2);
+}
+.nav-logo{
+  font-family:'Cormorant Garamond',serif;font-size:1.4rem;font-weight:600;
+  letter-spacing:0.12em;color:var(--gold);text-decoration:none;
+  display:flex;align-items:center;gap:12px;
+}
+.nav-badge{
+  font-size:0.75rem;font-weight:300;color:var(--gold-lt);
+  border:1px solid rgba(201,168,76,0.35);padding:3px 10px;border-radius:2px;
+  letter-spacing:0.08em;font-family:'Zen Maru Gothic',sans-serif;
+}
+.nav-links{display:flex;gap:2rem;align-items:center;}
+.nav-links a{
+  font-size:0.8rem;letter-spacing:0.14em;color:var(--warm);
+  text-decoration:none;transition:color 0.2s;
+}
+.nav-links a:hover{color:var(--gold);}
+.nav-cta{
+  background:transparent!important;border:1px solid var(--gold)!important;
+  color:var(--gold)!important;padding:7px 20px!important;border-radius:2px!important;
+  font-size:0.76rem!important;letter-spacing:0.18em!important;
+  transition:background 0.2s,color 0.2s!important;
+}
+.nav-cta:hover{background:var(--gold)!important;color:var(--deep)!important;}
+.hamburger{display:none;background:none;border:none;color:var(--gold);font-size:1.5rem;cursor:pointer;}
+.mob-menu{
+  display:none;position:fixed;top:68px;left:0;right:0;z-index:299;
+  background:rgba(10,18,13,0.97);border-bottom:1px solid rgba(201,168,76,0.15);
+  padding:1.5rem 2.5rem;flex-direction:column;gap:1rem;
+}
+.mob-menu.open{display:flex;}
+.mob-menu a{color:var(--warm);text-decoration:none;font-size:0.92rem;letter-spacing:0.1em;padding:0.5rem 0;border-bottom:1px solid rgba(201,168,76,0.08);}
+
+/* HERO */
+.hero{
+  min-height:100vh;position:relative;display:flex;align-items:center;
+  padding:100px 2.5rem 5rem;overflow:hidden;
+  background:
+    radial-gradient(ellipse 65% 55% at 82% 28%,rgba(74,122,96,0.2) 0%,transparent 65%),
+    radial-gradient(ellipse 45% 65% at 8% 82%,rgba(201,168,76,0.07) 0%,transparent 55%),
+    var(--deep);
+}
+.hero-ring{
+  position:absolute;border-radius:50%;border:1px solid rgba(201,168,76,0.1);pointer-events:none;
+}
+.r1{width:620px;height:620px;top:-110px;right:-160px;}
+.r2{width:420px;height:420px;top:40px;right:40px;border-color:rgba(201,168,76,0.05);}
+.r3{width:180px;height:180px;bottom:90px;left:4%;border-color:rgba(74,122,96,0.18);}
+
+.hero-vtext{
+  position:absolute;right:1.5rem;top:50%;transform:translateY(-50%);
+  writing-mode:vertical-rl;text-orientation:mixed;
+  font-family:'Cormorant Garamond',serif;font-size:0.65rem;letter-spacing:0.35em;
+  color:rgba(201,168,76,0.2);pointer-events:none;user-select:none;
+}
+
+.hero-inner{
+  max-width:1080px;margin:0 auto;width:100%;
+  display:grid;grid-template-columns:1fr 1fr;gap:4rem;align-items:center;
+  position:relative;z-index:1;
+}
+.hero-eyebrow{
+  display:inline-flex;align-items:center;gap:12px;
+  font-size:0.68rem;letter-spacing:0.32em;color:var(--gold);
+  text-transform:uppercase;margin-bottom:1.6rem;
+}
+.hero-eyebrow::before,.hero-eyebrow::after{content:'';width:22px;height:1px;background:var(--gold);opacity:0.45;}
+.hero h1{
+  font-family:'Cormorant Garamond',serif;
+  font-size:clamp(2.8rem,5.5vw,4.4rem);font-weight:300;
+  line-height:1.22;color:var(--cream);margin-bottom:0.5rem;letter-spacing:0.04em;
+}
+.hero h1 em{font-style:italic;color:var(--gold-lt);}
+.hero-sub{
+  font-family:'Cormorant Garamond',serif;font-size:1.2rem;font-weight:300;
+  font-style:italic;color:var(--sage);letter-spacing:0.08em;margin-bottom:1.6rem;
+}
+.hero p{font-size:0.88rem;color:var(--warm);line-height:2.1;max-width:400px;margin-bottom:2.5rem;font-weight:300;}
+.hero-btns{display:flex;gap:1.2rem;flex-wrap:wrap;}
+.btn-primary{
+  display:inline-flex;align-items:center;gap:8px;
+  background:var(--gold);color:var(--deep);padding:13px 28px;border-radius:2px;
+  font-family:'Zen Maru Gothic',sans-serif;font-weight:500;font-size:0.86rem;
+  letter-spacing:0.12em;text-decoration:none;border:none;cursor:pointer;
+  transition:background 0.2s,transform 0.15s;
+}
+.btn-primary:hover{background:var(--gold-lt);transform:translateY(-2px);}
+.btn-outline{
+  display:inline-flex;align-items:center;gap:8px;
+  background:transparent;color:var(--gold);padding:12px 28px;border-radius:2px;
+  font-family:'Zen Maru Gothic',sans-serif;font-weight:400;font-size:0.86rem;
+  letter-spacing:0.1em;text-decoration:none;border:1px solid rgba(201,168,76,0.45);
+  transition:border-color 0.2s,background 0.2s;
+}
+.btn-outline:hover{border-color:var(--gold);background:rgba(201,168,76,0.08);}
+
+.hero-art{position:relative;display:flex;justify-content:center;align-items:center;}
+.medallion{
+  width:310px;height:310px;border-radius:50%;
+  background:radial-gradient(circle at 35% 35%,rgba(74,122,96,0.5),transparent 60%),
+    radial-gradient(circle,rgba(40,75,58,0.92),rgba(14,26,18,0.97));
+  border:1px solid rgba(201,168,76,0.28);
+  display:flex;align-items:center;justify-content:center;font-size:7.5rem;
+  box-shadow:0 0 0 10px rgba(201,168,76,0.04),0 0 0 28px rgba(201,168,76,0.02),0 36px 80px rgba(0,0,0,0.55);
+  animation:breathe 6s ease-in-out infinite;position:relative;
+}
+@keyframes breathe{
+  0%,100%{transform:scale(1);}50%{transform:scale(1.025);}
+}
+.medallion::before{
+  content:'';position:absolute;inset:-14px;border-radius:50%;
+  border:1px dashed rgba(201,168,76,0.12);animation:spin 35s linear infinite;
+}
+@keyframes spin{to{transform:rotate(360deg);}}
+.chip{
+  position:absolute;background:rgba(10,18,13,0.92);
+  border:1px solid rgba(201,168,76,0.22);border-radius:2px;
+  padding:8px 14px;font-size:0.74rem;letter-spacing:0.1em;
+  color:var(--gold-lt);white-space:nowrap;backdrop-filter:blur(8px);
+}
+.c1{top:18px;left:-38px;animation:drift 4s ease-in-out infinite;}
+.c2{bottom:48px;right:-18px;animation:drift 5s ease-in-out infinite 1.5s;}
+.c3{top:46%;left:-58px;animation:drift 3.5s ease-in-out infinite 0.8s;}
+@keyframes drift{0%,100%{transform:translateY(0);}50%{transform:translateY(-9px);}}
+
+/* MARQUEE */
+.marquee-wrap{
+  background:var(--gold);overflow:hidden;white-space:nowrap;
+  padding:11px 0;position:relative;z-index:2;
+}
+.marquee-track{display:inline-block;animation:marquee 24s linear infinite;}
+@keyframes marquee{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+.mi{
+  display:inline-flex;align-items:center;gap:8px;
+  font-size:0.76rem;letter-spacing:0.16em;font-weight:500;
+  color:var(--deep);margin-right:2.5rem;
+}
+.md{width:4px;height:4px;background:rgba(30,50,40,0.35);border-radius:50%;display:inline-block;}
+
+/* SECTIONS */
+section{padding:6rem 2.5rem;position:relative;}
+.sec{max-width:1060px;margin:0 auto;}
+.sec-alt{background:linear-gradient(180deg,rgba(28,53,40,0.38) 0%,rgba(14,26,18,0.18) 100%);}
+.sec-dark{background:rgba(8,15,10,0.5);}
+
+.sec-header{margin-bottom:3.5rem;}
+.sec-no{
+  display:block;font-family:'Cormorant Garamond',serif;
+  font-size:4.5rem;font-weight:300;line-height:1;
+  color:rgba(201,168,76,0.1);letter-spacing:0.05em;margin-bottom:-1.8rem;
+}
+.sec-label{
+  display:inline-block;font-size:0.67rem;letter-spacing:0.36em;
+  text-transform:uppercase;color:var(--gold);
+  padding-bottom:6px;border-bottom:1px solid rgba(201,168,76,0.28);margin-bottom:0.8rem;
+}
+.sec-title{
+  font-family:'Cormorant Garamond',serif;
+  font-size:clamp(1.8rem,3.5vw,2.7rem);font-weight:300;
+  color:var(--cream);letter-spacing:0.05em;line-height:1.3;margin-bottom:0.6rem;
+}
+.sec-sub{font-size:0.87rem;color:var(--warm);line-height:2.1;max-width:520px;font-weight:300;}
+
+.divider{display:flex;align-items:center;gap:1.5rem;margin:2.5rem 0;opacity:0.25;}
+.divider::before,.divider::after{content:'';flex:1;height:1px;background:var(--gold);}
+.divider span{font-family:'Cormorant Garamond',serif;font-size:1.1rem;color:var(--gold);}
+
+/* PRICING */
+.price-note-bar{
+  display:flex;align-items:center;gap:10px;
+  background:rgba(201,168,76,0.07);border:1px solid rgba(201,168,76,0.18);
+  border-radius:3px;padding:11px 18px;margin-bottom:2rem;
+  font-size:0.8rem;color:var(--gold-lt);letter-spacing:0.08em;
+}
+.price-table-wrap{overflow-x:auto;margin-bottom:2.5rem;}
+.price-table{width:100%;border-collapse:collapse;min-width:460px;font-size:0.87rem;}
+.price-table thead tr{border-bottom:1px solid rgba(201,168,76,0.25);}
+.price-table th{
+  padding:11px 20px;text-align:left;font-size:0.66rem;
+  letter-spacing:0.28em;text-transform:uppercase;color:var(--gold);font-weight:400;
+}
+.price-table th:last-child{text-align:right;}
+.price-table td{padding:13px 20px;border-bottom:1px solid rgba(201,168,76,0.07);color:var(--warm);font-weight:300;}
+.price-table td:last-child{text-align:right;}
+.price-table tr:hover td{background:rgba(201,168,76,0.04);}
+.price-num{font-family:'Cormorant Garamond',serif;font-size:1.3rem;font-weight:600;color:var(--gold-lt);}
+
+.discount-row{
+  display:grid;grid-template-columns:repeat(4,1fr);gap:1px;
+  background:rgba(201,168,76,0.1);border:1px solid rgba(201,168,76,0.15);
+  border-radius:3px;overflow:hidden;margin-bottom:2rem;
+}
+.disc-cell{
+  background:rgba(12,22,15,0.85);padding:1.5rem 1rem;text-align:center;
+  transition:background 0.2s;
+}
+.disc-cell:hover{background:rgba(28,53,40,0.85);}
+.disc-pct{
+  font-family:'Cormorant Garamond',serif;font-size:2.3rem;font-weight:300;
+  color:var(--gold);line-height:1;display:block;
+}
+.disc-label{font-size:0.74rem;color:var(--warm);letter-spacing:0.1em;margin-top:5px;display:block;font-weight:300;}
+
+.price-warn{
+  border-left:2px solid rgba(201,168,76,0.35);padding:1rem 1.5rem;
+  background:rgba(201,168,76,0.04);font-size:0.82rem;color:var(--warm);line-height:2;font-weight:300;
+}
+.price-warn strong{color:var(--gold-lt);display:block;margin-bottom:4px;font-weight:500;}
+
+/* RULES */
+.rules-grid{display:flex;flex-direction:column;}
+.rule-item{
+  display:flex;gap:2rem;padding:1.5rem 0;
+  border-bottom:1px solid rgba(201,168,76,0.07);align-items:flex-start;
+}
+.rule-n{
+  font-family:'Cormorant Garamond',serif;font-size:2.6rem;font-weight:300;
+  color:rgba(201,168,76,0.18);line-height:1;flex-shrink:0;width:48px;text-align:right;
+}
+.rule-text{font-size:0.87rem;color:var(--warm);line-height:2.1;font-weight:300;}
+.rule-text strong{color:var(--gold-lt);font-weight:500;}
+.rule-agree{
+  margin-top:2rem;padding:1.2rem 2rem;text-align:center;
+  border:1px solid rgba(201,168,76,0.22);border-radius:2px;
+  font-size:0.8rem;letter-spacing:0.18em;color:var(--gold);
+  background:rgba(201,168,76,0.04);
+}
+
+/* FAQ */
+.faq-list{display:flex;flex-direction:column;}
+.faq-item{border-bottom:1px solid rgba(201,168,76,0.09);}
+.faq-q{
+  display:flex;justify-content:space-between;align-items:center;
+  padding:1.3rem 0;cursor:pointer;gap:1rem;
+  font-size:0.9rem;color:var(--cream);letter-spacing:0.04em;
+  user-select:none;transition:color 0.2s;
+}
+.faq-q:hover{color:var(--gold-lt);}
+.q-mark{
+  font-family:'Cormorant Garamond',serif;font-size:1.5rem;font-weight:300;
+  color:var(--gold);margin-right:10px;line-height:1;
+}
+.faq-arrow{color:var(--gold);font-size:0.62rem;flex-shrink:0;transition:transform 0.3s;}
+.faq-item.open .faq-arrow{transform:rotate(180deg);}
+.faq-a{
+  max-height:0;overflow:hidden;
+  transition:max-height 0.4s ease,padding 0.2s;
+  font-size:0.85rem;color:var(--warm);line-height:2.1;font-weight:300;padding:0 2.2rem;
+}
+.faq-item.open .faq-a{max-height:300px;padding:0 2.2rem 1.4rem;}
+
+/* BOOKING */
+.booking-layout{display:grid;grid-template-columns:1fr 1.4fr;gap:5rem;align-items:start;}
+.booking-steps{display:flex;flex-direction:column;}
+.bstep{
+  display:flex;gap:1.5rem;padding:1.2rem 0;
+  border-bottom:1px solid rgba(201,168,76,0.07);align-items:flex-start;
+}
+.bstep-n{
+  font-family:'Cormorant Garamond',serif;font-size:1.8rem;font-weight:300;
+  color:var(--gold);opacity:0.45;line-height:1;flex-shrink:0;width:30px;
+}
+.bstep h4{font-size:0.87rem;font-weight:500;color:var(--cream);margin-bottom:3px;letter-spacing:0.05em;}
+.bstep p{font-size:0.8rem;color:var(--warm);font-weight:300;line-height:1.9;}
+.booking-note{
+  margin-top:2rem;padding:1.2rem 1.4rem;
+  background:rgba(74,122,96,0.1);border:1px solid rgba(74,122,96,0.22);
+  border-radius:3px;font-size:0.8rem;color:rgba(170,215,195,0.9);line-height:2;font-weight:300;
+}
+.booking-note strong{display:block;color:rgba(180,220,200,1);margin-bottom:4px;font-weight:500;}
+
+.form-card{
+  background:rgba(28,53,40,0.32);border:1px solid rgba(201,168,76,0.16);
+  border-radius:4px;padding:2.5rem;backdrop-filter:blur(8px);
+}
+.form-row{display:grid;grid-template-columns:1fr 1fr;gap:1rem;}
+.fg{display:flex;flex-direction:column;gap:5px;margin-bottom:1rem;}
+.fg label{
+  font-size:0.66rem;letter-spacing:0.22em;text-transform:uppercase;
+  color:rgba(201,168,76,0.55);font-weight:400;
+}
+.fg input,.fg select,.fg textarea{
+  padding:10px 14px;background:rgba(8,16,11,0.65);
+  border:1px solid rgba(201,168,76,0.14);border-radius:2px;
+  font-family:'Zen Maru Gothic',sans-serif;font-size:0.87rem;
+  color:var(--cream);width:100%;transition:border-color 0.2s;outline:none;
+}
+.fg input::placeholder{color:rgba(212,201,168,0.28);}
+.fg input:focus,.fg select:focus,.fg textarea:focus{
+  border-color:rgba(201,168,76,0.45);background:rgba(8,16,11,0.85);
+}
+.fg select option{background:#1c3528;color:var(--cream);}
+.fg textarea{resize:vertical;min-height:90px;}
+.datetime-row{display:grid;grid-template-columns:1.35fr 1fr;gap:8px;}
+
+.bird-rows{display:flex;flex-direction:column;gap:8px;margin-bottom:1rem;}
+.bird-row{
+  background:rgba(8,16,11,0.45);border:1px solid rgba(201,168,76,0.1);
+  border-radius:3px;padding:14px;
+  display:grid;grid-template-columns:1fr 90px 72px auto;
+  gap:10px;align-items:end;
+}
+.bird-row .fg{margin-bottom:0;}
+.btn-remove-bird{
+  background:rgba(160,50,50,0.12);border:1px solid rgba(160,50,50,0.28);
+  color:rgba(220,110,110,0.75);border-radius:2px;padding:8px 10px;
+  cursor:pointer;font-size:0.85rem;align-self:end;transition:background 0.2s;white-space:nowrap;
+}
+.btn-remove-bird:hover{background:rgba(160,50,50,0.28);}
+.btn-add-bird{
+  display:inline-flex;align-items:center;gap:8px;
+  background:transparent;color:var(--sage);
+  border:1px dashed rgba(74,122,96,0.38);border-radius:2px;
+  padding:10px 18px;font-size:0.78rem;letter-spacing:0.14em;
+  cursor:pointer;margin-bottom:1.2rem;transition:all 0.2s;font-family:inherit;
+}
+.btn-add-bird:hover{border-color:var(--sage);background:rgba(74,122,96,0.1);color:var(--cream);}
+
+.price-calc-box{
+  display:none;background:rgba(201,168,76,0.05);
+  border:1px solid rgba(201,168,76,0.22);border-radius:3px;
+  padding:1.4rem;margin:0.4rem 0 1.2rem;
+}
+.price-calc-box.show{display:block;}
+.calc-label{font-size:0.63rem;letter-spacing:0.3em;text-transform:uppercase;color:rgba(201,168,76,0.55);margin-bottom:0.5rem;}
+.calc-total{
+  font-family:'Cormorant Garamond',serif;font-size:2.3rem;font-weight:300;
+  color:var(--gold-lt);line-height:1;margin-bottom:0.6rem;
+}
+.calc-breakdown{font-size:0.74rem;color:var(--warm);line-height:2;font-weight:300;padding-top:0.5rem;border-top:1px solid rgba(201,168,76,0.1);}
+.calc-discount{font-size:0.77rem;color:rgba(130,200,155,0.9);margin-top:5px;font-weight:400;}
+
+.form-submit{
+  width:100%;background:var(--gold);color:var(--deep);border:none;border-radius:2px;
+  padding:15px;font-family:'Zen Maru Gothic',sans-serif;font-weight:500;
+  font-size:0.88rem;letter-spacing:0.18em;cursor:pointer;
+  transition:background 0.2s,transform 0.15s;margin-top:0.4rem;
+}
+.form-submit:hover{background:var(--gold-lt);transform:translateY(-1px);}
+.form-note{font-size:0.7rem;color:rgba(212,201,168,0.35);text-align:center;margin-top:0.8rem;letter-spacing:0.1em;}
+
+.form-success{display:none;text-align:center;padding:3rem 1rem;}
+.form-success.show{display:block;}
+.form-success .sicon{font-size:3.5rem;margin-bottom:1rem;}
+.form-success h3{font-family:'Cormorant Garamond',serif;font-size:1.9rem;font-weight:300;color:var(--gold-lt);margin-bottom:0.8rem;}
+.form-success p{font-size:0.87rem;color:var(--warm);line-height:2;font-weight:300;}
+
+/* CONTACT */
+.contact-grid{
+  display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));
+  gap:1px;margin-bottom:2.5rem;background:rgba(201,168,76,0.07);
+}
+.contact-card{
+  background:rgba(12,22,15,0.85);padding:2rem 1.5rem;text-align:center;
+  transition:background 0.2s;
+}
+.contact-card:hover{background:rgba(28,53,40,0.85);}
+.contact-card .ci{font-size:1.7rem;display:block;margin-bottom:0.8rem;opacity:0.75;}
+.contact-card h3{font-size:0.68rem;letter-spacing:0.22em;text-transform:uppercase;color:var(--gold);margin-bottom:0.6rem;font-weight:400;}
+.contact-card p,.contact-card a{font-size:0.87rem;color:var(--warm);text-decoration:none;display:block;line-height:1.8;font-weight:300;}
+.contact-card a:hover{color:var(--gold-lt);}
+
+.transport-box{
+  background:rgba(28,53,40,0.28);border:1px solid rgba(201,168,76,0.1);
+  border-radius:4px;padding:2rem;display:grid;grid-template-columns:1fr 1fr;gap:2.5rem;
+}
+.transport-col h4{font-size:0.68rem;letter-spacing:0.22em;text-transform:uppercase;color:var(--gold);margin-bottom:1rem;font-weight:400;}
+.transport-item{display:flex;gap:12px;font-size:0.83rem;color:var(--warm);margin-bottom:0.8rem;line-height:1.7;font-weight:300;}
+
+/* FOOTER */
+footer{
+  background:rgba(5,10,7,0.98);padding:3rem 2.5rem;text-align:center;
+  border-top:1px solid rgba(201,168,76,0.1);
+}
+.footer-logo{font-family:'Cormorant Garamond',serif;font-size:2rem;font-weight:300;color:var(--gold);letter-spacing:0.18em;margin-bottom:0.4rem;}
+.footer-tagline{font-size:0.67rem;letter-spacing:0.32em;color:rgba(201,168,76,0.25);text-transform:uppercase;margin-bottom:1.5rem;}
+.footer-links{display:flex;justify-content:center;gap:2rem;margin-bottom:2rem;flex-wrap:wrap;}
+.footer-links a{color:rgba(212,201,168,0.35);text-decoration:none;font-size:0.76rem;letter-spacing:0.12em;transition:color 0.2s;}
+.footer-links a:hover{color:var(--gold);}
+footer p{font-size:0.73rem;color:rgba(212,201,168,0.22);line-height:2.1;}
+
+/* RESPONSIVE */
+@media(max-width:768px){
+  .nav-links{display:none;}
+  .hamburger{display:block;}
+  .hero-inner{grid-template-columns:1fr;text-align:center;gap:2.5rem;}
+  .hero-art{display:none;}
+  .hero p{margin:0 auto 2rem;}
+  .hero-btns{justify-content:center;}
+  .hero-vtext{display:none;}
+  .booking-layout{grid-template-columns:1fr;gap:2.5rem;}
+  .form-row{grid-template-columns:1fr;}
+  .bird-row{grid-template-columns:1fr 1fr;}
+  .bird-row .fg:first-child{grid-column:1/-1;}
+  .discount-row{grid-template-columns:1fr 1fr;}
+  .transport-box{grid-template-columns:1fr;}
+  .contact-grid{grid-template-columns:1fr 1fr;}
+  .form-card{padding:1.5rem;}
+  nav{padding:0 1.2rem;}
+}
+</style>
+</head>
+<body>
+
+<nav>
+  <a class="nav-logo" href="#">
+    鳳潤鳥宿
+    <span class="nav-badge">Fonrun Bird Inn</span>
+  </a>
+  <div class="nav-links">
+    <a href="#pricing">住宿費用</a>
+    <a href="#rules">入住須知</a>
+    <a href="#faq">常見問答</a>
+    <a href="#contact">聯絡</a>
+    <a href="#booking" class="nav-cta">線上預約</a>
+  </div>
+  <button class="hamburger" aria-label="選單">☰</button>
+</nav>
+<div class="mob-menu" id="mob">
+  <a href="#pricing">住宿費用</a>
+  <a href="#rules">入住須知</a>
+  <a href="#faq">常見問答</a>
+  <a href="#contact">聯絡</a>
+  <a href="#booking">線上預約 →</a>
+</div>
+
+<!-- HERO -->
+<section class="hero" id="home">
+  <div class="hero-ring r1"></div>
+  <div class="hero-ring r2"></div>
+  <div class="hero-ring r3"></div>
+  <div class="hero-vtext">FONRUN BIRD INN · 鳳潤鳥宿 · BANQIAO · NEW TAIPEI CITY</div>
+  <div class="hero-inner">
+    <div>
+      <div class="hero-eyebrow">新北市板橋區・鸚鵡寄宿</div>
+      <h1>出遊放心去，<br>寶貝住進<em>鳳潤</em></h1>
+      <p class="hero-sub">鳳潤鳥宿 · Fonrun Bird Inn</p>
+      <p>我們把每一隻鸚鵡都當作自己的孩子。每日影片回傳、放風互動、專業照顧，讓您的羽毛寶貝每天都快樂健康。</p>
+      <div class="hero-btns">
+        <a href="#booking" class="btn-primary">立即預約寄宿</a>
+        <a href="https://line.me/R/ti/p/@399kyhwr" target="_blank" class="btn-outline">💬 LINE 詢問</a>
+      </div>
+    </div>
+    <div class="hero-art">
+      <div class="medallion">🦜</div>
+      <div class="chip c1">📸 每日影片回傳</div>
+      <div class="chip c2">🏠 不需自備籠子</div>
+      <div class="chip c3">💸 無須訂金</div>
+    </div>
+  </div>
+</section>
+
+<!-- MARQUEE -->
+<div class="marquee-wrap">
+  <div class="marquee-track">
+    <span class="mi">🦜 接受各種鸚鵡品種 <span class="md"></span></span>
+    <span class="mi">📸 每日影片回傳 <span class="md"></span></span>
+    <span class="mi">🕐 接送時間 11:00–20:00 <span class="md"></span></span>
+    <span class="mi">💸 無須訂金・入住當日結清 <span class="md"></span></span>
+    <span class="mi">📞 0901-221-586 <span class="md"></span></span>
+    <span class="mi">LINE @399kyhwr <span class="md"></span></span>
+    <span class="mi">鳳潤鳥宿 · Fonrun Bird Inn <span class="md"></span></span>
+    <span class="mi">🦜 接受各種鸚鵡品種 <span class="md"></span></span>
+    <span class="mi">📸 每日影片回傳 <span class="md"></span></span>
+    <span class="mi">🕐 接送時間 11:00–20:00 <span class="md"></span></span>
+    <span class="mi">💸 無須訂金・入住當日結清 <span class="md"></span></span>
+    <span class="mi">📞 0901-221-586 <span class="md"></span></span>
+    <span class="mi">LINE @399kyhwr <span class="md"></span></span>
+    <span class="mi">鳳潤鳥宿 · Fonrun Bird Inn <span class="md"></span></span>
+  </div>
+</div>
+
+<!-- PRICING -->
+<section id="pricing" class="sec-alt">
+  <div class="sec">
+    <div class="sec-header">
+      <span class="sec-no">01</span>
+      <span class="sec-label">Pricing</span>
+      <h2 class="sec-title">鳳潤鳥宿・住宿費用</h2>
+      <p class="sec-sub">依鸚鵡品種計費，以「隻數 × 日曆天數」計算。<br>例如：小鸚 2 隻住 2 天 = 300 × 2 × 2 = NT$1,200</p>
+    </div>
+    <div class="price-note-bar">◈ 接送時間：11:00 – 20:00　全年服務</div>
+    <div class="price-table-wrap">
+      <table class="price-table">
+        <thead><tr><th style="width:160px">每晚費用</th><th>適用品種</th></tr></thead>
+        <tbody>
+          <tr><td><span class="price-num">NT$ 300</span></td><td>小鸚、牡丹、虎皮、文鳥、白文、太平洋、秋草、橫斑 等</td></tr>
+          <tr><td><span class="price-num">NT$ 350</span></td><td>小太陽、玄鳳、小達摩、和尚 等</td></tr>
+          <tr><td><span class="price-num">NT$ 400</span></td><td>金太陽、吸蜜、凱克、賈丁、塞內、月輪、紅肩、達士奇、青銅翅、麟頭 等</td></tr>
+          <tr><td><span class="price-num">NT$ 450</span></td><td>灰鸚、折衷、亞馬遜、大金黃、大達摩、黃領金剛、黑頭乙女 等</td></tr>
+          <tr><td><span class="price-num">NT$ 500</span></td><td>巴丹、柯爾鴨、雞、烏鴉、烏龜 等</td></tr>
+          <tr><td><span class="price-num">NT$ 600</span></td><td>金剛</td></tr>
+          <tr><td><span class="price-num" style="font-size:1.05rem">+NT$100 / 天</span></td><td>灌奶 / 塗藥 / 灌藥（每日）</td></tr>
+          <tr><td><span class="price-num" style="font-size:1.05rem">+NT$200 / 天</span></td><td>3–4 餐者（每日）</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="divider"><span>◆</span></div>
+    <p style="font-size:0.68rem;letter-spacing:0.26em;text-transform:uppercase;color:var(--gold);margin-bottom:1.2rem;">長住折扣</p>
+    <div class="discount-row">
+      <div class="disc-cell"><span class="disc-pct">95折</span><span class="disc-label">住滿一週</span></div>
+      <div class="disc-cell"><span class="disc-pct">9折</span><span class="disc-label">住滿二週</span></div>
+      <div class="disc-cell"><span class="disc-pct">85折</span><span class="disc-label">住滿三週</span></div>
+      <div class="disc-cell"><span class="disc-pct">8折</span><span class="disc-label">住滿四週</span></div>
+    </div>
+    <div class="price-warn">
+      <strong>◈ 折扣不適用情況</strong>
+      1月、2月、7月、8月，以及國定連假（3日以上）、年節期間，均不適用長住折扣。折扣依行政院公布之行事曆為準。<br>
+      <span style="font-size:0.76rem;opacity:0.55;">費用自 115.06.01 起適用，鳳潤鳥宿保留隨時修改之權利，恕不另行通知。</span>
+    </div>
+  </div>
+</section>
+
+<!-- RULES -->
+<section id="rules" class="sec-dark">
+  <div class="sec">
+    <div class="sec-header">
+      <span class="sec-no">02</span>
+      <span class="sec-label">Rules</span>
+      <h2 class="sec-title">鳳潤鳥宿・入住須知</h2>
+      <p class="sec-sub">為保障每一位住宿鳥兒的健康與安全，入住前請詳細閱讀以下條款。</p>
+    </div>
+    <div class="rules-grid">
+      <div class="rule-item"><div class="rule-n">1</div><div class="rule-text">為確保鳥鳥住宿健康良好，鳳潤鳥宿<strong>拒絕有傳染性之病鳥入住</strong>。如飼主隱瞞狀況入住，致鳳潤衍生之相關賠償費用皆由該飼主負責。</div></div>
+      <div class="rule-item"><div class="rule-n">2</div><div class="rule-text">飼主須說明鳥兒詳細狀況，尤其有不穩定或敏感之狀況（年幼、高齡、非傳染之生理或心理不適、個性怕生、攻擊性、需要餵藥或餵奶等），鳳潤將儘量配合照顧。<strong>鳥兒住宿期間有任何不適或疾病，鳳潤不予負責。</strong></div></div>
+      <div class="rule-item"><div class="rule-n">3</div><div class="rule-text">若鳥兒於住宿期間有任何不適，鳳潤鳥宿會盡快通知飼主或緊急聯絡人，並儘速帶鳥兒就醫。</div></div>
+      <div class="rule-item"><div class="rule-n">4</div><div class="rule-text">若住宿鳥兒需獸醫診治，在經飼主同意後由鳳潤代為帶至指定獸醫診所（若未指定，一律送往大台北地區可最快就診之鳥醫院），相關就醫費及交通費用採實報實銷。<strong>如到獸醫院就醫途中鳥兒出現惡化或死亡，鳳潤無承擔任何責任。</strong></div></div>
+      <div class="rule-item"><div class="rule-n">5</div><div class="rule-text">若鳥兒於住宿期間不幸離世，鳳潤鳥宿會盡快聯絡飼主。若 3 日內未能聯絡上飼主告知如何處理遺體，鳳潤有權替飼主安排養終服務，飼主須負責支付相關費用。</div></div>
+    </div>
+    <div class="rule-agree">◈　入住即視為同意以上所有條款　◈</div>
+  </div>
+</section>
+
+<!-- FAQ -->
+<section id="faq" class="sec-alt">
+  <div class="sec">
+    <div class="sec-header">
+      <span class="sec-no">03</span>
+      <span class="sec-label">FAQ</span>
+      <h2 class="sec-title">鳳潤鳥宿・常見問答</h2>
+      <p class="sec-sub">還有疑問？歡迎直接 LINE 詢問，我很樂意回答！</p>
+    </div>
+    <div class="faq-list">
+      <div class="faq-item">
+        <div class="faq-q" onclick="toggleFaq(this)"><span><span class="q-mark">Q</span>需多久前預約？要付訂金嗎？付款方式？</span><span class="faq-arrow">▼</span></div>
+        <div class="faq-a">只要有空位就可以約，不用付訂金，入住當日現金或轉帳結清即可。</div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q" onclick="toggleFaq(this)"><span><span class="q-mark">Q</span>什麼時候可以接送鳥兒？</span><span class="faq-arrow">▼</span></div>
+        <div class="faq-a">接送時間為 <strong style="color:var(--gold-lt)">11:00 ~ 20:00</strong>，請於此時段內安排送鳥與取鳥。</div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q" onclick="toggleFaq(this)"><span><span class="q-mark">Q</span>放風嗎？單獨放風？放風多久？</span><span class="faq-arrow">▼</span></div>
+        <div class="faq-a">會放風！是否單獨則依鳥兒個性而定：有適合一起玩的，會一起；有攻擊性的，則單獨。時間大致為 20 分鐘以上。</div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q" onclick="toggleFaq(this)"><span><span class="q-mark">Q</span>會回傳影片或照片嗎？</span><span class="faq-arrow">▼</span></div>
+        <div class="faq-a">儘量每日回傳影片，<strong style="color:var(--gold-lt)">通常為晚上 11 點左右</strong>回傳。</div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q" onclick="toggleFaq(this)"><span><span class="q-mark">Q</span>需要自備籠子、飼料、玩具嗎？</span><span class="faq-arrow">▼</span></div>
+        <div class="faq-a">籠子<strong style="color:var(--gold-lt)">不需自備</strong>，若要自備請先傳照片確認是否適合。飼料和玩具若擔心適應問題，可以備著帶來。</div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q" onclick="toggleFaq(this)"><span><span class="q-mark">Q</span>需要驗過雙病毒嗎？</span><span class="faq-arrow">▼</span></div>
+        <div class="faq-a"><strong style="color:var(--gold-lt)">需要。</strong>為保障所有住宿鳥兒的健康，請入住前確認鸚鵡已完成雙病毒（PBFD / APV）檢測。</div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q" onclick="toggleFaq(this)"><span><span class="q-mark">Q</span>附近大眾交通運輸？</span><span class="faq-arrow">▼</span></div>
+        <div class="faq-a">捷運：板橋站、板新站。公車：漢生路、中山漢生路口。</div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q" onclick="toggleFaq(this)"><span><span class="q-mark">Q</span>附近停車場？</span><span class="faq-arrow">▼</span></div>
+        <div class="faq-a">板橋第一運動場地下停車場（Google 地圖顯示為海山路，但區運路也有出入口，較近）、USPACE 停車場。</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- BOOKING -->
+<section id="booking">
+  <div class="sec">
+    <div class="sec-header">
+      <span class="sec-no">04</span>
+      <span class="sec-label">Booking</span>
+      <h2 class="sec-title">鳳潤鳥宿・線上預約</h2>
+      <p class="sec-sub">填寫表單後，我會在 24 小時內透過 LINE 確認，無需支付任何訂金。</p>
+    </div>
+    <div class="booking-layout">
+      <div>
+        <div class="booking-steps">
+          <div class="bstep"><div class="bstep-n">1</div><div><h4>填寫預約表單</h4><p>填寫鸚鵡資訊與入托日期，我會收到通知。</p></div></div>
+          <div class="bstep"><div class="bstep-n">2</div><div><h4>確認空位</h4><p>我在 24 小時內透過 LINE 回覆確認，不需訂金。</p></div></div>
+          <div class="bstep"><div class="bstep-n">3</div><div><h4>入托當天（11:00–20:00）</h4><p>送來時當日現金或轉帳結清即可，籠子不需自備。</p></div></div>
+          <div class="bstep"><div class="bstep-n">4</div><div><h4>每日影片回報</h4><p>通常晚間 11 點左右傳送，讓您放心出遊！</p></div></div>
+        </div>
+        <div class="booking-note">
+          <strong>◈ 入托提醒</strong>
+          請確認鸚鵡已完成雙病毒檢測且近期健康良好。若鳥兒有特殊狀況（高齡、幼鳥、需餵藥等）請事先說明，以便妥善安排照顧。
+        </div>
+      </div>
+      <div>
+        <div class="form-card">
+          <form id="bForm" onsubmit="submitForm(event)">
+            <div class="form-row">
+              <div class="fg"><label>飼主姓名 *</label><input type="text" name="name" required placeholder="您的大名"/></div>
+              <div class="fg"><label>聯絡電話 *</label><input type="tel" name="phone" required placeholder="0901-221-586"/></div>
+            </div>
+            <div class="fg"><label>LINE ID *</label><input type="text" name="line" required placeholder="您的 LINE ID（主要聯絡方式）"/></div>
+            <div class="form-row">
+              <div class="fg">
+                <label>入托日期 *</label>
+                <div class="datetime-row">
+                  <input type="date" name="checkin_date" id="fCheckin" required oninput="calcPrice()"/>
+                  <select name="checkin_time" id="fCheckinTime" onchange="calcPrice()"></select>
+                </div>
+              </div>
+              <div class="fg">
+                <label>接回日期 *</label>
+                <div class="datetime-row">
+                  <input type="date" name="checkout_date" id="fCheckout" required oninput="calcPrice()"/>
+                  <select name="checkout_time" id="fCheckoutTime" onchange="calcPrice()"></select>
+                </div>
+              </div>
+            </div>
+            <div style="margin-bottom:0.4rem;">
+              <label style="font-size:0.66rem;letter-spacing:0.22em;text-transform:uppercase;color:rgba(201,168,76,0.55);">寄宿鳥兒 *</label>
+            </div>
+            <div class="bird-rows" id="birdRows"></div>
+            <button type="button" class="btn-add-bird" onclick="addBirdRow()">＋ 新增鳥種</button>
+            <input type="hidden" name="birds_summary" id="birdsSummary"/>
+            <div class="price-calc-box" id="priceCalc">
+              <div class="calc-label">費用試算</div>
+              <div class="calc-total" id="calcTotal">NT$ —</div>
+              <div class="calc-breakdown" id="calcBreakdown"></div>
+              <div class="calc-discount" id="calcDiscount"></div>
+            </div>
+            <div class="fg">
+              <label>特殊需求 / 備注</label>
+              <textarea name="notes" placeholder="例如：需餵藥、需灌奶、高齡鳥、怕生、已完成雙病毒檢測等…"></textarea>
+            </div>
+            <button type="submit" class="form-submit">送出預約申請</button>
+            <p class="form-note">送出後我會透過 LINE 與您確認，無需訂金</p>
+          </form>
+          <div class="form-success" id="fSuccess">
+            <div class="sicon">🎉</div>
+            <h3>預約申請已送出</h3>
+            <p>感謝您選擇鳳潤鳥宿，我會在 24 小時內透過 LINE 與您確認空位及細節。<br><br>期待迎接您的羽毛寶貝 🦜</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact" class="sec-dark">
+  <div class="sec">
+    <div class="sec-header">
+      <span class="sec-no">05</span>
+      <span class="sec-label">Contact</span>
+      <h2 class="sec-title">鳳潤鳥宿・聯絡資訊</h2>
+      <p class="sec-sub">有任何問題，最快的方式是 LINE 直接詢問！</p>
+    </div>
+    <div class="contact-grid">
+      <div class="contact-card">
+        <span class="ci">📞</span>
+        <h3>電話</h3>
+        <a href="tel:0901221586" style="font-size:1.05rem;font-weight:500;color:var(--gold-lt);letter-spacing:0.08em;">0901-221-586</a>
+        <p>或 LINE 詢問更快！</p>
+      </div>
+      <div class="contact-card">
+        <span class="ci">💬</span>
+        <h3>LINE</h3>
+        <a href="https://line.me/R/ti/p/@399kyhwr" target="_blank" style="font-size:1rem;color:var(--gold-lt);font-weight:500;">@399kyhwr</a>
+        <p>回覆最快，歡迎傳訊！</p>
+      </div>
+      <div class="contact-card">
+        <span class="ci">📍</span>
+        <h3>地址</h3>
+        <p>新北市板橋區</p>
+        <p style="font-size:0.76rem;opacity:0.45;">(詳細地址確認後提供)</p>
+      </div>
+      <div class="contact-card">
+        <span class="ci">🕐</span>
+        <h3>接送時間</h3>
+        <p>每日 11:00 – 20:00</p>
+        <p>全年服務</p>
+      </div>
+      <div class="contact-card">
+        <span class="ci">💳</span>
+        <h3>付款方式</h3>
+        <p>入住當日結清</p>
+        <p>現金 / 轉帳皆可</p>
+      </div>
+    </div>
+    <div class="transport-box">
+      <div class="transport-col">
+        <h4>大眾運輸</h4>
+        <div class="transport-item"><span>🚉</span><div><strong style="color:var(--cream);font-weight:500;">捷運站</strong><br>板橋捷運站、板新捷運站</div></div>
+        <div class="transport-item"><span>🚌</span><div><strong style="color:var(--cream);font-weight:500;">公車站</strong><br>漢生路、中山漢生路口</div></div>
+      </div>
+      <div class="transport-col">
+        <h4>附近停車場</h4>
+        <div class="transport-item"><span>🅿️</span><div><strong style="color:var(--cream);font-weight:500;">板橋第一運動場地下停車場</strong><br>Google 顯示為海山路，但區運路也有出入口（較近）</div></div>
+        <div class="transport-item"><span>🅿️</span><div><strong style="color:var(--cream);font-weight:500;">USPACE 停車場</strong></div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="footer-logo">鳳潤鳥宿</div>
+  <div class="footer-tagline">Fonrun Bird Inn · Banqiao · New Taipei City</div>
+  <div class="footer-links">
+    <a href="#pricing">住宿費用</a>
+    <a href="#rules">入住須知</a>
+    <a href="#booking">線上預約</a>
+    <a href="#faq">常見問答</a>
+    <a href="#contact">聯絡資訊</a>
+  </div>
+  <p>© 2025 鳳潤鳥宿・新北市板橋區・費用自 115.06.01 起適用<br>鳳潤保留隨時修改、增加、刪除或終止服務之權利，恕不另行通知。</p>
+</footer>
+
+<script>
+function toggleFaq(el){el.parentElement.classList.toggle('open');}
+
+document.querySelector('.hamburger').onclick=function(){
+  document.getElementById('mob').classList.toggle('open');
+};
+document.querySelectorAll('.mob-menu a').forEach(function(a){
+  a.onclick=function(){document.getElementById('mob').classList.remove('open');};
+});
+
+var SPECIES_OPTIONS=[
+  {label:'NT$300',options:[{text:'小鸚 / 牡丹 / 虎皮',price:300},{text:'文鳥 / 白文 / 太平洋',price:300},{text:'秋草 / 橫斑',price:300}]},
+  {label:'NT$350',options:[{text:'小太陽',price:350},{text:'玄鳳',price:350},{text:'小達摩 / 和尚',price:350}]},
+  {label:'NT$400',options:[{text:'金太陽 / 吸蜜 / 凱克',price:400},{text:'賈丁 / 塞內 / 月輪',price:400},{text:'紅肩 / 達士奇 / 青銅翅 / 麟頭',price:400}]},
+  {label:'NT$450',options:[{text:'灰鸚 / 折衷',price:450},{text:'亞馬遜 / 大金黃 / 大達摩',price:450},{text:'黃領金剛 / 黑頭乙女',price:450}]},
+  {label:'NT$500',options:[{text:'巴丹',price:500},{text:'柯爾鴨 / 雞 / 烏鴉 / 烏龜',price:500}]},
+  {label:'NT$600',options:[{text:'金剛',price:600}]},
+  {label:'其他',options:[{text:'其他（請於備注說明）',price:0}]}
+];
+
+function buildSpeciesSelect(sel,onchange){
+  sel.innerHTML='<option value="">請選擇品種</option>';
+  SPECIES_OPTIONS.forEach(function(grp){
+    var og=document.createElement('optgroup');og.label=grp.label;
+    grp.options.forEach(function(o){
+      var opt=document.createElement('option');
+      opt.value=o.price;
+      opt.textContent=o.text+(o.price?' ('+o.price+'元/晚)':'');
+      og.appendChild(opt);
+    });
+    sel.appendChild(og);
+  });
+  sel.onchange=onchange;
+}
+
+function buildTimeSelect(sel){
+  sel.innerHTML='';
+  for(var h=11;h<=20;h++){
+    ['00','30'].forEach(function(m){
+      if(h===20&&m==='30')return;
+      var v=(h<10?'0':'')+h+':'+m;
+      var o=document.createElement('option');o.value=v;o.textContent=v;
+      sel.appendChild(o);
+    });
+  }
+}
+
+var birdRowCount=0;
+function addBirdRow(){
+  birdRowCount++;
+  var id=birdRowCount;
+  var container=document.getElementById('birdRows');
+  var row=document.createElement('div');
+  row.className='bird-row';row.id='brow-'+id;
+  row.innerHTML=
+    '<div class="fg"><label>品種</label><select name="bird_species_'+id+'" id="bspec-'+id+'"></select></div>'+
+    '<div class="fg"><label>名字</label><input type="text" name="bird_name_'+id+'" placeholder="寶貝名字"/></div>'+
+    '<div class="fg"><label>隻數</label><input type="number" name="bird_count_'+id+'" id="bcnt-'+id+'" min="1" value="1" oninput="calcPrice()"/></div>'+
+    '<button type="button" class="btn-remove-bird" onclick="removeBirdRow('+id+')">✕</button>';
+  container.appendChild(row);
+  buildSpeciesSelect(document.getElementById('bspec-'+id),calcPrice);
+  calcPrice();
+}
+
+function removeBirdRow(id){
+  var el=document.getElementById('brow-'+id);
+  if(el)el.remove();
+  calcPrice();
+}
+
+function getDays(){
+  var d1=document.getElementById('fCheckin').value;
+  var d2=document.getElementById('fCheckout').value;
+  if(!d1||!d2)return 0;
+  var diff=Math.round((new Date(d2)-new Date(d1))/86400000);
+  return diff>0?diff:0;
+}
+
+function calcPrice(){
+  var days=getDays();
+  var box=document.getElementById('priceCalc');
+  var rows=document.querySelectorAll('.bird-row');
+  var birds=[];
+  rows.forEach(function(row){
+    var rid=row.id.replace('brow-','');
+    var sel=document.getElementById('bspec-'+rid);
+    var cnt=parseInt(document.getElementById('bcnt-'+rid).value)||0;
+    var price=sel?parseInt(sel.value):0;
+    var name=(sel&&sel.selectedIndex>0)?sel.options[sel.selectedIndex].text:'';
+    if(price>0&&cnt>0)birds.push({name:name,price:price,count:cnt});
+  });
+  if(days<=0||birds.length===0){box.classList.remove('show');return;}
+
+  var baseTotal=0,breakdown=[];
+  var fmt=function(n){return 'NT$ '+n.toLocaleString();};
+  birds.forEach(function(b){
+    var sub=b.price*b.count*days;
+    baseTotal+=sub;
+    breakdown.push(b.name.split(' (')[0]+'　'+b.price+'元 × '+b.count+'隻 × '+days+'天 ＝ '+fmt(sub));
+  });
+
+  var m=new Date(document.getElementById('fCheckin').value).getMonth();
+  var noDiscount=(m===0||m===1||m===6||m===7);
+  var discount=1,discLabel='';
+  if(!noDiscount){
+    if(days>=28){discount=0.8;discLabel='🎉 住滿四週・8折';}
+    else if(days>=21){discount=0.85;discLabel='🎉 住滿三週・85折';}
+    else if(days>=14){discount=0.9;discLabel='🎉 住滿二週・9折';}
+    else if(days>=7){discount=0.95;discLabel='🎉 住滿一週・95折';}
+  }
+  var total=Math.round(baseTotal*discount);
+
+  document.getElementById('calcTotal').textContent=fmt(total);
+  var bd=document.getElementById('calcBreakdown');
+  bd.innerHTML='';
+  breakdown.forEach(function(line){var d=document.createElement('div');d.textContent=line;bd.appendChild(d);});
+  if(birds.length>1){
+    var t=document.createElement('div');
+    t.style.cssText='font-weight:500;color:var(--cream);margin-top:6px;padding-top:6px;border-top:1px dashed rgba(201,168,76,0.18);';
+    t.textContent='小計（折前）＝ '+fmt(baseTotal);
+    bd.appendChild(t);
+  }
+  var dEl=document.getElementById('calcDiscount');
+  if(discLabel)dEl.textContent=discLabel+'　折後合計 '+fmt(total);
+  else if(noDiscount&&days>=7)dEl.textContent='⚠ 此月份不適用長住折扣';
+  else dEl.textContent='';
+
+  var summary=birds.map(function(b){return b.name.split(' (')[0]+' × '+b.count+'隻';}).join('、');
+  summary+='　共 '+days+'天　合計 '+fmt(total);
+  document.getElementById('birdsSummary').value=summary;
+  box.classList.add('show');
+}
+
+window.addEventListener('DOMContentLoaded',function(){
+  buildTimeSelect(document.getElementById('fCheckinTime'));
+  buildTimeSelect(document.getElementById('fCheckoutTime'));
+  addBirdRow();
+  var td=new Date().toISOString().split('T')[0];
+  document.querySelectorAll('input[type="date"]').forEach(function(i){i.min=td;});
+});
+
+function submitForm(e){
+  e.preventDefault();
+  var form=document.getElementById('bForm');
+  var succ=document.getElementById('fSuccess');
+  fetch('https://formspree.io/f/YOUR_FORM_ID',{
+    method:'POST',body:new FormData(form),headers:{'Accept':'application/json'}
+  }).then(function(){form.style.display='none';succ.classList.add('show');})
+    .catch(function(){form.style.display='none';succ.classList.add('show');});
+}
+</script>
+</body>
+</html>
