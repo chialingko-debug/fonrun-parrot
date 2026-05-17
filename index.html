@@ -414,75 +414,93 @@ section{padding:6rem 2.5rem;position:relative;}
 .booking-note strong{display:block;color:rgba(180,220,200,1);margin-bottom:4px;font-weight:500;}
 
 .form-card{
-  background:rgba(28,53,40,0.32);border:1px solid rgba(201,168,76,0.16);
-  border-radius:26px;padding:2.5rem;backdrop-filter:blur(12px);
-  box-shadow:0 8px 40px rgba(0,0,0,0.22);
+  background:linear-gradient(145deg,rgba(28,53,40,0.45) 0%,rgba(14,30,20,0.55) 100%);
+  border:1px solid rgba(201,168,76,0.22);
+  border-radius:28px;padding:2.5rem;backdrop-filter:blur(20px);
+  box-shadow:0 20px 60px rgba(0,0,0,0.35),0 0 0 1px rgba(201,168,76,0.06) inset;
+  position:relative;overflow:hidden;
+}
+.form-card::before{
+  content:'';position:absolute;top:0;left:0;right:0;height:1px;
+  background:linear-gradient(90deg,transparent,rgba(201,168,76,0.4),transparent);
 }
 .form-row{display:grid;grid-template-columns:1fr 1fr;gap:1rem;}
-.fg{display:flex;flex-direction:column;gap:5px;margin-bottom:1rem;}
+.fg{display:flex;flex-direction:column;gap:6px;margin-bottom:1.1rem;}
 .fg label{
-  font-size:0.66rem;letter-spacing:0.22em;text-transform:uppercase;
-  color:rgba(201,168,76,0.55);font-weight:400;
+  font-size:0.64rem;letter-spacing:0.26em;text-transform:uppercase;
+  color:rgba(201,168,76,0.6);font-weight:500;
 }
 .fg input,.fg select,.fg textarea{
-  padding:10px 14px;background:rgba(8,16,11,0.65);
-  border:1px solid rgba(201,168,76,0.14);border-radius:14px;
+  padding:11px 16px;
+  background:rgba(6,14,9,0.55);
+  border:1px solid rgba(201,168,76,0.16);border-radius:14px;
   font-family:'Zen Maru Gothic',sans-serif;font-size:0.87rem;
-  color:var(--cream);width:100%;transition:border-color 0.2s;outline:none;
+  color:var(--cream);width:100%;transition:border-color 0.25s,background 0.25s,box-shadow 0.25s;outline:none;
 }
-.fg input::placeholder{color:rgba(212,201,168,0.28);}
+.fg input::placeholder{color:rgba(212,201,168,0.22);}
 .fg input:focus,.fg select:focus,.fg textarea:focus{
-  border-color:rgba(201,168,76,0.45);background:rgba(8,16,11,0.85);
+  border-color:rgba(201,168,76,0.55);
+  background:rgba(6,14,9,0.8);
+  box-shadow:0 0 0 3px rgba(201,168,76,0.08);
 }
 .fg select option{background:#1c3528;color:var(--cream);}
+.fg select optgroup{background:#162b1e;color:rgba(201,168,76,0.7);font-style:normal;}
 .fg textarea{resize:vertical;min-height:90px;}
 .datetime-row{display:grid;grid-template-columns:1.35fr 1fr;gap:8px;}
 
-.bird-rows{display:flex;flex-direction:column;gap:8px;margin-bottom:1rem;}
+.bird-rows{display:flex;flex-direction:column;gap:10px;margin-bottom:1rem;}
 .bird-row{
-  background:rgba(8,16,11,0.45);border:1px solid rgba(201,168,76,0.1);
-  border-radius:16px;padding:14px;
+  background:linear-gradient(135deg,rgba(8,18,12,0.6),rgba(14,28,18,0.5));
+  border:1px solid rgba(201,168,76,0.12);
+  border-radius:18px;padding:16px;
   display:grid;grid-template-columns:1fr 90px 72px auto;
   gap:10px;align-items:end;
+  transition:border-color 0.2s;
 }
+.bird-row:hover{border-color:rgba(201,168,76,0.22);}
 .bird-row .fg{margin-bottom:0;}
+.bird-row .fg:first-child{grid-column:1/-1;}
 .btn-remove-bird{
-  background:rgba(160,50,50,0.12);border:1px solid rgba(160,50,50,0.28);
-  color:rgba(220,110,110,0.75);border-radius:12px;padding:8px 12px;
-  cursor:pointer;font-size:0.85rem;align-self:end;transition:background 0.2s;white-space:nowrap;
+  background:rgba(160,50,50,0.1);border:1px solid rgba(160,50,50,0.25);
+  color:rgba(220,110,110,0.7);border-radius:12px;padding:9px 12px;
+  cursor:pointer;font-size:0.85rem;align-self:end;transition:all 0.2s;white-space:nowrap;
 }
-.btn-remove-bird:hover{background:rgba(160,50,50,0.28);}
+.btn-remove-bird:hover{background:rgba(160,50,50,0.25);color:rgba(240,130,130,0.95);}
 .btn-add-bird{
   display:inline-flex;align-items:center;gap:8px;
   background:transparent;color:var(--sage);
-  border:1px dashed rgba(74,122,96,0.38);border-radius:22px;
-  padding:10px 18px;font-size:0.78rem;letter-spacing:0.14em;
-  cursor:pointer;margin-bottom:1.2rem;transition:all 0.2s;font-family:inherit;
+  border:1px dashed rgba(74,122,96,0.35);border-radius:22px;
+  padding:10px 20px;font-size:0.78rem;letter-spacing:0.14em;
+  cursor:pointer;margin-bottom:1.2rem;transition:all 0.25s;font-family:inherit;
 }
-.btn-add-bird:hover{border-color:var(--sage);background:rgba(74,122,96,0.1);color:var(--cream);}
+.btn-add-bird:hover{border-color:var(--sage);background:rgba(74,122,96,0.12);color:var(--cream);transform:translateY(-1px);}
 
 .price-calc-box{
-  display:none;background:rgba(201,168,76,0.05);
-  border:1px solid rgba(201,168,76,0.22);border-radius:16px;
+  display:none;
+  background:linear-gradient(135deg,rgba(201,168,76,0.07),rgba(201,168,76,0.03));
+  border:1px solid rgba(201,168,76,0.25);border-radius:18px;
   padding:1.4rem;margin:0.4rem 0 1.2rem;
+  box-shadow:0 4px 20px rgba(201,168,76,0.05) inset;
 }
 .price-calc-box.show{display:block;}
-.calc-label{font-size:0.63rem;letter-spacing:0.3em;text-transform:uppercase;color:rgba(201,168,76,0.55);margin-bottom:0.5rem;}
+.calc-label{font-size:0.62rem;letter-spacing:0.3em;text-transform:uppercase;color:rgba(201,168,76,0.5);margin-bottom:0.5rem;}
 .calc-total{
-  font-family:'Cormorant Garamond',serif;font-size:2.3rem;font-weight:300;
+  font-family:'Cormorant Garamond',serif;font-size:2.5rem;font-weight:300;
   color:var(--gold-lt);line-height:1;margin-bottom:0.6rem;
+  text-shadow:0 0 40px rgba(232,201,122,0.2);
 }
-.calc-breakdown{font-size:0.74rem;color:var(--warm);line-height:2;font-weight:300;padding-top:0.5rem;border-top:1px solid rgba(201,168,76,0.1);}
-.calc-discount{font-size:0.77rem;color:rgba(130,200,155,0.9);margin-top:5px;font-weight:400;}
+.calc-breakdown{font-size:0.74rem;color:var(--warm);line-height:2.1;font-weight:300;padding-top:0.6rem;border-top:1px solid rgba(201,168,76,0.1);}
+.calc-discount{font-size:0.77rem;color:rgba(130,200,155,0.9);margin-top:6px;font-weight:400;}
 
 .form-submit{
   width:100%;background:var(--gold);color:var(--deep);border:none;border-radius:30px;
   padding:15px;font-family:'Zen Maru Gothic',sans-serif;font-weight:500;
   font-size:0.88rem;letter-spacing:0.18em;cursor:pointer;
-  transition:background 0.2s,transform 0.15s;margin-top:0.4rem;
+  transition:background 0.2s,transform 0.15s,box-shadow 0.2s;margin-top:0.4rem;
+  box-shadow:0 4px 20px rgba(201,168,76,0.25);
 }
-.form-submit:hover{background:var(--gold-lt);transform:translateY(-1px);}
-.form-note{font-size:0.7rem;color:rgba(212,201,168,0.35);text-align:center;margin-top:0.8rem;letter-spacing:0.1em;}
+.form-submit:hover{background:var(--gold-lt);transform:translateY(-2px);box-shadow:0 8px 28px rgba(201,168,76,0.35);}
+.form-note{font-size:0.7rem;color:rgba(212,201,168,0.32);text-align:center;margin-top:0.8rem;letter-spacing:0.1em;}
 
 .form-success{display:none;text-align:center;padding:3rem 1rem;}
 .form-success.show{display:block;}
@@ -551,6 +569,50 @@ footer p{font-size:0.73rem;color:rgba(212,201,168,0.22);line-height:2.1;}
   filter:drop-shadow(0 4px 18px rgba(0,0,0,0.45));
   animation:none;
 }
+/* CUSTOM CALENDAR */
+.cal-wrap{position:relative;}
+.cal-trigger{
+  display:flex;align-items:center;gap:10px;
+  padding:11px 16px;background:rgba(6,14,9,0.55);
+  border:1px solid rgba(201,168,76,0.16);border-radius:14px;
+  font-family:'Zen Maru Gothic',sans-serif;font-size:0.87rem;
+  color:var(--cream);cursor:pointer;transition:border-color 0.25s,box-shadow 0.25s;
+  width:100%;text-align:left;
+}
+.cal-trigger:hover,.cal-trigger.open{border-color:rgba(201,168,76,0.45);box-shadow:0 0 0 3px rgba(201,168,76,0.08);}
+.cal-trigger .cal-icon{font-size:1rem;opacity:0.6;}
+.cal-trigger .cal-val{flex:1;}
+.cal-trigger .cal-placeholder{color:rgba(212,201,168,0.28);}
+.cal-popup{
+  display:none;position:absolute;top:calc(100% + 8px);left:0;z-index:500;
+  background:rgba(16,32,20,0.97);border:1px solid rgba(201,168,76,0.25);
+  border-radius:18px;padding:1.2rem;min-width:280px;
+  box-shadow:0 20px 60px rgba(0,0,0,0.5),0 0 0 1px rgba(201,168,76,0.08) inset;
+  backdrop-filter:blur(20px);
+}
+.cal-popup.show{display:block;}
+.cal-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:1rem;}
+.cal-nav{
+  background:none;border:1px solid rgba(201,168,76,0.2);color:var(--gold);
+  width:32px;height:32px;border-radius:50%;cursor:pointer;font-size:1rem;
+  display:flex;align-items:center;justify-content:center;
+  transition:background 0.2s,border-color 0.2s;
+}
+.cal-nav:hover{background:rgba(201,168,76,0.12);border-color:rgba(201,168,76,0.45);}
+.cal-title{font-family:'Cormorant Garamond',serif;font-size:1.1rem;font-weight:300;color:var(--gold-lt);letter-spacing:0.1em;}
+.cal-grid{display:grid;grid-template-columns:repeat(7,1fr);gap:3px;}
+.cal-dow{font-size:0.65rem;letter-spacing:0.15em;color:rgba(201,168,76,0.4);text-align:center;padding:4px 0;font-weight:500;}
+.cal-day{
+  aspect-ratio:1;display:flex;align-items:center;justify-content:center;
+  font-size:0.82rem;color:var(--warm);border-radius:50%;cursor:pointer;
+  transition:background 0.15s,color 0.15s;border:1px solid transparent;
+}
+.cal-day:hover:not(.cal-empty):not(.cal-disabled){background:rgba(201,168,76,0.15);color:var(--cream);border-color:rgba(201,168,76,0.3);}
+.cal-day.cal-today{color:var(--gold);font-weight:500;}
+.cal-day.cal-selected{background:var(--gold);color:var(--deep);font-weight:600;border-color:var(--gold);}
+.cal-day.cal-disabled{color:rgba(255,255,255,0.12);cursor:not-allowed;}
+.cal-day.cal-empty{cursor:default;}
+.cal-day.cal-in-range{background:rgba(201,168,76,0.08);}
 </style>
 </head>
 <body>
@@ -713,7 +775,6 @@ footer p{font-size:0.73rem;color:rgba(212,201,168,0.22);line-height:2.1;}
           <div class="btabs">
             <div class="btab active" onclick="switchTab('book')">🦜 預約住宿</div>
             <div class="btab" onclick="switchTab('query')">🔍 查詢預約</div>
-            <div class="btab" onclick="switchTab('cancel')">✕ 取消預約</div>
           </div>
 
           <!-- TAB: 預約住宿 -->
@@ -738,14 +799,28 @@ footer p{font-size:0.73rem;color:rgba(212,201,168,0.22);line-height:2.1;}
                 <div class="fg">
                   <label>入托日期 *</label>
                   <div class="datetime-row">
-                    <input type="date" name="checkin_date" id="fCheckin" required oninput="calcPrice()"/>
+                    <div class="cal-wrap">
+                      <button type="button" class="cal-trigger" id="cinTrigger" onclick="openCal('cin')">
+                        <span class="cal-icon">📅</span>
+                        <span class="cal-val cal-placeholder" id="cinDisplay">請選擇入托日期</span>
+                      </button>
+                      <div class="cal-popup" id="calPopup-cin"></div>
+                    </div>
+                    <input type="hidden" name="checkin_date" id="fCheckin"/>
                     <select name="checkin_time" id="fCheckinTime" onchange="calcPrice()"></select>
                   </div>
                 </div>
                 <div class="fg">
                   <label>接回日期 *</label>
                   <div class="datetime-row">
-                    <input type="date" name="checkout_date" id="fCheckout" required oninput="calcPrice()"/>
+                    <div class="cal-wrap">
+                      <button type="button" class="cal-trigger" id="coutTrigger" onclick="openCal('cout')">
+                        <span class="cal-icon">📅</span>
+                        <span class="cal-val cal-placeholder" id="coutDisplay">請選擇接回日期</span>
+                      </button>
+                      <div class="cal-popup" id="calPopup-cout"></div>
+                    </div>
+                    <input type="hidden" name="checkout_date" id="fCheckout"/>
                     <select name="checkout_time" id="fCheckoutTime" onchange="calcPrice()"></select>
                   </div>
                 </div>
@@ -818,18 +893,6 @@ footer p{font-size:0.73rem;color:rgba(212,201,168,0.22);line-height:2.1;}
             <div class="query-result" id="queryResult"></div>
           </div>
 
-          <!-- TAB: 取消預約 -->
-          <div class="btab-panel" id="panel-cancel">
-            <p style="font-size:0.88rem;color:var(--warm);margin-bottom:1.5rem;line-height:2;font-weight:300;">輸入電話查詢後，選擇要取消的預約。</p>
-            <div class="fg"><label>聯絡電話 *</label><input type="tel" id="cPhone" placeholder="例：0912345678"/></div>
-            <button type="button" class="form-submit" style="margin-bottom:1rem;" onclick="searchCancel()">查詢我的預約</button>
-            <div id="cancelList"></div>
-            <div class="form-success" id="cSuccess" style="display:none;">
-              <div class="sicon">📋</div>
-              <h3>取消申請已送出</h3>
-              <p>已為您標記取消，期待下次歡迎您的寶貝入住 🦜</p>
-            </div>
-          </div>
 
         </div>
       </div>
@@ -980,7 +1043,7 @@ function queryBooking(){
   }
   r.innerHTML='<p style="color:var(--warm);font-size:0.88rem;">查詢中⋯</p>';
   r.classList.add('show');
-  var API='https://script.google.com/macros/s/AKfycbyluJRRnrA9U1lASQ_h2IUwDQWH6CDrCznH2Db8EwDr8TbGTm0GxwxZRuVAPOS0MHU/exec';
+  var API='https://script.google.com/macros/s/AKfycby6Dk2bLdA4P7V1xardoFm1sFxo1xEQQbZWwKIIYPkuX0qnq1aXm7yjpB8ZEH88Qfu8/exec';
   fetch(API+'?action=query&phone='+phone)
     .then(function(res){return res.json();})
     .then(function(list){
@@ -991,13 +1054,26 @@ function queryBooking(){
       var html='';
       list.forEach(function(b){
         var statusClass=b.status==='已取消'?'pending':'confirmed';
+        function fmtDate(v){
+          if(!v)return '';
+          var d=new Date(v);
+          if(isNaN(d))return v;
+          return (d.getFullYear())+'/'+(d.getMonth()+1)+'/'+(d.getDate());
+        }
+        function fmtTime(v){
+          if(!v)return '';
+          var d=new Date(v);
+          if(isNaN(d))return v;
+          var h=d.getUTCHours(),m=d.getUTCMinutes();
+          return (h<10?'0':'')+h+':'+(m<10?'0':'')+m;
+        }
         html+=
           '<div style="border-bottom:1px solid rgba(201,168,76,0.1);padding:1rem 0;">'+
           '<div class="qr-label">飼主</div><div class="qr-val">'+b.name+'</div>'+
-          '<div class="qr-label">入宿</div><div class="qr-val">'+b.checkin+' '+b.cinTime+'</div>'+
-          '<div class="qr-label">離宿</div><div class="qr-val">'+b.checkout+' '+b.coutTime+'</div>'+
+          '<div class="qr-label">入宿</div><div class="qr-val">'+fmtDate(b.checkin)+' '+fmtTime(b.cinTime)+'</div>'+
+          '<div class="qr-label">離宿</div><div class="qr-val">'+fmtDate(b.checkout)+' '+fmtTime(b.coutTime)+'</div>'+
           '<div class="qr-label">鳥兒</div><div class="qr-val">'+b.birds+'</div>'+
-          (b.fee?'<div class="qr-label">費用</div><div class="qr-val">'+b.fee+'</div>':'')+
+          (b.fee?'<div class="qr-label">費用</div><div class="qr-val">NT$ '+Number(b.fee).toLocaleString()+'</div>':'')+
           '<div style="margin-top:0.5rem;"><span class="qr-status '+statusClass+'">'+b.status+'</span></div>'+
           '</div>';
       });
@@ -1012,7 +1088,7 @@ function formatPhone(s){
   return s;
 }
 
-var API='https://script.google.com/macros/s/AKfycbyluJRRnrA9U1lASQ_h2IUwDQWH6CDrCznH2Db8EwDr8TbGTm0GxwxZRuVAPOS0MHU/exec';
+var API='https://script.google.com/macros/s/AKfycby6Dk2bLdA4P7V1xardoFm1sFxo1xEQQbZWwKIIYPkuX0qnq1aXm7yjpB8ZEH88Qfu8/exec';
 
 function searchCancel(){
   var phone=document.getElementById('cPhone').value.replace(/\D/g,'');
@@ -1028,10 +1104,18 @@ function searchCancel(){
       var html='';
       list.forEach(function(b){
         if(b.status==='已取消')return;
+        function fmtDate(v){
+          if(!v)return '';
+          var d=new Date(v);
+          if(isNaN(d))return v;
+          return d.getFullYear()+'/'+(d.getMonth()+1)+'/'+d.getDate();
+        }
+        var cin=fmtDate(b.checkin);
+        var cout=fmtDate(b.checkout);
         html+=
           '<div style="background:rgba(201,168,76,0.05);border:1px solid rgba(201,168,76,0.18);border-radius:16px;padding:1rem;margin-bottom:0.8rem;">'+
           '<div style="font-size:0.85rem;color:var(--warm);margin-bottom:0.6rem;">'+
-          '入宿：'+b.checkin+'　離宿：'+b.checkout+'<br>鳥兒：'+b.birds+
+          '入宿：'+cin+'　離宿：'+cout+'<br>鳥兒：'+b.birds+
           '</div>'+
           '<button onclick="doCancel(\''+phone+'\',\''+b.checkin+'\')" '+
           'style="background:rgba(180,60,60,0.75);border:none;color:#fff;padding:8px 20px;border-radius:20px;cursor:pointer;font-size:0.82rem;letter-spacing:0.1em;">'+
@@ -1065,13 +1149,35 @@ document.querySelectorAll('.mob-menu a').forEach(function(a){
 });
 
 var SPECIES_OPTIONS=[
-  {label:'NT$300',options:[{text:'小鸚 / 牡丹 / 虎皮',price:300},{text:'文鳥 / 白文 / 太平洋',price:300},{text:'秋草 / 橫斑',price:300}]},
-  {label:'NT$350',options:[{text:'小太陽',price:350},{text:'玄鳳',price:350},{text:'小達摩 / 和尚',price:350}]},
-  {label:'NT$400',options:[{text:'金太陽 / 吸蜜 / 凱克',price:400},{text:'賈丁 / 塞內 / 月輪',price:400},{text:'紅肩 / 達士奇 / 青銅翅 / 麟頭',price:400}]},
-  {label:'NT$450',options:[{text:'灰鸚 / 折衷',price:450},{text:'亞馬遜 / 大金黃 / 大達摩',price:450},{text:'黃領金剛 / 黑頭乙女',price:450}]},
-  {label:'NT$500',options:[{text:'巴丹',price:500},{text:'柯爾鴨 / 雞 / 烏鴉 / 烏龜',price:500}]},
-  {label:'NT$600',options:[{text:'金剛',price:600}]},
-  {label:'其他',options:[{text:'其他（請於備注說明）',price:0}]}
+  {label:'── NT$300 ──',options:[
+    {text:'小鸚',price:300},{text:'牡丹',price:300},{text:'虎皮',price:300},
+    {text:'文鳥',price:300},{text:'白文鳥',price:300},{text:'太平洋',price:300},
+    {text:'秋草',price:300},{text:'橫斑',price:300}
+  ]},
+  {label:'── NT$350 ──',options:[
+    {text:'小太陽',price:350},{text:'玄鳳',price:350},
+    {text:'小達摩',price:350},{text:'和尚',price:350}
+  ]},
+  {label:'── NT$400 ──',options:[
+    {text:'金太陽',price:400},{text:'吸蜜',price:400},{text:'凱克',price:400},
+    {text:'賈丁',price:400},{text:'塞內',price:400},{text:'月輪',price:400},
+    {text:'紅肩',price:400},{text:'達士奇',price:400},{text:'青銅翅',price:400},{text:'麟頭',price:400}
+  ]},
+  {label:'── NT$450 ──',options:[
+    {text:'灰鸚',price:450},{text:'折衷',price:450},
+    {text:'亞馬遜',price:450},{text:'大金黃',price:450},{text:'大達摩',price:450},
+    {text:'黃領金剛',price:450},{text:'黑頭乙女',price:450}
+  ]},
+  {label:'── NT$500 ──',options:[
+    {text:'巴丹',price:500},
+    {text:'柯爾鴨',price:500},{text:'雞',price:500},{text:'烏鴉',price:500},{text:'烏龜',price:500}
+  ]},
+  {label:'── NT$600 ──',options:[
+    {text:'金剛',price:600}
+  ]},
+  {label:'── 其他 ──',options:[
+    {text:'其他（請於備注說明）',price:0}
+  ]}
 ];
 
 function buildSpeciesSelect(sel,onchange){
@@ -1081,7 +1187,7 @@ function buildSpeciesSelect(sel,onchange){
     grp.options.forEach(function(o){
       var opt=document.createElement('option');
       opt.value=o.price;
-      opt.textContent=o.text+(o.price?' ('+o.price+'元)':'');
+      opt.textContent=o.price?o.text+' (NT$'+o.price+'/天)':o.text;
       og.appendChild(opt);
     });
     sel.appendChild(og);
@@ -1109,12 +1215,26 @@ function addBirdRow(){
   var row=document.createElement('div');
   row.className='bird-row';row.id='brow-'+id;
   row.innerHTML=
-    '<div class="fg"><label>品種</label><select name="bird_species_'+id+'" id="bspec-'+id+'"></select></div>'+
+    '<div class="fg" style="grid-column:1/3">'+
+      '<label>品種</label>'+
+      '<div style="display:flex;align-items:center;gap:10px;">'+
+        '<select name="bird_species_'+id+'" id="bspec-'+id+'" style="flex:1;" onchange="updatePrice('+id+')"></select>'+
+        '<span id="bprice-'+id+'" style="font-family:\'Cormorant Garamond\',serif;font-size:1.1rem;color:var(--gold-lt);white-space:nowrap;min-width:80px;text-align:right;"></span>'+
+      '</div>'+
+    '</div>'+
     '<div class="fg"><label>名字</label><input type="text" name="bird_name_'+id+'" placeholder="寶貝名字"/></div>'+
     '<div class="fg"><label>隻數</label><input type="number" name="bird_count_'+id+'" id="bcnt-'+id+'" min="1" value="1" oninput="calcPrice()"/></div>'+
     '<button type="button" class="btn-remove-bird" onclick="removeBirdRow('+id+')">✕</button>';
   container.appendChild(row);
   buildSpeciesSelect(document.getElementById('bspec-'+id),calcPrice);
+  calcPrice();
+}
+
+function updatePrice(id){
+  var sel=document.getElementById('bspec-'+id);
+  var priceEl=document.getElementById('bprice-'+id);
+  var price=parseInt(sel.value);
+  priceEl.textContent=price?'NT$'+price+' / 天':'';
   calcPrice();
 }
 
@@ -1264,6 +1384,109 @@ function calcPrice(){
   if(mealChecked)summary+='　｜需3–4餐';
   document.getElementById('birdsSummary').value=summary;
   box.classList.add('show');
+}
+
+/* ── 自製日曆 ── */
+var calState={cin:{year:0,month:0},cout:{year:0,month:0}};
+var calActive=null;
+var TWO='zh-TW';
+var MONTHS=['一月','二月','三月','四月','五月','六月','七月','八月','九月','十月','十一月','十二月'];
+
+function openCal(which){
+  if(calActive&&calActive!==which){closeCal();}
+  var popup=document.getElementById('calPopup-'+which);
+  if(popup.classList.contains('show')){closeCal();return;}
+  calActive=which;
+  var now=new Date();
+  if(!calState[which].year){calState[which]={year:now.getFullYear(),month:now.getMonth()};}
+  renderCal(which);
+  popup.classList.add('show');
+  document.getElementById((which==='cin'?'cinTrigger':'coutTrigger')).classList.add('open');
+  setTimeout(function(){document.addEventListener('click',outsideCalClick);},10);
+}
+
+function closeCal(){
+  if(!calActive)return;
+  document.getElementById('calPopup-'+calActive).classList.remove('show');
+  document.getElementById((calActive==='cin'?'cinTrigger':'coutTrigger')).classList.remove('open');
+  document.removeEventListener('click',outsideCalClick);
+  calActive=null;
+}
+
+function outsideCalClick(e){
+  if(calActive&&!document.getElementById('calPopup-'+calActive).contains(e.target)
+    &&!document.getElementById((calActive==='cin'?'cinTrigger':'coutTrigger')).contains(e.target)){
+    closeCal();
+  }
+}
+
+function renderCal(which){
+  var y=calState[which].year,m=calState[which].month;
+  var popup=document.getElementById('calPopup-'+which);
+  var today=new Date();today.setHours(0,0,0,0);
+  var minDate=new Date(today);
+  if(which==='cout'){
+    var cinVal=document.getElementById('fCheckin').value;
+    if(cinVal){var cd=new Date(cinVal);cd.setDate(cd.getDate()+1);minDate=cd;}
+  }
+  var selVal=document.getElementById(which==='cin'?'fCheckin':'fCheckout').value;
+  var selDate=selVal?new Date(selVal):null;
+
+  var firstDay=new Date(y,m,1).getDay();
+  var daysInMonth=new Date(y,m+1,0).getDate();
+
+  var html=
+    '<div class="cal-header">'+
+    '<button type="button" class="cal-nav" onclick="moveCal(\''+which+'\',-1)">‹</button>'+
+    '<span class="cal-title">'+y+' 年 '+MONTHS[m]+'</span>'+
+    '<button type="button" class="cal-nav" onclick="moveCal(\''+which+'\',1)">›</button>'+
+    '</div>'+
+    '<div class="cal-grid">'+
+    '<div class="cal-dow">日</div><div class="cal-dow">一</div><div class="cal-dow">二</div>'+
+    '<div class="cal-dow">三</div><div class="cal-dow">四</div><div class="cal-dow">五</div><div class="cal-dow">六</div>';
+
+  for(var i=0;i<firstDay;i++) html+='<div class="cal-day cal-empty"></div>';
+  for(var d=1;d<=daysInMonth;d++){
+    var thisDate=new Date(y,m,d);
+    var disabled=thisDate<minDate;
+    var isToday=thisDate.getTime()===today.getTime();
+    var isSel=selDate&&thisDate.getTime()===selDate.getTime();
+    var cls='cal-day'+(disabled?' cal-disabled':'')+(isToday?' cal-today':'')+(isSel?' cal-selected':'');
+    var dateStr=y+'-'+(m+1<10?'0':'')+(m+1)+'-'+(d<10?'0':'')+d;
+    html+='<div class="'+cls+'"'+(disabled?'':' onclick="pickDate(\''+which+'\',\''+dateStr+'\')"')+'>'+d+'</div>';
+  }
+  html+='</div>';
+  popup.innerHTML=html;
+}
+
+function moveCal(which,dir){
+  calState[which].month+=dir;
+  if(calState[which].month>11){calState[which].month=0;calState[which].year++;}
+  if(calState[which].month<0){calState[which].month=11;calState[which].year--;}
+  renderCal(which);
+}
+
+function pickDate(which,dateStr){
+  var parts=dateStr.split('-');
+  var display=parts[0]+'年'+(parseInt(parts[1]))+'月'+(parseInt(parts[2]))+'日';
+  if(which==='cin'){
+    document.getElementById('fCheckin').value=dateStr;
+    var d=document.getElementById('cinDisplay');
+    d.textContent=display;d.classList.remove('cal-placeholder');
+    // 如果接回日期比入托早，清掉
+    var cout=document.getElementById('fCheckout').value;
+    if(cout&&cout<=dateStr){
+      document.getElementById('fCheckout').value='';
+      var cd=document.getElementById('coutDisplay');
+      cd.textContent='請選擇接回日期';cd.classList.add('cal-placeholder');
+    }
+  } else {
+    document.getElementById('fCheckout').value=dateStr;
+    var d2=document.getElementById('coutDisplay');
+    d2.textContent=display;d2.classList.remove('cal-placeholder');
+  }
+  closeCal();
+  calcPrice();
 }
 
 window.addEventListener('DOMContentLoaded',function(){
