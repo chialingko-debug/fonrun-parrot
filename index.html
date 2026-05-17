@@ -7,9 +7,7 @@
 <meta name="description" content="鳳潤鳥宿，位於新北市板橋區中山路1段206巷4弄9號，專業照顧各種鸚鵡，不用付訂金，接送時間11:00–20:00。"/>
 <link rel="preconnect" href="https://fonts.googleapis.com"/>
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Noto+Serif+TC:wght@300;400;500;700&family=Zen+Maru+Gothic:wght@300;400;500&display=swap" rel="stylesheet"/>
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css"/>
-<script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
-<script src="https://cdn.jsdelivr.net/npm/flatpickr/dist/l10n/zh-tw.js"></script>
+
 <style>
 :root{
   --ink:#1a1a18;--deep:#0e1a12;--forest:#1c3528;--moss:#2d5040;--sage:#4a7a60;
@@ -441,12 +439,98 @@ section{padding:6rem 2.5rem;position:relative;}
 .fg textarea{resize:vertical;min-height:90px;}
 .datetime-row{display:grid;grid-template-columns:1.35fr 1fr;gap:8px;}
 
+/* ── 自訂日曆 ── */
+.date-field-wrap{position:relative;}
+.date-trigger{
+  display:flex;align-items:center;justify-content:space-between;
+  padding:10px 14px;
+  background:rgba(8,16,11,0.65);
+  border:1px solid rgba(201,168,76,0.18);
+  border-radius:14px;
+  font-family:'Zen Maru Gothic',sans-serif;font-size:0.87rem;
+  color:var(--cream);width:100%;cursor:pointer;
+  transition:border-color 0.22s,background 0.22s,box-shadow 0.22s;
+  user-select:none;letter-spacing:0.04em;
+}
+.date-trigger.empty{color:rgba(212,201,168,0.35);}
+.date-trigger:hover,.date-trigger.open{
+  border-color:rgba(201,168,76,0.5);
+  background:rgba(8,16,11,0.88);
+  box-shadow:0 0 0 3px rgba(201,168,76,0.08);
+}
+.date-trigger-icon{font-size:0.82rem;opacity:0.5;flex-shrink:0;margin-left:6px;transition:opacity 0.2s;}
+.date-trigger:hover .date-trigger-icon,.date-trigger.open .date-trigger-icon{opacity:1;}
+
+/* popup */
+.cal-popup{
+  display:none;
+  position:absolute;top:calc(100% + 8px);left:0;z-index:9999;
+  background:rgba(10,20,14,0.98);
+  border:1px solid rgba(201,168,76,0.3);
+  border-radius:20px;padding:18px;width:300px;
+  box-shadow:0 28px 64px rgba(0,0,0,0.72),0 0 0 1px rgba(201,168,76,0.06);
+  animation:calIn 0.2s cubic-bezier(0.22,1,0.36,1);
+}
+.cal-popup.open{display:block;}
+@keyframes calIn{from{opacity:0;transform:translateY(-8px);}to{opacity:1;transform:translateY(0);}}
+
+/* header */
+.cal-header{
+  display:flex;align-items:center;justify-content:space-between;
+  margin-bottom:14px;padding-bottom:12px;
+  border-bottom:1px solid rgba(201,168,76,0.12);
+}
+.cal-nav{
+  background:none;border:none;color:rgba(201,168,76,0.6);
+  cursor:pointer;font-size:1rem;padding:4px 10px;border-radius:10px;
+  transition:background 0.15s,color 0.15s;line-height:1;
+}
+.cal-nav:hover{background:rgba(201,168,76,0.1);color:var(--gold);}
+.cal-title{
+  font-family:'Cormorant Garamond',serif;font-size:1.05rem;
+  font-weight:300;color:var(--gold-lt);letter-spacing:0.08em;
+}
+
+/* weekday row */
+.cal-weekdays{
+  display:grid;grid-template-columns:repeat(7,1fr);
+  margin-bottom:6px;
+}
+.cal-wd{
+  text-align:center;font-size:0.62rem;letter-spacing:0.18em;
+  color:rgba(201,168,76,0.38);padding:4px 0;font-weight:400;
+}
+
+/* day grid */
+.cal-days{display:grid;grid-template-columns:repeat(7,1fr);gap:2px;}
+.cal-day{
+  aspect-ratio:1;display:flex;align-items:center;justify-content:center;
+  font-size:0.8rem;border-radius:8px;cursor:pointer;
+  color:rgba(212,201,168,0.75);
+  transition:background 0.14s,color 0.14s,transform 0.1s;
+  border:none;background:none;font-family:'Zen Maru Gothic',sans-serif;
+}
+.cal-day:hover:not(.disabled):not(.selected){
+  background:rgba(201,168,76,0.13);color:var(--cream);transform:scale(1.08);
+}
+.cal-day.today{
+  background:rgba(74,122,96,0.2);color:rgba(140,210,170,0.95);
+  border:1px solid rgba(74,122,96,0.38);
+}
+.cal-day.selected{
+  background:var(--gold)!important;color:var(--deep)!important;
+  font-weight:600;box-shadow:0 4px 14px rgba(201,168,76,0.4);
+  transform:scale(1.1);border:none;
+}
+.cal-day.disabled{color:rgba(212,201,168,0.15);cursor:not-allowed;}
+.cal-day.other-month{color:rgba(212,201,168,0.18);}
+
 .bird-rows{display:flex;flex-direction:column;gap:10px;margin-bottom:1rem;}
 .bird-row{
   background:rgba(8,16,11,0.45);border:1px solid rgba(201,168,76,0.12);
   border-radius:18px;padding:16px 14px 14px;
   display:grid;
-  grid-template-columns:1.8fr 1fr 1fr 80px auto;
+  grid-template-columns:1.8fr 0.6fr 1fr 80px auto;
   gap:10px;align-items:end;
   transition:border-color 0.2s,background 0.2s;
 }
@@ -455,14 +539,14 @@ section{padding:6rem 2.5rem;position:relative;}
 
 /* price display field */
 .bird-price-display{
-  padding:10px 14px;
+  padding:6px 8px;
   background:rgba(201,168,76,0.06);
   border:1px solid rgba(201,168,76,0.18);
   border-radius:14px;
   font-family:'Cormorant Garamond',serif;
-  font-size:1.05rem;font-weight:300;
+  font-size:0.9rem;font-weight:300;
   color:var(--gold-lt);
-  letter-spacing:0.05em;
+  letter-spacing:0.03em;
   white-space:nowrap;
   text-align:center;
   min-height:42px;
@@ -472,7 +556,7 @@ section{padding:6rem 2.5rem;position:relative;}
 .bird-price-display.empty{
   color:rgba(201,168,76,0.22);
   font-family:'Zen Maru Gothic',sans-serif;
-  font-size:0.75rem;letter-spacing:0.12em;
+  font-size:0.68rem;letter-spacing:0.1em;
 }
 .bird-price-display.filled{
   color:var(--gold-lt);
@@ -586,139 +670,7 @@ footer p{font-size:0.73rem;color:rgba(212,201,168,0.22);line-height:2.1;}
   animation:none;
 }
 
-/* ── Custom Flatpickr Calendar Theme ── */
-.flatpickr-input{cursor:pointer!important;}
-.flatpickr-input.active{border-color:rgba(201,168,76,0.55)!important;}
 
-.flatpickr-calendar{
-  background:rgba(12,22,15,0.98)!important;
-  border:1px solid rgba(201,168,76,0.28)!important;
-  border-radius:20px!important;
-  box-shadow:0 24px 60px rgba(0,0,0,0.7),0 0 0 1px rgba(201,168,76,0.08)!important;
-  font-family:'Zen Maru Gothic','Noto Serif TC',serif!important;
-  overflow:hidden;
-  width:320px!important;
-  padding:12px!important;
-}
-.flatpickr-calendar.open{animation:calOpen 0.22s cubic-bezier(0.22,1,0.36,1);}
-@keyframes calOpen{from{opacity:0;transform:translateY(-8px);}to{opacity:1;transform:translateY(0);}}
-
-/* Month nav header */
-.flatpickr-months{
-  background:transparent!important;
-  padding:0 0 10px!important;
-  border-bottom:1px solid rgba(201,168,76,0.12)!important;
-  margin-bottom:8px!important;
-  align-items:center;
-}
-.flatpickr-month{
-  background:transparent!important;color:var(--cream)!important;height:36px!important;
-  font-family:'Cormorant Garamond',serif!important;font-size:1.05rem!important;
-  font-weight:300!important;letter-spacing:0.06em!important;
-}
-.flatpickr-current-month{
-  font-family:'Cormorant Garamond',serif!important;font-size:1.15rem!important;
-  font-weight:300!important;color:var(--gold-lt)!important;
-  padding-top:2px!important;
-}
-.flatpickr-current-month .cur-month{font-weight:300!important;color:var(--gold-lt)!important;}
-.flatpickr-current-month input.cur-year{
-  color:var(--gold-lt)!important;font-family:'Cormorant Garamond',serif!important;
-  font-size:1.1rem!important;font-weight:300!important;
-}
-.flatpickr-prev-month,.flatpickr-next-month{
-  color:rgba(201,168,76,0.6)!important;padding:6px 10px!important;
-  border-radius:10px!important;transition:background 0.18s,color 0.18s!important;
-}
-.flatpickr-prev-month:hover,.flatpickr-next-month:hover{
-  background:rgba(201,168,76,0.1)!important;color:var(--gold)!important;
-}
-.flatpickr-prev-month svg,.flatpickr-next-month svg{fill:currentColor!important;}
-
-/* Weekdays */
-.flatpickr-weekdays{background:transparent!important;margin-bottom:4px!important;}
-.flatpickr-weekday{
-  background:transparent!important;
-  color:rgba(201,168,76,0.42)!important;
-  font-size:0.68rem!important;letter-spacing:0.2em!important;
-  font-family:'Zen Maru Gothic',sans-serif!important;font-weight:400!important;
-}
-
-/* Day cells */
-.flatpickr-days{border:none!important;width:100%!important;}
-.dayContainer{width:100%!important;min-width:100%!important;max-width:100%!important;}
-.flatpickr-day{
-  border-radius:10px!important;
-  color:rgba(212,201,168,0.8)!important;
-  font-size:0.83rem!important;
-  font-family:'Zen Maru Gothic',sans-serif!important;
-  border:none!important;
-  height:38px!important;line-height:38px!important;
-  max-width:38px!important;
-  transition:background 0.15s,color 0.15s,transform 0.12s!important;
-}
-.flatpickr-day:hover:not(.flatpickr-disabled):not(.selected){
-  background:rgba(201,168,76,0.12)!important;
-  color:var(--cream)!important;
-  border:none!important;
-  transform:scale(1.08)!important;
-}
-.flatpickr-day.today{
-  background:rgba(74,122,96,0.18)!important;
-  border:1px solid rgba(74,122,96,0.4)!important;
-  color:rgba(140,210,170,0.9)!important;
-}
-.flatpickr-day.today:hover{
-  background:rgba(74,122,96,0.32)!important;
-}
-.flatpickr-day.selected,.flatpickr-day.selected:hover{
-  background:var(--gold)!important;
-  color:var(--deep)!important;
-  border:none!important;
-  font-weight:600!important;
-  box-shadow:0 4px 16px rgba(201,168,76,0.45)!important;
-  transform:scale(1.1)!important;
-}
-.flatpickr-day.inRange{
-  background:rgba(201,168,76,0.08)!important;
-  border:none!important;color:rgba(232,201,122,0.75)!important;
-  border-radius:0!important;
-}
-.flatpickr-day.startRange,.flatpickr-day.endRange{
-  background:var(--gold)!important;
-  color:var(--deep)!important;
-  border:none!important;
-}
-.flatpickr-day.flatpickr-disabled,.flatpickr-day.flatpickr-disabled:hover{
-  color:rgba(212,201,168,0.18)!important;
-  cursor:not-allowed!important;
-  text-decoration:line-through!important;
-}
-.flatpickr-day.prevMonthDay,.flatpickr-day.nextMonthDay{
-  color:rgba(212,201,168,0.18)!important;
-}
-
-/* Time picker */
-.flatpickr-time{
-  border-top:1px solid rgba(201,168,76,0.12)!important;
-  background:transparent!important;
-  margin-top:8px!important;
-}
-.flatpickr-time input{
-  background:rgba(8,16,11,0.6)!important;
-  color:var(--cream)!important;
-  border-radius:10px!important;
-  font-family:'Zen Maru Gothic',sans-serif!important;
-}
-.flatpickr-time .flatpickr-am-pm{color:var(--gold-lt)!important;}
-
-/* wrapper date field style */
-.date-picker-wrap{position:relative;}
-.date-picker-wrap::after{
-  content:'📅';
-  position:absolute;right:12px;top:50%;transform:translateY(-50%);
-  font-size:0.85rem;pointer-events:none;opacity:0.5;
-}
 </style>
 </head>
 <body>
@@ -905,8 +857,13 @@ footer p{font-size:0.73rem;color:rgba(212,201,168,0.22);line-height:2.1;}
                 <div class="fg">
                   <label>入托日期 *</label>
                   <div class="datetime-row">
-                    <div class="date-picker-wrap">
-                      <input type="text" name="checkin_date" id="fCheckin" required placeholder="選擇日期" readonly style="cursor:pointer;"/>
+                    <div class="date-field-wrap" id="wrapCheckin">
+                      <div class="date-trigger empty" id="trigCheckin" onclick="toggleCal('checkin')">
+                        <span id="dispCheckin">請選擇日期</span>
+                        <span class="date-trigger-icon">📅</span>
+                      </div>
+                      <div class="cal-popup" id="calCheckin"></div>
+                      <input type="hidden" name="checkin_date" id="fCheckin" required/>
                     </div>
                     <select name="checkin_time" id="fCheckinTime" onchange="calcPrice()"></select>
                   </div>
@@ -914,8 +871,13 @@ footer p{font-size:0.73rem;color:rgba(212,201,168,0.22);line-height:2.1;}
                 <div class="fg">
                   <label>接回日期 *</label>
                   <div class="datetime-row">
-                    <div class="date-picker-wrap">
-                      <input type="text" name="checkout_date" id="fCheckout" required placeholder="選擇日期" readonly style="cursor:pointer;"/>
+                    <div class="date-field-wrap" id="wrapCheckout">
+                      <div class="date-trigger empty" id="trigCheckout" onclick="toggleCal('checkout')">
+                        <span id="dispCheckout">請選擇日期</span>
+                        <span class="date-trigger-icon">📅</span>
+                      </div>
+                      <div class="cal-popup" id="calCheckout"></div>
+                      <input type="hidden" name="checkout_date" id="fCheckout" required/>
                     </div>
                     <select name="checkout_time" id="fCheckoutTime" onchange="calcPrice()"></select>
                   </div>
@@ -963,6 +925,9 @@ footer p{font-size:0.73rem;color:rgba(212,201,168,0.22);line-height:2.1;}
                 <div class="calc-breakdown" id="calcBreakdown"></div>
                 <div class="calc-discount" id="calcDiscount"></div>
               </div>
+              <!-- 隱藏欄位：傳送金額與明細到 Formspree -->
+              <input type="hidden" name="estimated_total" id="hiddenTotal"/>
+              <input type="hidden" name="price_breakdown" id="hiddenBreakdown"/>
               <div class="fg">
                 <label>特殊需求 / 備注</label>
                 <textarea name="notes" placeholder="例如：需餵藥、需灌奶、高齡鳥、怕生、已完成雙病毒檢測等…"></textarea>
@@ -1229,7 +1194,7 @@ function addBirdRow(){
   row.innerHTML=
     '<div class="fg">'+
       '<label>品種</label>'+
-      '<select name="bird_species_'+id+'" id="bspec-'+id+'"></select>'+
+      '<select name="bird_species_'+id+'" id="bspec-'+id+'" required></select>'+
     '</div>'+
     '<div class="fg">'+
       '<label>每晚費用</label>'+
@@ -1237,11 +1202,11 @@ function addBirdRow(){
     '</div>'+
     '<div class="fg">'+
       '<label>名字</label>'+
-      '<input type="text" name="bird_name_'+id+'" placeholder="寶貝名字"/>'+
+      '<input type="text" name="bird_name_'+id+'" required placeholder="寶貝名字"/>'+
     '</div>'+
     '<div class="fg">'+
       '<label>隻數</label>'+
-      '<input type="number" name="bird_count_'+id+'" id="bcnt-'+id+'" min="1" value="1" oninput="calcPrice()"/>'+
+      '<input type="number" name="bird_count_'+id+'" id="bcnt-'+id+'" min="1" value="1" required oninput="calcPrice()"/>'+
     '</div>'+
     '<button type="button" class="btn-remove-bird" onclick="removeBirdRow('+id+')">✕</button>';
   container.appendChild(row);
@@ -1257,10 +1222,10 @@ function removeBirdRow(id){
 }
 
 function getDays(){
-  var d1=document.getElementById('fCheckin')._fpDate;
-  var d2=document.getElementById('fCheckout')._fpDate;
+  var d1=document.getElementById('fCheckin').value;
+  var d2=document.getElementById('fCheckout').value;
   if(!d1||!d2)return 0;
-  var diff=Math.round((d2-d1)/86400000);
+  var diff=Math.round((new Date(d2)-new Date(d1))/86400000);
   return diff>=0?diff+1:0;
 }
 
@@ -1310,9 +1275,9 @@ function calcPrice(){
   var grandBase=baseTotal+extraTotal;
 
   // 折扣（只對鳥類費用打折，附加費用不打折）
-  var checkinVal=document.getElementById('fCheckin')._fpDate;
-  var checkoutVal=document.getElementById('fCheckout')._fpDate;
-  var m=checkinVal?checkinVal.getMonth():null;
+  var checkinVal=document.getElementById('fCheckin').value;
+  var checkoutVal=document.getElementById('fCheckout').value;
+  var m=checkinVal?new Date(checkinVal).getMonth():null;
 
   // 中華民國國定連假（3天以上）不適用折扣
   var HOLIDAYS=[
@@ -1355,15 +1320,22 @@ function calcPrice(){
   var total=discountedBird+extraTotal;
 
   document.getElementById('calcTotal').textContent=fmt(total);
+  document.getElementById('hiddenTotal').value=fmt(total);
   var bd=document.getElementById('calcBreakdown');
   bd.innerHTML='';
-  breakdown.forEach(function(line){var d=document.createElement('div');d.textContent=line;bd.appendChild(d);});
+  var breakdownLines=[];
+  breakdown.forEach(function(line){
+    var d=document.createElement('div');d.textContent=line;bd.appendChild(d);
+    breakdownLines.push(line);
+  });
   if(breakdown.length>1){
     var t=document.createElement('div');
     t.style.cssText='font-weight:500;color:var(--cream);margin-top:6px;padding-top:6px;border-top:1px dashed rgba(201,168,76,0.18);';
     t.textContent='小計（折前）＝ '+fmt(grandBase);
     bd.appendChild(t);
+    breakdownLines.push('小計（折前）＝ '+fmt(grandBase));
   }
+  document.getElementById('hiddenBreakdown').value=breakdownLines.join(' / ');
   var dEl=document.getElementById('calcDiscount');
   if(discLabel){
     var msg=discLabel+'（鳥類費用折後 '+fmt(discountedBird)+'）';
@@ -1408,56 +1380,136 @@ function buildTimeSelect(sel){
   }
 }
 
+// ── 自訂日曆 ──
+var calState={
+  checkin:{year:0,month:0,selected:null},
+  checkout:{year:0,month:0,selected:null}
+};
+var calMinCheckin=null, calMinCheckout=null;
+
+function pad2(n){return n<10?'0'+n:String(n);}
+function ymd(d){return d.getFullYear()+'-'+pad2(d.getMonth()+1)+'-'+pad2(d.getDate());}
+function parseYMD(s){if(!s)return null;var p=s.split('-');return new Date(+p[0],+p[1]-1,+p[2]);}
+
+function renderCal(which){
+  var st=calState[which];
+  var popup=document.getElementById('cal'+cap(which));
+  var today=new Date();today.setHours(0,0,0,0);
+  var minDate=which==='checkin'?calMinCheckin:calMinCheckout;
+
+  var y=st.year,m=st.month;
+  var title=y+'年 '+pad2(m+1)+'月';
+  var firstDay=new Date(y,m,1).getDay(); // 0=Sun
+  var daysInMonth=new Date(y,m+1,0).getDate();
+
+  var wds=['日','一','二','三','四','五','六'];
+  var wdHtml=wds.map(function(w){return '<div class="cal-wd">'+w+'</div>';}).join('');
+
+  var cells='';
+  // blanks before first day
+  for(var i=0;i<firstDay;i++) cells+='<div class="cal-day other-month"></div>';
+  for(var d=1;d<=daysInMonth;d++){
+    var thisDate=new Date(y,m,d);
+    var dateStr=ymd(thisDate);
+    var cls='cal-day';
+    if(ymd(thisDate)===ymd(today)) cls+=' today';
+    if(st.selected&&dateStr===st.selected) cls+=' selected';
+    if(minDate&&thisDate<minDate) cls+=' disabled';
+    cells+='<button type="button" class="'+cls+'" data-date="'+dateStr+'" onclick="pickDate(\''+which+'\',\''+dateStr+'\')">'+d+'</button>';
+  }
+
+  popup.innerHTML=
+    '<div class="cal-header">'+
+      '<button type="button" class="cal-nav" onclick="moveCal(\''+which+'\',-1)">&#8249;</button>'+
+      '<span class="cal-title">'+title+'</span>'+
+      '<button type="button" class="cal-nav" onclick="moveCal(\''+which+'\',1)">&#8250;</button>'+
+    '</div>'+
+    '<div class="cal-weekdays">'+wdHtml+'</div>'+
+    '<div class="cal-days">'+cells+'</div>';
+}
+
+function cap(s){return s.charAt(0).toUpperCase()+s.slice(1);}
+
+function moveCal(which,dir){
+  var st=calState[which];
+  st.month+=dir;
+  if(st.month>11){st.month=0;st.year++;}
+  if(st.month<0){st.month=11;st.year--;}
+  renderCal(which);
+}
+
+function openCal(which){
+  var now=new Date();
+  var st=calState[which];
+  if(!st.year){st.year=now.getFullYear();st.month=now.getMonth();}
+  renderCal(which);
+  document.getElementById('cal'+cap(which)).classList.add('open');
+  document.getElementById('trig'+cap(which)).classList.add('open');
+}
+
+function closeCal(which){
+  document.getElementById('cal'+cap(which)).classList.remove('open');
+  document.getElementById('trig'+cap(which)).classList.remove('open');
+}
+
+function toggleCal(which){
+  var popup=document.getElementById('cal'+cap(which));
+  if(popup.classList.contains('open')){closeCal(which);}
+  else{
+    closeCal(which==='checkin'?'checkout':'checkin');
+    openCal(which);
+  }
+}
+
+function pickDate(which,dateStr){
+  var st=calState[which];
+  st.selected=dateStr;
+
+  var trig=document.getElementById('trig'+cap(which));
+  var disp=document.getElementById('disp'+cap(which));
+  disp.textContent=dateStr;
+  trig.classList.remove('empty');
+
+  document.getElementById('f'+cap(which)).value=dateStr;
+  closeCal(which);
+
+  if(which==='checkin'){
+    // set checkout min to next day
+    var next=parseYMD(dateStr);next.setDate(next.getDate()+1);
+    calMinCheckout=next;
+    // clear checkout if it's now invalid
+    var co=calState.checkout;
+    if(co.selected&&co.selected<=dateStr){
+      co.selected=null;
+      document.getElementById('fCheckout').value='';
+      document.getElementById('dispCheckout').textContent='請選擇日期';
+      document.getElementById('trigCheckout').classList.add('empty');
+    }
+  }
+  calcPrice();
+}
+
+// close calendars when clicking outside
+document.addEventListener('click',function(e){
+  ['checkin','checkout'].forEach(function(w){
+    var wrap=document.getElementById('wrap'+cap(w));
+    if(wrap&&!wrap.contains(e.target)) closeCal(w);
+  });
+});
+
 window.addEventListener('DOMContentLoaded',function(){
   buildTimeSelect(document.getElementById('fCheckinTime'));
   buildTimeSelect(document.getElementById('fCheckoutTime'));
   addBirdRow();
-
-  var today=new Date();
-  today.setHours(0,0,0,0);
-
-  var checkinInput=document.getElementById('fCheckin');
-  var checkoutInput=document.getElementById('fCheckout');
-
-  // Flatpickr for 入托日期
-  var fpCheckin=flatpickr(checkinInput,{
-    locale:'zh_tw',
-    dateFormat:'Y年m月d日',
-    minDate:'today',
-    disableMobile:true,
-    onChange:function(selectedDates,dateStr){
-      checkinInput._fpDate=selectedDates[0]||null;
-      // Update checkout min date to day after checkin
-      if(selectedDates[0]){
-        var minCheckout=new Date(selectedDates[0]);
-        minCheckout.setDate(minCheckout.getDate()+1);
-        fpCheckout.set('minDate',minCheckout);
-        // Clear checkout if it's now invalid
-        var coDate=checkoutInput._fpDate;
-        if(coDate&&coDate<=selectedDates[0]){
-          fpCheckout.clear();
-          checkoutInput._fpDate=null;
-        }
-      }
-      calcPrice();
-    }
-  });
-
-  // Flatpickr for 接回日期
-  var fpCheckout=flatpickr(checkoutInput,{
-    locale:'zh_tw',
-    dateFormat:'Y年m月d日',
-    minDate:new Date(today.getTime()+86400000),
-    disableMobile:true,
-    onChange:function(selectedDates){
-      checkoutInput._fpDate=selectedDates[0]||null;
-      calcPrice();
-    }
-  });
-
-  // Init _fpDate to null
-  checkinInput._fpDate=null;
-  checkoutInput._fpDate=null;
+  var today=new Date();today.setHours(0,0,0,0);
+  calMinCheckin=today;
+  var tom=new Date(today);tom.setDate(tom.getDate()+1);
+  calMinCheckout=tom;
+  // init calendar state to current month
+  calState.checkin.year=today.getFullYear();
+  calState.checkin.month=today.getMonth();
+  calState.checkout.year=today.getFullYear();
+  calState.checkout.month=today.getMonth();
 });
 
 function submitForm(e){
