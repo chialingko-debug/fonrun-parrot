@@ -7,6 +7,9 @@
 <meta name="description" content="鳳潤鳥宿，位於新北市板橋區中山路1段206巷4弄9號，專業照顧各種鸚鵡，不用付訂金，接送時間11:00–20:00。"/>
 <link rel="preconnect" href="https://fonts.googleapis.com"/>
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Noto+Serif+TC:wght@300;400;500;700&family=Zen+Maru+Gothic:wght@300;400;500&display=swap" rel="stylesheet"/>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css"/>
+<script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+<script src="https://cdn.jsdelivr.net/npm/flatpickr/dist/l10n/zh-tw.js"></script>
 <style>
 :root{
   --ink:#1a1a18;--deep:#0e1a12;--forest:#1c3528;--moss:#2d5040;--sage:#4a7a60;
@@ -438,14 +441,44 @@ section{padding:6rem 2.5rem;position:relative;}
 .fg textarea{resize:vertical;min-height:90px;}
 .datetime-row{display:grid;grid-template-columns:1.35fr 1fr;gap:8px;}
 
-.bird-rows{display:flex;flex-direction:column;gap:8px;margin-bottom:1rem;}
+.bird-rows{display:flex;flex-direction:column;gap:10px;margin-bottom:1rem;}
 .bird-row{
-  background:rgba(8,16,11,0.45);border:1px solid rgba(201,168,76,0.1);
-  border-radius:16px;padding:14px;
-  display:grid;grid-template-columns:1fr 90px 72px auto;
+  background:rgba(8,16,11,0.45);border:1px solid rgba(201,168,76,0.12);
+  border-radius:18px;padding:16px 14px 14px;
+  display:grid;
+  grid-template-columns:1.8fr 1fr 1fr 80px auto;
   gap:10px;align-items:end;
+  transition:border-color 0.2s,background 0.2s;
 }
+.bird-row:hover{border-color:rgba(201,168,76,0.22);background:rgba(8,16,11,0.6);}
 .bird-row .fg{margin-bottom:0;}
+
+/* price display field */
+.bird-price-display{
+  padding:10px 14px;
+  background:rgba(201,168,76,0.06);
+  border:1px solid rgba(201,168,76,0.18);
+  border-radius:14px;
+  font-family:'Cormorant Garamond',serif;
+  font-size:1.05rem;font-weight:300;
+  color:var(--gold-lt);
+  letter-spacing:0.05em;
+  white-space:nowrap;
+  text-align:center;
+  min-height:42px;
+  display:flex;align-items:center;justify-content:center;
+  transition:color 0.2s,background 0.2s;
+}
+.bird-price-display.empty{
+  color:rgba(201,168,76,0.22);
+  font-family:'Zen Maru Gothic',sans-serif;
+  font-size:0.75rem;letter-spacing:0.12em;
+}
+.bird-price-display.filled{
+  color:var(--gold-lt);
+  background:rgba(201,168,76,0.09);
+  border-color:rgba(201,168,76,0.3);
+}
 .btn-remove-bird{
   background:rgba(160,50,50,0.12);border:1px solid rgba(160,50,50,0.28);
   color:rgba(220,110,110,0.75);border-radius:12px;padding:8px 12px;
@@ -538,6 +571,7 @@ footer p{font-size:0.73rem;color:rgba(212,201,168,0.22);line-height:2.1;}
   .form-row{grid-template-columns:1fr;}
   .bird-row{grid-template-columns:1fr 1fr;}
   .bird-row .fg:first-child{grid-column:1/-1;}
+  .bird-row>div:nth-child(2){grid-column:1/-1;}
   .discount-row{grid-template-columns:1fr 1fr;}
   .transport-box{grid-template-columns:1fr;}
   .contact-grid{grid-template-columns:1fr 1fr;}
@@ -550,6 +584,140 @@ footer p{font-size:0.73rem;color:rgba(212,201,168,0.22);line-height:2.1;}
   object-position:center 20%;
   filter:drop-shadow(0 4px 18px rgba(0,0,0,0.45));
   animation:none;
+}
+
+/* ── Custom Flatpickr Calendar Theme ── */
+.flatpickr-input{cursor:pointer!important;}
+.flatpickr-input.active{border-color:rgba(201,168,76,0.55)!important;}
+
+.flatpickr-calendar{
+  background:rgba(12,22,15,0.98)!important;
+  border:1px solid rgba(201,168,76,0.28)!important;
+  border-radius:20px!important;
+  box-shadow:0 24px 60px rgba(0,0,0,0.7),0 0 0 1px rgba(201,168,76,0.08)!important;
+  font-family:'Zen Maru Gothic','Noto Serif TC',serif!important;
+  overflow:hidden;
+  width:320px!important;
+  padding:12px!important;
+}
+.flatpickr-calendar.open{animation:calOpen 0.22s cubic-bezier(0.22,1,0.36,1);}
+@keyframes calOpen{from{opacity:0;transform:translateY(-8px);}to{opacity:1;transform:translateY(0);}}
+
+/* Month nav header */
+.flatpickr-months{
+  background:transparent!important;
+  padding:0 0 10px!important;
+  border-bottom:1px solid rgba(201,168,76,0.12)!important;
+  margin-bottom:8px!important;
+  align-items:center;
+}
+.flatpickr-month{
+  background:transparent!important;color:var(--cream)!important;height:36px!important;
+  font-family:'Cormorant Garamond',serif!important;font-size:1.05rem!important;
+  font-weight:300!important;letter-spacing:0.06em!important;
+}
+.flatpickr-current-month{
+  font-family:'Cormorant Garamond',serif!important;font-size:1.15rem!important;
+  font-weight:300!important;color:var(--gold-lt)!important;
+  padding-top:2px!important;
+}
+.flatpickr-current-month .cur-month{font-weight:300!important;color:var(--gold-lt)!important;}
+.flatpickr-current-month input.cur-year{
+  color:var(--gold-lt)!important;font-family:'Cormorant Garamond',serif!important;
+  font-size:1.1rem!important;font-weight:300!important;
+}
+.flatpickr-prev-month,.flatpickr-next-month{
+  color:rgba(201,168,76,0.6)!important;padding:6px 10px!important;
+  border-radius:10px!important;transition:background 0.18s,color 0.18s!important;
+}
+.flatpickr-prev-month:hover,.flatpickr-next-month:hover{
+  background:rgba(201,168,76,0.1)!important;color:var(--gold)!important;
+}
+.flatpickr-prev-month svg,.flatpickr-next-month svg{fill:currentColor!important;}
+
+/* Weekdays */
+.flatpickr-weekdays{background:transparent!important;margin-bottom:4px!important;}
+.flatpickr-weekday{
+  background:transparent!important;
+  color:rgba(201,168,76,0.42)!important;
+  font-size:0.68rem!important;letter-spacing:0.2em!important;
+  font-family:'Zen Maru Gothic',sans-serif!important;font-weight:400!important;
+}
+
+/* Day cells */
+.flatpickr-days{border:none!important;width:100%!important;}
+.dayContainer{width:100%!important;min-width:100%!important;max-width:100%!important;}
+.flatpickr-day{
+  border-radius:10px!important;
+  color:rgba(212,201,168,0.8)!important;
+  font-size:0.83rem!important;
+  font-family:'Zen Maru Gothic',sans-serif!important;
+  border:none!important;
+  height:38px!important;line-height:38px!important;
+  max-width:38px!important;
+  transition:background 0.15s,color 0.15s,transform 0.12s!important;
+}
+.flatpickr-day:hover:not(.flatpickr-disabled):not(.selected){
+  background:rgba(201,168,76,0.12)!important;
+  color:var(--cream)!important;
+  border:none!important;
+  transform:scale(1.08)!important;
+}
+.flatpickr-day.today{
+  background:rgba(74,122,96,0.18)!important;
+  border:1px solid rgba(74,122,96,0.4)!important;
+  color:rgba(140,210,170,0.9)!important;
+}
+.flatpickr-day.today:hover{
+  background:rgba(74,122,96,0.32)!important;
+}
+.flatpickr-day.selected,.flatpickr-day.selected:hover{
+  background:var(--gold)!important;
+  color:var(--deep)!important;
+  border:none!important;
+  font-weight:600!important;
+  box-shadow:0 4px 16px rgba(201,168,76,0.45)!important;
+  transform:scale(1.1)!important;
+}
+.flatpickr-day.inRange{
+  background:rgba(201,168,76,0.08)!important;
+  border:none!important;color:rgba(232,201,122,0.75)!important;
+  border-radius:0!important;
+}
+.flatpickr-day.startRange,.flatpickr-day.endRange{
+  background:var(--gold)!important;
+  color:var(--deep)!important;
+  border:none!important;
+}
+.flatpickr-day.flatpickr-disabled,.flatpickr-day.flatpickr-disabled:hover{
+  color:rgba(212,201,168,0.18)!important;
+  cursor:not-allowed!important;
+  text-decoration:line-through!important;
+}
+.flatpickr-day.prevMonthDay,.flatpickr-day.nextMonthDay{
+  color:rgba(212,201,168,0.18)!important;
+}
+
+/* Time picker */
+.flatpickr-time{
+  border-top:1px solid rgba(201,168,76,0.12)!important;
+  background:transparent!important;
+  margin-top:8px!important;
+}
+.flatpickr-time input{
+  background:rgba(8,16,11,0.6)!important;
+  color:var(--cream)!important;
+  border-radius:10px!important;
+  font-family:'Zen Maru Gothic',sans-serif!important;
+}
+.flatpickr-time .flatpickr-am-pm{color:var(--gold-lt)!important;}
+
+/* wrapper date field style */
+.date-picker-wrap{position:relative;}
+.date-picker-wrap::after{
+  content:'📅';
+  position:absolute;right:12px;top:50%;transform:translateY(-50%);
+  font-size:0.85rem;pointer-events:none;opacity:0.5;
 }
 </style>
 </head>
@@ -713,7 +881,6 @@ footer p{font-size:0.73rem;color:rgba(212,201,168,0.22);line-height:2.1;}
           <div class="btabs">
             <div class="btab active" onclick="switchTab('book')">🦜 預約住宿</div>
             <div class="btab" onclick="switchTab('query')">🔍 查詢預約</div>
-            <div class="btab" onclick="switchTab('cancel')">✕ 取消預約</div>
           </div>
 
           <!-- TAB: 預約住宿 -->
@@ -738,14 +905,18 @@ footer p{font-size:0.73rem;color:rgba(212,201,168,0.22);line-height:2.1;}
                 <div class="fg">
                   <label>入托日期 *</label>
                   <div class="datetime-row">
-                    <input type="date" name="checkin_date" id="fCheckin" required oninput="calcPrice()"/>
+                    <div class="date-picker-wrap">
+                      <input type="text" name="checkin_date" id="fCheckin" required placeholder="選擇日期" readonly style="cursor:pointer;"/>
+                    </div>
                     <select name="checkin_time" id="fCheckinTime" onchange="calcPrice()"></select>
                   </div>
                 </div>
                 <div class="fg">
                   <label>接回日期 *</label>
                   <div class="datetime-row">
-                    <input type="date" name="checkout_date" id="fCheckout" required oninput="calcPrice()"/>
+                    <div class="date-picker-wrap">
+                      <input type="text" name="checkout_date" id="fCheckout" required placeholder="選擇日期" readonly style="cursor:pointer;"/>
+                    </div>
                     <select name="checkout_time" id="fCheckoutTime" onchange="calcPrice()"></select>
                   </div>
                 </div>
@@ -816,36 +987,6 @@ footer p{font-size:0.73rem;color:rgba(212,201,168,0.22);line-height:2.1;}
             <div class="fg"><label>聯絡電話 *</label><input type="tel" id="qPhone" placeholder="例：0912345678" oninput="clearQueryResult()"/></div>
             <button type="button" class="form-submit" onclick="queryBooking()" style="margin-top:0;">查詢預約</button>
             <div class="query-result" id="queryResult"></div>
-          </div>
-
-          <!-- TAB: 取消預約 -->
-          <div class="btab-panel" id="panel-cancel">
-            <p style="font-size:0.88rem;color:var(--warm);margin-bottom:1.5rem;line-height:2;font-weight:300;">若需取消預約，請填寫以下資料，我會在 24 小時內透過 LINE 確認取消。</p>
-            <form id="cForm" onsubmit="submitCancel(event)">
-              <div class="fg"><label>聯絡電話 *</label><input type="tel" name="cancel_phone" id="cPhone" required placeholder="例：0912345678"/></div>
-              <div class="fg">
-                <label>取消原因 *</label>
-                <select name="cancel_reason" id="cReason" required>
-                  <option value="">請選擇原因</option>
-                  <option>行程臨時更動</option>
-                  <option>鳥兒身體不適，暫緩出遊</option>
-                  <option>找到其他照顧方式</option>
-                  <option>日期需要更改（請備注說明）</option>
-                  <option>其他（請於備注說明）</option>
-                </select>
-              </div>
-              <div class="fg">
-                <label>備注說明</label>
-                <textarea name="cancel_note" placeholder="如有其他說明，請在此填寫…"></textarea>
-              </div>
-              <button type="submit" class="form-submit" style="background:rgba(180,60,60,0.7);margin-top:0;">送出取消申請</button>
-              <p class="form-note">取消申請送出後，我會在 24 小時內透過 LINE 確認</p>
-            </form>
-            <div class="form-success" id="cSuccess" style="display:none;">
-              <div class="sicon">📋</div>
-              <h3>取消申請已送出</h3>
-              <p>我已收到您的取消申請，會盡快透過 LINE 與您確認。<br>感謝您提前告知，期待下次歡迎您的寶貝入住 🦜</p>
-            </div>
           </div>
 
         </div>
@@ -971,10 +1112,10 @@ footer p{font-size:0.73rem;color:rgba(212,201,168,0.22);line-height:2.1;}
 <script>
 function toggleFaq(el){el.parentElement.classList.toggle('open');}
 
-// Booking tabs
+// Booking tabs (2 tabs only)
 function switchTab(name){
+  var names=['book','query'];
   document.querySelectorAll('.btab').forEach(function(t,i){
-    var names=['book','query','cancel'];
     t.classList.toggle('active', names[i]===name);
   });
   document.querySelectorAll('.btab-panel').forEach(function(p){
@@ -1013,20 +1154,6 @@ function formatPhone(s){
   return s;
 }
 
-// Cancel booking
-function submitCancel(e){
-  e.preventDefault();
-  var form=document.getElementById('cForm');
-  var succ=document.getElementById('cSuccess');
-  // Build cancel data and send to Formspree with a _subject field
-  var fd=new FormData(form);
-  fd.append('_subject','【取消預約】'+fd.get('cancel_phone'));
-  fd.append('form_type','取消預約');
-  fetch('https://formspree.io/f/mredzrzd',{
-    method:'POST',body:fd,headers:{'Accept':'application/json'}
-  }).then(function(){form.style.display='none';succ.style.display='block';})
-    .catch(function(){form.style.display='none';succ.style.display='block';});
-}
 
 document.querySelector('.hamburger').onclick=function(){
   document.getElementById('mob').classList.toggle('open');
@@ -1035,24 +1162,41 @@ document.querySelectorAll('.mob-menu a').forEach(function(a){
   a.onclick=function(){document.getElementById('mob').classList.remove('open');};
 });
 
-var SPECIES_OPTIONS=[
-  {label:'NT$300',options:[{text:'小鸚 / 牡丹 / 虎皮',price:300},{text:'文鳥 / 白文 / 太平洋',price:300},{text:'秋草 / 橫斑',price:300}]},
-  {label:'NT$350',options:[{text:'小太陽',price:350},{text:'玄鳳',price:350},{text:'小達摩 / 和尚',price:350}]},
-  {label:'NT$400',options:[{text:'金太陽 / 吸蜜 / 凱克',price:400},{text:'賈丁 / 塞內 / 月輪',price:400},{text:'紅肩 / 達士奇 / 青銅翅 / 麟頭',price:400}]},
-  {label:'NT$450',options:[{text:'灰鸚 / 折衷',price:450},{text:'亞馬遜 / 大金黃 / 大達摩',price:450},{text:'黃領金剛 / 黑頭乙女',price:450}]},
-  {label:'NT$500',options:[{text:'巴丹',price:500},{text:'柯爾鴨 / 雞 / 烏鴉 / 烏龜',price:500}]},
-  {label:'NT$600',options:[{text:'金剛',price:600}]},
-  {label:'其他',options:[{text:'其他（請於備注說明）',price:0}]}
+// 每一種鳥對應價格（個別條目）
+var SPECIES_LIST=[
+  {text:'小鸚',price:300},{text:'牡丹',price:300},{text:'虎皮',price:300},
+  {text:'文鳥',price:300},{text:'白文',price:300},{text:'太平洋',price:300},
+  {text:'秋草',price:300},{text:'橫斑',price:300},
+  {text:'小太陽',price:350},{text:'玄鳳',price:350},
+  {text:'小達摩',price:350},{text:'和尚',price:350},
+  {text:'金太陽',price:400},{text:'吸蜜',price:400},{text:'凱克',price:400},
+  {text:'賈丁',price:400},{text:'塞內',price:400},{text:'月輪',price:400},
+  {text:'紅肩',price:400},{text:'達士奇',price:400},{text:'青銅翅',price:400},{text:'麟頭',price:400},
+  {text:'灰鸚',price:450},{text:'折衷',price:450},{text:'亞馬遜',price:450},
+  {text:'大金黃',price:450},{text:'大達摩',price:450},{text:'黃領金剛',price:450},{text:'黑頭乙女',price:450},
+  {text:'巴丹',price:500},{text:'柯爾鴨',price:500},{text:'雞',price:500},{text:'烏鴉',price:500},{text:'烏龜',price:500},
+  {text:'金剛',price:600},
+  {text:'其他（請於備注說明）',price:0}
 ];
+
+// 依價格分組的標籤（給 optgroup）
+var PRICE_GROUPS={300:'NT$ 300',350:'NT$ 350',400:'NT$ 400',450:'NT$ 450',500:'NT$ 500',600:'NT$ 600',0:'其他'};
 
 function buildSpeciesSelect(sel,onchange){
   sel.innerHTML='<option value="">請選擇品種</option>';
-  SPECIES_OPTIONS.forEach(function(grp){
-    var og=document.createElement('optgroup');og.label=grp.label;
-    grp.options.forEach(function(o){
+  var groups={};
+  SPECIES_LIST.forEach(function(s){
+    if(!groups[s.price])groups[s.price]=[];
+    groups[s.price].push(s);
+  });
+  [300,350,400,450,500,600,0].forEach(function(price){
+    if(!groups[price])return;
+    var og=document.createElement('optgroup');
+    og.label=PRICE_GROUPS[price];
+    groups[price].forEach(function(s){
       var opt=document.createElement('option');
-      opt.value=o.price;
-      opt.textContent=o.text+(o.price?' ('+o.price+'元)':'');
+      opt.value=s.price;
+      opt.textContent=s.text;
       og.appendChild(opt);
     });
     sel.appendChild(og);
@@ -1060,16 +1204,19 @@ function buildSpeciesSelect(sel,onchange){
   sel.onchange=onchange;
 }
 
-function buildTimeSelect(sel){
-  sel.innerHTML='';
-  for(var h=11;h<=20;h++){
-    ['00','30'].forEach(function(m){
-      if(h===20&&m==='30')return;
-      var v=(h<10?'0':'')+h+':'+m;
-      var o=document.createElement('option');o.value=v;o.textContent=v;
-      sel.appendChild(o);
-    });
+function updatePriceDisplay(id){
+  var sel=document.getElementById('bspec-'+id);
+  var disp=document.getElementById('bprice-'+id);
+  if(!sel||!disp)return;
+  var price=parseInt(sel.value);
+  if(price>0){
+    disp.textContent='NT$ '+price;
+    disp.className='bird-price-display filled';
+  } else {
+    disp.textContent='—';
+    disp.className='bird-price-display empty';
   }
+  calcPrice();
 }
 
 var birdRowCount=0;
@@ -1080,12 +1227,26 @@ function addBirdRow(){
   var row=document.createElement('div');
   row.className='bird-row';row.id='brow-'+id;
   row.innerHTML=
-    '<div class="fg"><label>品種</label><select name="bird_species_'+id+'" id="bspec-'+id+'"></select></div>'+
-    '<div class="fg"><label>名字</label><input type="text" name="bird_name_'+id+'" placeholder="寶貝名字"/></div>'+
-    '<div class="fg"><label>隻數</label><input type="number" name="bird_count_'+id+'" id="bcnt-'+id+'" min="1" value="1" oninput="calcPrice()"/></div>'+
+    '<div class="fg">'+
+      '<label>品種</label>'+
+      '<select name="bird_species_'+id+'" id="bspec-'+id+'"></select>'+
+    '</div>'+
+    '<div class="fg">'+
+      '<label>每晚費用</label>'+
+      '<div class="bird-price-display empty" id="bprice-'+id+'">—</div>'+
+    '</div>'+
+    '<div class="fg">'+
+      '<label>名字</label>'+
+      '<input type="text" name="bird_name_'+id+'" placeholder="寶貝名字"/>'+
+    '</div>'+
+    '<div class="fg">'+
+      '<label>隻數</label>'+
+      '<input type="number" name="bird_count_'+id+'" id="bcnt-'+id+'" min="1" value="1" oninput="calcPrice()"/>'+
+    '</div>'+
     '<button type="button" class="btn-remove-bird" onclick="removeBirdRow('+id+')">✕</button>';
   container.appendChild(row);
-  buildSpeciesSelect(document.getElementById('bspec-'+id),calcPrice);
+  var specSel=document.getElementById('bspec-'+id);
+  buildSpeciesSelect(specSel,function(){updatePriceDisplay(id);});
   calcPrice();
 }
 
@@ -1096,11 +1257,10 @@ function removeBirdRow(id){
 }
 
 function getDays(){
-  var d1=document.getElementById('fCheckin').value;
-  var d2=document.getElementById('fCheckout').value;
+  var d1=document.getElementById('fCheckin')._fpDate;
+  var d2=document.getElementById('fCheckout')._fpDate;
   if(!d1||!d2)return 0;
-  var diff=Math.round((new Date(d2)-new Date(d1))/86400000);
-  // 含頭含尾：5/17–5/23 = 7天（diff=6，+1）
+  var diff=Math.round((d2-d1)/86400000);
   return diff>=0?diff+1:0;
 }
 
@@ -1127,7 +1287,7 @@ function calcPrice(){
   birds.forEach(function(b){
     var sub=b.price*b.count*days;
     baseTotal+=sub;
-    breakdown.push(b.name.split(' (')[0]+'　'+b.price+'元 × '+b.count+'隻 × '+days+'天 ＝ '+fmt(sub));
+    breakdown.push(b.name+'　'+b.price+'元 × '+b.count+'隻 × '+days+'天 ＝ '+fmt(sub));
   });
 
   // 附加費用
@@ -1150,9 +1310,9 @@ function calcPrice(){
   var grandBase=baseTotal+extraTotal;
 
   // 折扣（只對鳥類費用打折，附加費用不打折）
-  var checkinVal=document.getElementById('fCheckin').value;
-  var checkoutVal=document.getElementById('fCheckout').value;
-  var m=new Date(checkinVal).getMonth();
+  var checkinVal=document.getElementById('fCheckin')._fpDate;
+  var checkoutVal=document.getElementById('fCheckout')._fpDate;
+  var m=checkinVal?checkinVal.getMonth():null;
 
   // 中華民國國定連假（3天以上）不適用折扣
   var HOLIDAYS=[
@@ -1167,11 +1327,10 @@ function calcPrice(){
     [9,24,26],                  // 臺灣光復紀念日（10/24-10/26）
     [11,25,27],                 // 行憲紀念日（12/25-12/27）
   ];
-  // 檢查整個住宿期間（每一天）是否有任何一天落在連假內
-  function stayOverlapsHoliday(checkinStr,checkoutStr){
-    if(!checkinStr||!checkoutStr)return false;
-    var cur=new Date(checkinStr);
-    var end=new Date(checkoutStr);
+  function stayOverlapsHoliday(checkinDate,checkoutDate){
+    if(!checkinDate||!checkoutDate)return false;
+    var cur=new Date(checkinDate);
+    var end=new Date(checkoutDate);
     while(cur<=end){
       var mo=cur.getMonth(),day=cur.getDate();
       for(var i=0;i<HOLIDAYS.length;i++){
@@ -1184,7 +1343,7 @@ function calcPrice(){
   }
   var isHolidayBlock=stayOverlapsHoliday(checkinVal,checkoutVal);
   var isMonthBlock=(m===0||m===1||m===6||m===7);
-  var noDiscount=isMonthBlock||isHolidayBlock;
+  var noDiscount=isMonthBlock||isHolidayBlock||m===null;
   var discount=1,discLabel='';
   if(!noDiscount){
     if(days>=28){discount=0.8;discLabel='🎉 住滿四週・8折';}
@@ -1237,12 +1396,68 @@ function calcPrice(){
   box.classList.add('show');
 }
 
+function buildTimeSelect(sel){
+  sel.innerHTML='';
+  for(var h=11;h<=20;h++){
+    ['00','30'].forEach(function(m){
+      if(h===20&&m==='30')return;
+      var v=(h<10?'0':'')+h+':'+m;
+      var o=document.createElement('option');o.value=v;o.textContent=v;
+      sel.appendChild(o);
+    });
+  }
+}
+
 window.addEventListener('DOMContentLoaded',function(){
   buildTimeSelect(document.getElementById('fCheckinTime'));
   buildTimeSelect(document.getElementById('fCheckoutTime'));
   addBirdRow();
-  var td=new Date().toISOString().split('T')[0];
-  document.querySelectorAll('input[type="date"]').forEach(function(i){i.min=td;});
+
+  var today=new Date();
+  today.setHours(0,0,0,0);
+
+  var checkinInput=document.getElementById('fCheckin');
+  var checkoutInput=document.getElementById('fCheckout');
+
+  // Flatpickr for 入托日期
+  var fpCheckin=flatpickr(checkinInput,{
+    locale:'zh_tw',
+    dateFormat:'Y年m月d日',
+    minDate:'today',
+    disableMobile:true,
+    onChange:function(selectedDates,dateStr){
+      checkinInput._fpDate=selectedDates[0]||null;
+      // Update checkout min date to day after checkin
+      if(selectedDates[0]){
+        var minCheckout=new Date(selectedDates[0]);
+        minCheckout.setDate(minCheckout.getDate()+1);
+        fpCheckout.set('minDate',minCheckout);
+        // Clear checkout if it's now invalid
+        var coDate=checkoutInput._fpDate;
+        if(coDate&&coDate<=selectedDates[0]){
+          fpCheckout.clear();
+          checkoutInput._fpDate=null;
+        }
+      }
+      calcPrice();
+    }
+  });
+
+  // Flatpickr for 接回日期
+  var fpCheckout=flatpickr(checkoutInput,{
+    locale:'zh_tw',
+    dateFormat:'Y年m月d日',
+    minDate:new Date(today.getTime()+86400000),
+    disableMobile:true,
+    onChange:function(selectedDates){
+      checkoutInput._fpDate=selectedDates[0]||null;
+      calcPrice();
+    }
+  });
+
+  // Init _fpDate to null
+  checkinInput._fpDate=null;
+  checkoutInput._fpDate=null;
 });
 
 function submitForm(e){
