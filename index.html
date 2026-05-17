@@ -1217,10 +1217,22 @@ function calcPrice(){
     else dEl.textContent='';
   } else {dEl.textContent='';}
 
-  var summary=birds.map(function(b){return b.name.split(' (')[0]+' × '+b.count+'隻';}).join('、');
-  if(medChecked)summary+='　＋灌奶/塗藥/灌藥×'+medCount+'隻';
-  if(mealChecked)summary+='　＋3–4餐×'+mealCount+'隻';
-  summary+='　共 '+days+'天　合計 '+fmt(total);
+  // 鳥寶摘要：只顯示名字＋餵藥餵奶
+  var rows2=document.querySelectorAll('.bird-row');
+  var nameParts=[];
+  rows2.forEach(function(row){
+    var rid=row.id.replace('brow-','');
+    var sel=document.getElementById('bspec-'+rid);
+    var nameInput=row.querySelector('input[name="bird_name_'+rid+'"]');
+    var price=sel?parseInt(sel.value):0;
+    if(price>0){
+      var birdName=nameInput&&nameInput.value.trim()?nameInput.value.trim():'（未填名字）';
+      nameParts.push(birdName);
+    }
+  });
+  var summary=nameParts.join('、');
+  if(medChecked)summary+='　｜需灌奶/塗藥/灌藥';
+  if(mealChecked)summary+='　｜需3–4餐';
   document.getElementById('birdsSummary').value=summary;
   box.classList.add('show');
 }
