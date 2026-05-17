@@ -4,7 +4,7 @@
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 <title>鳳潤鳥宿｜鸚鵡寄宿・板橋</title>
-<meta name="description" content="鳳潤鳥宿，位於新北市板橋區，專業照顧各種鸚鵡，每日影片回傳，不用付訂金，接送時間11:00–20:00。"/>
+<meta name="description" content="鳳潤鳥宿，位於新北市板橋區中山路1段206巷4弄9號，專業照顧各種鸚鵡，不用付訂金，接送時間11:00–20:00。"/>
 <link rel="preconnect" href="https://fonts.googleapis.com"/>
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Noto+Serif+TC:wght@300;400;500;700&family=Zen+Maru+Gothic:wght@300;400;500&display=swap" rel="stylesheet"/>
 <style>
@@ -42,7 +42,7 @@ nav{
 }
 .nav-badge{
   font-size:0.75rem;font-weight:300;color:var(--gold-lt);
-  border:1px solid rgba(201,168,76,0.35);padding:3px 10px;border-radius:14px;
+  border:1px solid rgba(201,168,76,0.35);padding:3px 10px;border-radius:20px;
   letter-spacing:0.08em;font-family:'Zen Maru Gothic',sans-serif;
 }
 .nav-links{display:flex;gap:2rem;align-items:center;}
@@ -183,7 +183,7 @@ section{padding:6rem 2.5rem;position:relative;}
   display:flex;align-items:center;gap:12px;
   padding:12px 14px;cursor:pointer;
   background:rgba(8,16,11,0.45);border:1px solid rgba(201,168,76,0.1);
-  border-radius:18px;transition:border-color 0.25s,background 0.25s,box-shadow 0.25s;
+  border-radius:16px;transition:border-color 0.2s,background 0.2s;
 }
 .extra-item:hover{border-color:rgba(201,168,76,0.3);background:rgba(28,53,40,0.5);}
 .extra-item input[type="checkbox"]{
@@ -297,12 +297,7 @@ section{padding:6rem 2.5rem;position:relative;}
 }
 .btab-panel.active::before{
   content:'';display:block;height:1px;
-  background:linear-gradient(90deg,
-    transparent 0%,
-    rgba(201,168,76,0.3) 15%,
-    rgba(232,201,122,0.95) 50%,
-    rgba(201,168,76,0.3) 85%,
-    transparent 100%);
+  background:linear-gradient(90deg,transparent 0%,rgba(201,168,76,0.3) 15%,rgba(232,201,122,0.95) 50%,rgba(201,168,76,0.3) 85%,transparent 100%);
   margin-bottom:1.6rem;border-radius:2px;
   animation:lightSweep 0.7s ease-out 0.05s both;
   transform-origin:left center;
@@ -335,7 +330,7 @@ section{padding:6rem 2.5rem;position:relative;}
 }
 .disc-cell{
   background:rgba(12,22,15,0.85);padding:1.5rem 1rem;text-align:center;
-  border:1px solid rgba(201,168,76,0.12);border-radius:22px;
+  border:1px solid rgba(201,168,76,0.12);border-radius:20px;
   transition:background 0.2s,box-shadow 0.2s;
 }
 .disc-cell:hover{background:rgba(28,53,40,0.85);box-shadow:0 6px 20px rgba(201,168,76,0.08);}
@@ -347,7 +342,7 @@ section{padding:6rem 2.5rem;position:relative;}
 
 .price-warn{
   border-left:3px solid rgba(201,168,76,0.35);padding:1rem 1.5rem;
-  background:rgba(201,168,76,0.04);border-radius:0 18px 18px 0;font-size:0.82rem;color:var(--warm);line-height:2;font-weight:300;
+  background:rgba(201,168,76,0.04);border-radius:0 16px 16px 0;font-size:0.82rem;color:var(--warm);line-height:2;font-weight:300;
 }
 .price-warn strong{color:var(--gold-lt);display:block;margin-bottom:4px;font-weight:500;}
 
@@ -420,8 +415,8 @@ section{padding:6rem 2.5rem;position:relative;}
 
 .form-card{
   background:rgba(28,53,40,0.32);border:1px solid rgba(201,168,76,0.16);
-  border-radius:28px;padding:2.5rem;backdrop-filter:blur(12px);
-  box-shadow:0 8px 40px rgba(0,0,0,0.2);
+  border-radius:26px;padding:2.5rem;backdrop-filter:blur(12px);
+  box-shadow:0 8px 40px rgba(0,0,0,0.22);
 }
 .form-row{display:grid;grid-template-columns:1fr 1fr;gap:1rem;}
 .fg{display:flex;flex-direction:column;gap:5px;margin-bottom:1rem;}
@@ -453,14 +448,14 @@ section{padding:6rem 2.5rem;position:relative;}
 .bird-row .fg{margin-bottom:0;}
 .btn-remove-bird{
   background:rgba(160,50,50,0.12);border:1px solid rgba(160,50,50,0.28);
-  color:rgba(220,110,110,0.75);border-radius:14px;padding:8px 12px;
+  color:rgba(220,110,110,0.75);border-radius:12px;padding:8px 12px;
   cursor:pointer;font-size:0.85rem;align-self:end;transition:background 0.2s;white-space:nowrap;
 }
 .btn-remove-bird:hover{background:rgba(160,50,50,0.28);}
 .btn-add-bird{
   display:inline-flex;align-items:center;gap:8px;
   background:transparent;color:var(--sage);
-  border:1px dashed rgba(74,122,96,0.38);border-radius:14px;
+  border:1px dashed rgba(74,122,96,0.38);border-radius:22px;
   padding:10px 18px;font-size:0.78rem;letter-spacing:0.14em;
   cursor:pointer;margin-bottom:1.2rem;transition:all 0.2s;font-family:inherit;
 }
@@ -501,11 +496,11 @@ section{padding:6rem 2.5rem;position:relative;}
   gap:10px;margin-bottom:2.5rem;
 }
 .contact-card{
-  background:rgba(12,22,15,0.8);padding:2rem 1.5rem;text-align:center;
-  border:1px solid rgba(201,168,76,0.1);border-radius:24px;
+  background:rgba(12,22,15,0.82);padding:2rem 1.5rem;text-align:center;
+  border:1px solid rgba(201,168,76,0.1);border-radius:22px;
   transition:background 0.2s,box-shadow 0.2s,transform 0.2s;
 }
-.contact-card:hover{background:rgba(28,53,40,0.85);box-shadow:0 8px 28px rgba(201,168,76,0.08);transform:translateY(-2px);}
+.contact-card:hover{background:rgba(28,53,40,0.88);box-shadow:0 8px 28px rgba(201,168,76,0.08);transform:translateY(-2px);}
 .contact-card .ci{font-size:1.7rem;display:block;margin-bottom:0.8rem;opacity:0.75;}
 .contact-card h3{font-size:0.68rem;letter-spacing:0.22em;text-transform:uppercase;color:var(--gold);margin-bottom:0.6rem;font-weight:400;}
 .contact-card p,.contact-card a{font-size:0.87rem;color:var(--warm);text-decoration:none;display:block;line-height:1.8;font-weight:300;}
@@ -513,7 +508,7 @@ section{padding:6rem 2.5rem;position:relative;}
 
 .transport-box{
   background:rgba(28,53,40,0.28);border:1px solid rgba(201,168,76,0.1);
-  border-radius:24px;padding:2.2rem;display:grid;grid-template-columns:1fr 1fr;gap:2.5rem;
+  border-radius:22px;padding:2.2rem;display:grid;grid-template-columns:1fr 1fr;gap:2.5rem;
 }
 .transport-col h4{font-size:0.68rem;letter-spacing:0.22em;text-transform:uppercase;color:var(--gold);margin-bottom:1rem;font-weight:400;}
 .transport-item{display:flex;gap:12px;font-size:0.83rem;color:var(--warm);margin-bottom:0.8rem;line-height:1.7;font-weight:300;}
@@ -586,7 +581,7 @@ footer p{font-size:0.73rem;color:rgba(212,201,168,0.22);line-height:2.1;}
       <div class="hero-eyebrow">新北市板橋區・鸚鵡寄宿</div>
       <h1>出遊放心去，<br>寶貝住進<em>鳳潤</em></h1>
       <p class="hero-sub">鳳潤鳥宿 · Fonrun Bird Inn</p>
-      <p>我們把每一隻鸚鵡都當作自己的孩子。每日影片回傳、放風互動、專業照顧，讓您的羽毛寶貝每天都快樂健康。</p>
+      <p>我們把每一隻鸚鵡都當作自己的孩子。放風互動、每日鮮食補充、專業照顧，讓您的羽毛寶貝每天都快樂健康。</p>
       <div class="hero-btns">
         <a href="#booking" class="btn-primary">立即預約寄宿</a>
         <a href="https://line.me/R/ti/p/@399kyhwr" target="_blank" class="btn-outline">💬 LINE 詢問</a>
@@ -594,7 +589,7 @@ footer p{font-size:0.73rem;color:rgba(212,201,168,0.22);line-height:2.1;}
     </div>
     <div class="hero-art">
       <div class="medallion">🦜</div>
-      <div class="chip c1">📸 每日影片回傳</div>
+      <div class="chip c1">🥦 每日鮮食營養</div>
       <div class="chip c2">🏠 不需自備籠子</div>
       <div class="chip c3">💸 無須訂金</div>
     </div>
@@ -605,14 +600,14 @@ footer p{font-size:0.73rem;color:rgba(212,201,168,0.22);line-height:2.1;}
 <div class="marquee-wrap">
   <div class="marquee-track">
     <span class="mi">🦜 接受各種鸚鵡品種 <span class="md"></span></span>
-    <span class="mi">📸 每日影片回傳 <span class="md"></span></span>
+    
     <span class="mi">🕐 接送時間 11:00–20:00 <span class="md"></span></span>
     <span class="mi">💸 無須訂金・入住當日結清 <span class="md"></span></span>
     <span class="mi">📞 0901-221-586 <span class="md"></span></span>
     <span class="mi">LINE @399kyhwr <span class="md"></span></span>
     <span class="mi">鳳潤鳥宿 · Fonrun Bird Inn <span class="md"></span></span>
     <span class="mi">🦜 接受各種鸚鵡品種 <span class="md"></span></span>
-    <span class="mi">📸 每日影片回傳 <span class="md"></span></span>
+    
     <span class="mi">🕐 接送時間 11:00–20:00 <span class="md"></span></span>
     <span class="mi">💸 無須訂金・入住當日結清 <span class="md"></span></span>
     <span class="mi">📞 0901-221-586 <span class="md"></span></span>
@@ -656,7 +651,7 @@ footer p{font-size:0.73rem;color:rgba(212,201,168,0.22);line-height:2.1;}
     </div>
     <div class="price-warn">
       <strong>◈ 折扣不適用情況</strong>
-      1月、2月、7月、8月，以及國定連假（3日以上）、年節期間，均不適用長住折扣。折扣依行政院公布之行事曆為準。<br>
+      1月、2月、7月、8月，以及中華民國國定連假（3日以上），均不適用長住折扣。折扣依行政院公布之行事曆為準。<br>
       <span style="font-size:0.76rem;opacity:0.55;">費用自 115.06.01 起適用，鳳潤鳥宿保留隨時修改之權利，恕不另行通知。</span>
     </div>
   </div>
@@ -698,7 +693,7 @@ footer p{font-size:0.73rem;color:rgba(212,201,168,0.22);line-height:2.1;}
           <div class="bstep"><div class="bstep-n">1</div><div><h4>填寫預約表單</h4><p>填寫鸚鵡資訊與入托日期，我會收到通知。</p></div></div>
           <div class="bstep"><div class="bstep-n">2</div><div><h4>確認空位</h4><p>我在 24 小時內透過 LINE 回覆確認，不需訂金。</p></div></div>
           <div class="bstep"><div class="bstep-n">3</div><div><h4>入托當天（11:00–20:00）</h4><p>送來時當日現金或轉帳結清即可，籠子不需自備。</p></div></div>
-          <div class="bstep"><div class="bstep-n">4</div><div><h4>每日影片回報</h4><p>通常晚間 11 點左右傳送，讓您放心出遊！</p></div></div>
+          <div class="bstep"><div class="bstep-n">4</div><div><h4>放心出遊</h4><p>入托期間如有任何狀況，我們會第一時間透過 LINE 通知您。</p></div></div>
         </div>
         <div class="booking-note">
           <strong>◈ 入托提醒</strong>
@@ -721,7 +716,17 @@ footer p{font-size:0.73rem;color:rgba(212,201,168,0.22);line-height:2.1;}
                 <div class="fg"><label>飼主姓名 *</label><input type="text" name="name" required placeholder="您的大名"/></div>
                 <div class="fg"><label>聯絡電話 *</label><input type="tel" name="phone" required placeholder="請輸入聯絡電話"/></div>
               </div>
-              <div class="fg"><label>LINE ID *</label><input type="text" name="line" required placeholder="您的 LINE ID（主要聯絡方式）"/></div>
+              <div class="form-row">
+              <div class="fg">
+                <label>LINE 名稱 *</label>
+                <input type="text" name="line_name" required placeholder="您的 LINE 顯示名稱"/>
+                <span style="font-size:0.72rem;color:rgba(201,168,76,0.7);margin-top:4px;line-height:1.7;display:block;">請加入官方 LINE 為好友 <a href="https://line.me/R/ti/p/@399kyhwr" target="_blank" style="color:var(--gold-lt);text-decoration:underline;text-underline-offset:3px;">@399kyhwr</a>，便於聯繫</span>
+              </div>
+              <div class="fg">
+                <label>FB 名稱 *</label>
+                <input type="text" name="fb_name" required placeholder="您的 Facebook 名稱"/>
+              </div>
+            </div>
               <div class="form-row">
                 <div class="fg">
                   <label>入托日期 *</label>
@@ -865,8 +870,8 @@ footer p{font-size:0.73rem;color:rgba(212,201,168,0.22);line-height:2.1;}
         <div class="faq-a">會放風！是否單獨則依鳥兒個性而定：有適合一起玩的，會一起；有攻擊性的，則單獨。時間大致為 20 分鐘以上。</div>
       </div>
       <div class="faq-item">
-        <div class="faq-q" onclick="toggleFaq(this)"><span><span class="q-mark">Q</span>會回傳影片或照片嗎？</span><span class="faq-arrow">▼</span></div>
-        <div class="faq-a">儘量每日回傳影片，<strong style="color:var(--gold-lt)">通常為晚上 11 點左右</strong>回傳。</div>
+        <div class="faq-q" onclick="toggleFaq(this)"><span><span class="q-mark">Q</span>入托期間有問題如何聯繫？</span><span class="faq-arrow">▼</span></div>
+        <div class="faq-a">入托期間如有任何狀況，我們會第一時間透過 <strong style="color:var(--gold-lt)">LINE</strong> 通知您，也歡迎隨時傳訊詢問。</div>
       </div>
       <div class="faq-item">
         <div class="faq-q" onclick="toggleFaq(this)"><span><span class="q-mark">Q</span>需要自備籠子、飼料、玩具嗎？</span><span class="faq-arrow">▼</span></div>
@@ -913,8 +918,7 @@ footer p{font-size:0.73rem;color:rgba(212,201,168,0.22);line-height:2.1;}
       <div class="contact-card">
         <span class="ci">📍</span>
         <h3>地址</h3>
-        <p>新北市板橋區</p>
-        <p style="font-size:0.76rem;opacity:0.45;">(詳細地址確認後提供)</p>
+        <a href="https://maps.google.com/?q=新北市板橋區中山路1段206巷4弄9號" target="_blank" style="font-size:0.88rem;color:var(--gold-lt);">新北市板橋區<br>中山路1段206巷4弄9號</a>
       </div>
       <div class="contact-card">
         <span class="ci">🕐</span>
@@ -954,7 +958,7 @@ footer p{font-size:0.73rem;color:rgba(212,201,168,0.22);line-height:2.1;}
     <a href="#faq">常見問答</a>
     <a href="#contact">聯絡資訊</a>
   </div>
-  <p>© 2025 鳳潤鳥宿・新北市板橋區・費用自 115.06.01 起適用<br>鳳潤保留隨時修改、增加、刪除或終止服務之權利，恕不另行通知。</p>
+  <p>© 2025 鳳潤鳥宿・新北市板橋區中山路1段206巷4弄9號・費用自 115.06.01 起適用<br>鳳潤保留隨時修改、增加、刪除或終止服務之權利，恕不另行通知。</p>
 </footer>
 
 <script>
@@ -1139,8 +1143,28 @@ function calcPrice(){
   var grandBase=baseTotal+extraTotal;
 
   // 折扣（只對鳥類費用打折，附加費用不打折）
-  var m=new Date(document.getElementById('fCheckin').value).getMonth();
-  var noDiscount=(m===0||m===1||m===6||m===7);
+  var checkinVal=document.getElementById('fCheckin').value;
+  var checkoutVal=document.getElementById('fCheckout').value;
+  var m=new Date(checkinVal).getMonth();
+
+  // 中華民國國定連假（3天以上）不適用折扣
+  var HOLIDAYS=[
+    [0,1,1],[0,28,31],          // 元旦、除夕
+    [1,1,10],[1,27,28],         // 春節、228
+    [2,1,2],                    // 228連假
+    [3,1,6],                    // 兒童節/清明
+    [4,1,4],                    // 勞動節
+    [5,8,10],[5,28,30],         // 端午
+    [8,15,17],[8,28,30],        // 中秋
+    [9,1,3],[9,7,13],           // 國慶
+  ];
+  function inHoliday(dateStr){
+    if(!dateStr)return false;
+    var d=new Date(dateStr),mo=d.getMonth(),day=d.getDate();
+    for(var i=0;i<HOLIDAYS.length;i++){var h=HOLIDAYS[i];if(mo===h[0]&&day>=h[1]&&day<=h[2])return true;}
+    return false;
+  }
+  var noDiscount=(m===0||m===1||m===6||m===7)||inHoliday(checkinVal)||inHoliday(checkoutVal);
   var discount=1,discLabel='';
   if(!noDiscount){
     if(days>=28){discount=0.8;discLabel='🎉 住滿四週・8折';}
