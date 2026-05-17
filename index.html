@@ -1167,13 +1167,24 @@ function calcPrice(){
     [9,24,26],                  // 臺灣光復紀念日（10/24-10/26）
     [11,25,27],                 // 行憲紀念日（12/25-12/27）
   ];
-  function inHoliday(dateStr){
-    if(!dateStr)return false;
-    var d=new Date(dateStr),mo=d.getMonth(),day=d.getDate();
-    for(var i=0;i<HOLIDAYS.length;i++){var h=HOLIDAYS[i];if(mo===h[0]&&day>=h[1]&&day<=h[2])return true;}
+  // 檢查整個住宿期間（每一天）是否有任何一天落在連假內
+  function stayOverlapsHoliday(checkinStr,checkoutStr){
+    if(!checkinStr||!checkoutStr)return false;
+    var cur=new Date(checkinStr);
+    var end=new Date(checkoutStr);
+    while(cur<=end){
+      var mo=cur.getMonth(),day=cur.getDate();
+      for(var i=0;i<HOLIDAYS.length;i++){
+        var h=HOLIDAYS[i];
+        if(mo===h[0]&&day>=h[1]&&day<=h[2])return true;
+      }
+      cur.setDate(cur.getDate()+1);
+    }
     return false;
   }
-  var noDiscount=(m===0||m===1||m===6||m===7)||inHoliday(checkinVal)||inHoliday(checkoutVal);
+  var isHolidayBlock=stayOverlapsHoliday(checkinVal,checkoutVal);
+  var isMonthBlock=(m===0||m===1||m===6||m===7);
+  var noDiscount=isMonthBlock||isHolidayBlock;
   var discount=1,discLabel='';
   if(!noDiscount){
     if(days>=28){discount=0.8;discLabel='🎉 住滿四週・8折';}
@@ -1201,9 +1212,7 @@ function calcPrice(){
     msg+='　合計 '+fmt(total);
     dEl.textContent=msg;
   } else if(noDiscount&&days>=7){
-    var isHolidayBlock=inHoliday(checkinVal)||inHoliday(checkoutVal);
-    var isMonthBlock=(m===0||m===1||m===6||m===7);
-    if(isHolidayBlock) dEl.textContent='⚠ 遇連假不適用折扣';
+    if(isHolidayBlock) dEl.textContent='⚠ 遇國定連假不適用折扣';
     else if(isMonthBlock) dEl.textContent='⚠ 此月份不適用長住折扣';
     else dEl.textContent='';
   } else {dEl.textContent='';}
