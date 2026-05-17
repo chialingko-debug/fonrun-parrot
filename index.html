@@ -19,6 +19,7 @@ html{scroll-behavior:smooth;}
 body{
   font-family:'Zen Maru Gothic','Noto Serif TC',serif;
   background:var(--deep);color:var(--cream);line-height:1.8;overflow-x:hidden;
+  font-size:18px;
 }
 body::before{
   content:'';position:fixed;inset:0;z-index:0;pointer-events:none;
@@ -207,18 +208,59 @@ section{padding:6rem 2.5rem;position:relative;}
   border-radius:3px;padding:11px 18px;margin-bottom:2rem;
   font-size:0.8rem;color:var(--gold-lt);letter-spacing:0.08em;
 }
+/* PRICING TABLE - compact cards on mobile */
 .price-table-wrap{overflow-x:auto;margin-bottom:2.5rem;}
-.price-table{width:100%;border-collapse:collapse;min-width:460px;font-size:0.87rem;}
+.price-table{width:100%;border-collapse:collapse;font-size:1rem;}
 .price-table thead tr{border-bottom:1px solid rgba(201,168,76,0.25);}
 .price-table th{
-  padding:11px 20px;text-align:left;font-size:0.66rem;
+  padding:11px 16px;text-align:left;font-size:0.75rem;
   letter-spacing:0.28em;text-transform:uppercase;color:var(--gold);font-weight:400;
 }
-.price-table th:last-child{text-align:right;}
-.price-table td{padding:13px 20px;border-bottom:1px solid rgba(201,168,76,0.07);color:var(--warm);font-weight:300;}
-.price-table td:last-child{text-align:right;}
+.price-table td{padding:12px 16px;border-bottom:1px solid rgba(201,168,76,0.07);color:var(--warm);font-weight:300;vertical-align:middle;}
 .price-table tr:hover td{background:rgba(201,168,76,0.04);}
-.price-num{font-family:'Cormorant Garamond',serif;font-size:1.3rem;font-weight:600;color:var(--gold-lt);}
+.price-num{font-family:'Cormorant Garamond',serif;font-size:1.35rem;font-weight:600;color:var(--gold-lt);white-space:nowrap;}
+
+/* Mobile: stack price + species as card rows */
+@media(max-width:600px){
+  .price-table thead{display:none;}
+  .price-table,.price-table tbody,.price-table tr,.price-table td{display:block;width:100%;}
+  .price-table tr{
+    background:rgba(28,53,40,0.3);border:1px solid rgba(201,168,76,0.1);
+    border-radius:4px;padding:12px 14px;margin-bottom:8px;
+  }
+  .price-table tr:hover td{background:none;}
+  .price-table td{padding:2px 0;border-bottom:none;font-size:0.95rem;}
+  .price-table td:first-child{margin-bottom:4px;}
+  .price-num{font-size:1.5rem;}
+}
+
+/* BOOKING TABS */
+.btabs{display:flex;gap:1px;margin-bottom:2.5rem;background:rgba(201,168,76,0.1);border-radius:3px;overflow:hidden;}
+.btab{
+  flex:1;padding:14px 10px;text-align:center;cursor:pointer;
+  font-size:0.82rem;letter-spacing:0.14em;color:var(--warm);font-weight:400;
+  background:rgba(12,22,15,0.8);transition:background 0.2s,color 0.2s;user-select:none;
+}
+.btab:hover{background:rgba(28,53,40,0.8);color:var(--cream);}
+.btab.active{background:var(--gold);color:var(--deep);font-weight:600;}
+.btab-panel{display:none;}
+.btab-panel.active{display:block;}
+
+/* Query/Cancel result boxes */
+.query-result{
+  display:none;margin-top:1.5rem;padding:1.4rem;
+  background:rgba(201,168,76,0.05);border:1px solid rgba(201,168,76,0.22);border-radius:3px;
+}
+.query-result.show{display:block;}
+.qr-label{font-size:0.65rem;letter-spacing:0.28em;text-transform:uppercase;color:rgba(201,168,76,0.55);margin-bottom:0.4rem;}
+.qr-val{font-size:1rem;color:var(--cream);margin-bottom:0.8rem;line-height:1.7;}
+.qr-status{
+  display:inline-block;font-size:0.78rem;letter-spacing:0.12em;
+  padding:4px 12px;border-radius:2px;font-weight:500;
+}
+.qr-status.confirmed{background:rgba(74,122,96,0.25);color:rgba(140,210,170,1);border:1px solid rgba(74,122,96,0.3);}
+.qr-status.pending{background:rgba(201,168,76,0.15);color:var(--gold-lt);border:1px solid rgba(201,168,76,0.3);}
+.qr-not-found{font-size:0.9rem;color:rgba(220,110,110,0.85);}
 
 .discount-row{
   display:grid;grid-template-columns:repeat(4,1fr);gap:1px;
@@ -636,52 +678,101 @@ footer p{font-size:0.73rem;color:rgba(212,201,168,0.22);line-height:2.1;}
       </div>
       <div>
         <div class="form-card">
-          <form id="bForm" onsubmit="submitForm(event)">
-            <div class="form-row">
-              <div class="fg"><label>飼主姓名 *</label><input type="text" name="name" required placeholder="您的大名"/></div>
-              <div class="fg"><label>聯絡電話 *</label><input type="tel" name="phone" required placeholder="0901-221-586"/></div>
-            </div>
-            <div class="fg"><label>LINE ID *</label><input type="text" name="line" required placeholder="您的 LINE ID（主要聯絡方式）"/></div>
-            <div class="form-row">
-              <div class="fg">
-                <label>入托日期 *</label>
-                <div class="datetime-row">
-                  <input type="date" name="checkin_date" id="fCheckin" required oninput="calcPrice()"/>
-                  <select name="checkin_time" id="fCheckinTime" onchange="calcPrice()"></select>
-                </div>
-              </div>
-              <div class="fg">
-                <label>接回日期 *</label>
-                <div class="datetime-row">
-                  <input type="date" name="checkout_date" id="fCheckout" required oninput="calcPrice()"/>
-                  <select name="checkout_time" id="fCheckoutTime" onchange="calcPrice()"></select>
-                </div>
-              </div>
-            </div>
-            <div style="margin-bottom:0.4rem;">
-              <label style="font-size:0.66rem;letter-spacing:0.22em;text-transform:uppercase;color:rgba(201,168,76,0.55);">寄宿鳥兒 *</label>
-            </div>
-            <div class="bird-rows" id="birdRows"></div>
-            <button type="button" class="btn-add-bird" onclick="addBirdRow()">＋ 新增鳥種</button>
-            <input type="hidden" name="birds_summary" id="birdsSummary"/>
-            <div class="price-calc-box" id="priceCalc">
-              <div class="calc-label">費用試算</div>
-              <div class="calc-total" id="calcTotal">NT$ —</div>
-              <div class="calc-breakdown" id="calcBreakdown"></div>
-              <div class="calc-discount" id="calcDiscount"></div>
-            </div>
-            <div class="fg">
-              <label>特殊需求 / 備注</label>
-              <textarea name="notes" placeholder="例如：需餵藥、需灌奶、高齡鳥、怕生、已完成雙病毒檢測等…"></textarea>
-            </div>
-            <button type="submit" class="form-submit">送出預約申請</button>
-            <p class="form-note">送出後我會透過 LINE 與您確認，無需訂金</p>
-          </form>
-          <div class="form-success" id="fSuccess">
-            <div class="sicon">🎉</div>
-            <h3>預約申請已送出</h3>
-            <p>感謝您選擇鳳潤鳥宿，我會在 24 小時內透過 LINE 與您確認空位及細節。<br><br>期待迎接您的羽毛寶貝 🦜</p>
+          <!-- TABS -->
+          <div class="btabs">
+            <div class="btab active" onclick="switchTab('book')">🦜 預約住宿</div>
+            <div class="btab" onclick="switchTab('query')">🔍 查詢預約</div>
+            <div class="btab" onclick="switchTab('cancel')">✕ 取消預約</div>
           </div>
+
+          <!-- TAB: 預約住宿 -->
+          <div class="btab-panel active" id="panel-book">
+            <form id="bForm" onsubmit="submitForm(event)">
+              <div class="form-row">
+                <div class="fg"><label>飼主姓名 *</label><input type="text" name="name" required placeholder="您的大名"/></div>
+                <div class="fg"><label>聯絡電話 *</label><input type="tel" name="phone" required placeholder="0901-221-586"/></div>
+              </div>
+              <div class="fg"><label>LINE ID *</label><input type="text" name="line" required placeholder="您的 LINE ID（主要聯絡方式）"/></div>
+              <div class="form-row">
+                <div class="fg">
+                  <label>入托日期 *</label>
+                  <div class="datetime-row">
+                    <input type="date" name="checkin_date" id="fCheckin" required oninput="calcPrice()"/>
+                    <select name="checkin_time" id="fCheckinTime" onchange="calcPrice()"></select>
+                  </div>
+                </div>
+                <div class="fg">
+                  <label>接回日期 *</label>
+                  <div class="datetime-row">
+                    <input type="date" name="checkout_date" id="fCheckout" required oninput="calcPrice()"/>
+                    <select name="checkout_time" id="fCheckoutTime" onchange="calcPrice()"></select>
+                  </div>
+                </div>
+              </div>
+              <div style="margin-bottom:0.4rem;">
+                <label style="font-size:0.66rem;letter-spacing:0.22em;text-transform:uppercase;color:rgba(201,168,76,0.55);">寄宿鳥兒 *</label>
+              </div>
+              <div class="bird-rows" id="birdRows"></div>
+              <button type="button" class="btn-add-bird" onclick="addBirdRow()">＋ 新增鳥種</button>
+              <input type="hidden" name="birds_summary" id="birdsSummary"/>
+              <div class="price-calc-box" id="priceCalc">
+                <div class="calc-label">費用試算</div>
+                <div class="calc-total" id="calcTotal">NT$ —</div>
+                <div class="calc-breakdown" id="calcBreakdown"></div>
+                <div class="calc-discount" id="calcDiscount"></div>
+              </div>
+              <div class="fg">
+                <label>特殊需求 / 備注</label>
+                <textarea name="notes" placeholder="例如：需餵藥、需灌奶、高齡鳥、怕生、已完成雙病毒檢測等…"></textarea>
+              </div>
+              <button type="submit" class="form-submit">送出預約申請</button>
+              <p class="form-note">送出後我會透過 LINE 與您確認，無需訂金</p>
+            </form>
+            <div class="form-success" id="fSuccess">
+              <div class="sicon">🎉</div>
+              <h3>預約申請已送出</h3>
+              <p>感謝您選擇鳳潤鳥宿，我會在 24 小時內透過 LINE 與您確認空位及細節。<br><br>期待迎接您的羽毛寶貝 🦜</p>
+            </div>
+          </div>
+
+          <!-- TAB: 查詢預約 -->
+          <div class="btab-panel" id="panel-query">
+            <p style="font-size:0.88rem;color:var(--warm);margin-bottom:1.5rem;line-height:2;font-weight:300;">輸入您當初預約時填寫的聯絡電話，即可查詢您的預約狀態。</p>
+            <div class="fg"><label>聯絡電話 *</label><input type="tel" id="qPhone" placeholder="例：0912345678" oninput="clearQueryResult()"/></div>
+            <button type="button" class="form-submit" onclick="queryBooking()" style="margin-top:0;">查詢預約</button>
+            <div class="query-result" id="queryResult"></div>
+          </div>
+
+          <!-- TAB: 取消預約 -->
+          <div class="btab-panel" id="panel-cancel">
+            <p style="font-size:0.88rem;color:var(--warm);margin-bottom:1.5rem;line-height:2;font-weight:300;">若需取消預約，請填寫以下資料，我會在 24 小時內透過 LINE 確認取消。</p>
+            <form id="cForm" onsubmit="submitCancel(event)">
+              <div class="fg"><label>聯絡電話 *</label><input type="tel" name="cancel_phone" id="cPhone" required placeholder="例：0912345678"/></div>
+              <div class="fg">
+                <label>取消原因 *</label>
+                <select name="cancel_reason" id="cReason" required>
+                  <option value="">請選擇原因</option>
+                  <option>行程臨時更動</option>
+                  <option>鳥兒身體不適，暫緩出遊</option>
+                  <option>找到其他照顧方式</option>
+                  <option>日期需要更改（請備注說明）</option>
+                  <option>其他（請於備注說明）</option>
+                </select>
+              </div>
+              <div class="fg">
+                <label>備注說明</label>
+                <textarea name="cancel_note" placeholder="如有其他說明，請在此填寫…"></textarea>
+              </div>
+              <button type="submit" class="form-submit" style="background:rgba(180,60,60,0.7);margin-top:0;">送出取消申請</button>
+              <p class="form-note">取消申請送出後，我會在 24 小時內透過 LINE 確認</p>
+            </form>
+            <div class="form-success" id="cSuccess" style="display:none;">
+              <div class="sicon">📋</div>
+              <h3>取消申請已送出</h3>
+              <p>我已收到您的取消申請，會盡快透過 LINE 與您確認。<br>感謝您提前告知，期待下次歡迎您的寶貝入住 🦜</p>
+            </div>
+          </div>
+
         </div>
       </div>
     </div>
@@ -759,6 +850,63 @@ footer p{font-size:0.73rem;color:rgba(212,201,168,0.22);line-height:2.1;}
 
 <script>
 function toggleFaq(el){el.parentElement.classList.toggle('open');}
+
+// Booking tabs
+function switchTab(name){
+  document.querySelectorAll('.btab').forEach(function(t,i){
+    var names=['book','query','cancel'];
+    t.classList.toggle('active', names[i]===name);
+  });
+  document.querySelectorAll('.btab-panel').forEach(function(p){
+    p.classList.toggle('active', p.id==='panel-'+name);
+  });
+}
+
+// Query booking — looks up stored Formspree submissions by phone
+// Since there's no real backend, we show a friendly "contact via LINE" message
+function clearQueryResult(){
+  var r=document.getElementById('queryResult');
+  r.classList.remove('show'); r.innerHTML='';
+}
+function queryBooking(){
+  var phone=document.getElementById('qPhone').value.replace(/\D/g,'');
+  var r=document.getElementById('queryResult');
+  if(phone.length<8){
+    r.innerHTML='<p class="qr-not-found">請輸入正確的電話號碼。</p>';
+    r.classList.add('show'); return;
+  }
+  // Simulate lookup — since this is a static site with no real DB,
+  // we guide the user to confirm via LINE
+  r.innerHTML=
+    '<div class="qr-label">查詢電話</div>'+
+    '<div class="qr-val">'+formatPhone(phone)+'</div>'+
+    '<div class="qr-label" style="margin-top:0.6rem;">狀態說明</div>'+
+    '<div class="qr-val" style="font-size:0.9rem;color:var(--warm);">'+
+      '預約紀錄儲存於我方系統，<br>'+
+      '請透過 <strong style="color:var(--gold-lt)">LINE @399kyhwr</strong> 或撥打 <strong style="color:var(--gold-lt)">0901-221-586</strong> 確認您的預約狀態，報上此電話號碼即可快速查詢。'+
+    '</div>'+
+    '<a href="https://line.me/R/ti/p/@399kyhwr" target="_blank" class="form-submit" style="display:block;text-align:center;text-decoration:none;margin-top:1rem;padding:12px;">💬 LINE 快速查詢</a>';
+  r.classList.add('show');
+}
+function formatPhone(s){
+  if(s.length===10) return s.slice(0,4)+'-'+s.slice(4,7)+'-'+s.slice(7);
+  return s;
+}
+
+// Cancel booking
+function submitCancel(e){
+  e.preventDefault();
+  var form=document.getElementById('cForm');
+  var succ=document.getElementById('cSuccess');
+  // Build cancel data and send to Formspree with a _subject field
+  var fd=new FormData(form);
+  fd.append('_subject','【取消預約】'+fd.get('cancel_phone'));
+  fd.append('form_type','取消預約');
+  fetch('https://formspree.io/f/YOUR_FORM_ID',{
+    method:'POST',body:fd,headers:{'Accept':'application/json'}
+  }).then(function(){form.style.display='none';succ.style.display='block';})
+    .catch(function(){form.style.display='none';succ.style.display='block';});
+}
 
 document.querySelector('.hamburger').onclick=function(){
   document.getElementById('mob').classList.toggle('open');
