@@ -1568,6 +1568,28 @@ window.addEventListener('DOMContentLoaded',function(){
 
 function submitForm(e){
   e.preventDefault();
+
+  // 送出前強制重新收集鳥寶名字，確保名字欄有填到
+  var rows=document.querySelectorAll('.bird-row');
+  var nameParts=[];
+  rows.forEach(function(row){
+    var rid=row.id.replace('brow-','');
+    var sel=document.getElementById('bspec-'+rid);
+    var nameInput=row.querySelector('input[name="bird_name_'+rid+'"]');
+    var price=sel?parseInt(sel.value):0;
+    if(price>0){
+      var birdName=nameInput&&nameInput.value.trim()?nameInput.value.trim():'（未填名字）';
+      var species=sel.options[sel.selectedIndex]?sel.options[sel.selectedIndex].text:'';
+      nameParts.push(birdName+'（'+species+'）');
+    }
+  });
+  var medChecked=document.getElementById('extraMed').checked;
+  var mealChecked=document.getElementById('extraMeal').checked;
+  var summary=nameParts.join('、');
+  if(medChecked)summary+='　｜需灌奶/塗藥/灌藥';
+  if(mealChecked)summary+='　｜需3–4餐';
+  document.getElementById('birdsSummary').value=summary;
+
   var form=document.getElementById('bForm');
   var succ=document.getElementById('fSuccess');
   fetch('https://formspree.io/f/mredzrzd',{
