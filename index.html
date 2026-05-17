@@ -1194,7 +1194,11 @@ function calcPrice(){
     msg+='　合計 '+fmt(total);
     dEl.textContent=msg;
   } else if(noDiscount&&days>=7){
-    dEl.textContent='⚠ 此月份不適用長住折扣';
+    var isHolidayBlock=inHoliday(checkinVal)||inHoliday(checkoutVal);
+    var isMonthBlock=(m===0||m===1||m===6||m===7);
+    if(isHolidayBlock) dEl.textContent='⚠ 遇連假不適用折扣';
+    else if(isMonthBlock) dEl.textContent='⚠ 此月份不適用長住折扣';
+    else dEl.textContent='';
   } else {dEl.textContent='';}
 
   var summary=birds.map(function(b){return b.name.split(' (')[0]+' × '+b.count+'隻';}).join('、');
