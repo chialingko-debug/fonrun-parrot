@@ -820,31 +820,14 @@ footer p{font-size:0.73rem;color:rgba(212,201,168,0.22);line-height:2.1;}
 
           <!-- TAB: 取消預約 -->
           <div class="btab-panel" id="panel-cancel">
-            <p style="font-size:0.88rem;color:var(--warm);margin-bottom:1.5rem;line-height:2;font-weight:300;">若需取消預約，請填寫以下資料，我會在 24 小時內透過 LINE 確認取消。</p>
-            <form id="cForm" onsubmit="submitCancel(event)">
-              <div class="fg"><label>聯絡電話 *</label><input type="tel" name="cancel_phone" id="cPhone" required placeholder="例：0912345678"/></div>
-              <div class="fg">
-                <label>取消原因 *</label>
-                <select name="cancel_reason" id="cReason" required>
-                  <option value="">請選擇原因</option>
-                  <option>行程臨時更動</option>
-                  <option>鳥兒身體不適，暫緩出遊</option>
-                  <option>找到其他照顧方式</option>
-                  <option>日期需要更改（請備注說明）</option>
-                  <option>其他（請於備注說明）</option>
-                </select>
-              </div>
-              <div class="fg">
-                <label>備注說明</label>
-                <textarea name="cancel_note" placeholder="如有其他說明，請在此填寫…"></textarea>
-              </div>
-              <button type="submit" class="form-submit" style="background:rgba(180,60,60,0.7);margin-top:0;">送出取消申請</button>
-              <p class="form-note">取消申請送出後，我會在 24 小時內透過 LINE 確認</p>
-            </form>
+            <p style="font-size:0.88rem;color:var(--warm);margin-bottom:1.5rem;line-height:2;font-weight:300;">輸入電話查詢後，選擇要取消的預約。</p>
+            <div class="fg"><label>聯絡電話 *</label><input type="tel" id="cPhone" placeholder="例：0912345678"/></div>
+            <button type="button" class="form-submit" style="margin-bottom:1rem;" onclick="searchCancel()">查詢我的預約</button>
+            <div id="cancelList"></div>
             <div class="form-success" id="cSuccess" style="display:none;">
               <div class="sicon">📋</div>
               <h3>取消申請已送出</h3>
-              <p>我已收到您的取消申請，會盡快透過 LINE 與您確認。<br>感謝您提前告知，期待下次歡迎您的寶貝入住 🦜</p>
+              <p>已為您標記取消，期待下次歡迎您的寶貝入住 🦜</p>
             </div>
           </div>
 
@@ -993,39 +976,85 @@ function queryBooking(){
   var r=document.getElementById('queryResult');
   if(phone.length<8){
     r.innerHTML='<p class="qr-not-found">請輸入正確的電話號碼。</p>';
-    r.classList.add('show'); return;
+    r.classList.add('show');return;
   }
-  // Simulate lookup — since this is a static site with no real DB,
-  // we guide the user to confirm via LINE
-  r.innerHTML=
-    '<div class="qr-label">查詢電話</div>'+
-    '<div class="qr-val">'+formatPhone(phone)+'</div>'+
-    '<div class="qr-label" style="margin-top:0.6rem;">狀態說明</div>'+
-    '<div class="qr-val" style="font-size:0.9rem;color:var(--warm);">'+
-      '預約紀錄儲存於我方系統，<br>'+
-      '請透過 <strong style="color:var(--gold-lt)">LINE @399kyhwr</strong> 或撥打 <strong style="color:var(--gold-lt)">0901-221-586</strong> 確認您的預約狀態，報上此電話號碼即可快速查詢。'+
-    '</div>'+
-    '<a href="https://line.me/R/ti/p/@399kyhwr" target="_blank" class="form-submit" style="display:block;text-align:center;text-decoration:none;margin-top:1rem;padding:12px;">💬 LINE 快速查詢</a>';
+  r.innerHTML='<p style="color:var(--warm);font-size:0.88rem;">查詢中⋯</p>';
   r.classList.add('show');
+  var API='https://script.google.com/macros/s/AKfycbyluJRRnrA9U1lASQ_h2IUwDQWH6CDrCznH2Db8EwDr8TbGTm0GxwxZRuVAPOS0MHU/exec';
+  fetch(API+'?action=query&phone='+phone)
+    .then(function(res){return res.json();})
+    .then(function(list){
+      if(!list||list.length===0){
+        r.innerHTML='<p class="qr-not-found">查無此電話的預約紀錄，請確認電話號碼是否正確。</p>';
+        return;
+      }
+      var html='';
+      list.forEach(function(b){
+        var statusClass=b.status==='已取消'?'pending':'confirmed';
+        html+=
+          '<div style="border-bottom:1px solid rgba(201,168,76,0.1);padding:1rem 0;">'+
+          '<div class="qr-label">飼主</div><div class="qr-val">'+b.name+'</div>'+
+          '<div class="qr-label">入宿</div><div class="qr-val">'+b.checkin+' '+b.cinTime+'</div>'+
+          '<div class="qr-label">離宿</div><div class="qr-val">'+b.checkout+' '+b.coutTime+'</div>'+
+          '<div class="qr-label">鳥兒</div><div class="qr-val">'+b.birds+'</div>'+
+          (b.fee?'<div class="qr-label">費用</div><div class="qr-val">'+b.fee+'</div>':'')+
+          '<div style="margin-top:0.5rem;"><span class="qr-status '+statusClass+'">'+b.status+'</span></div>'+
+          '</div>';
+      });
+      r.innerHTML=html;
+    })
+    .catch(function(){
+      r.innerHTML='<p class="qr-not-found">查詢失敗，請稍後再試。</p>';
+    });
 }
 function formatPhone(s){
   if(s.length===10) return s.slice(0,4)+'-'+s.slice(4,7)+'-'+s.slice(7);
   return s;
 }
 
-// Cancel booking
-function submitCancel(e){
-  e.preventDefault();
-  var form=document.getElementById('cForm');
-  var succ=document.getElementById('cSuccess');
-  // Build cancel data and send to Formspree with a _subject field
-  var fd=new FormData(form);
-  fd.append('_subject','【取消預約】'+fd.get('cancel_phone'));
-  fd.append('form_type','取消預約');
-  fetch('https://formspree.io/f/mredzrzd',{
-    method:'POST',body:fd,headers:{'Accept':'application/json'}
-  }).then(function(){form.style.display='none';succ.style.display='block';})
-    .catch(function(){form.style.display='none';succ.style.display='block';});
+var API='https://script.google.com/macros/s/AKfycbyluJRRnrA9U1lASQ_h2IUwDQWH6CDrCznH2Db8EwDr8TbGTm0GxwxZRuVAPOS0MHU/exec';
+
+function searchCancel(){
+  var phone=document.getElementById('cPhone').value.replace(/\D/g,'');
+  var cl=document.getElementById('cancelList');
+  if(phone.length<8){cl.innerHTML='<p class="qr-not-found">請輸入正確的電話號碼。</p>';return;}
+  cl.innerHTML='<p style="color:var(--warm);font-size:0.88rem;">查詢中⋯</p>';
+  fetch(API+'?action=query&phone='+phone)
+    .then(function(res){return res.json();})
+    .then(function(list){
+      if(!list||list.length===0){
+        cl.innerHTML='<p class="qr-not-found">查無預約紀錄。</p>';return;
+      }
+      var html='';
+      list.forEach(function(b){
+        if(b.status==='已取消')return;
+        html+=
+          '<div style="background:rgba(201,168,76,0.05);border:1px solid rgba(201,168,76,0.18);border-radius:16px;padding:1rem;margin-bottom:0.8rem;">'+
+          '<div style="font-size:0.85rem;color:var(--warm);margin-bottom:0.6rem;">'+
+          '入宿：'+b.checkin+'　離宿：'+b.checkout+'<br>鳥兒：'+b.birds+
+          '</div>'+
+          '<button onclick="doCancel(\''+phone+'\',\''+b.checkin+'\')" '+
+          'style="background:rgba(180,60,60,0.75);border:none;color:#fff;padding:8px 20px;border-radius:20px;cursor:pointer;font-size:0.82rem;letter-spacing:0.1em;">'+
+          '取消這筆預約</button></div>';
+      });
+      cl.innerHTML=html||'<p style="color:var(--warm);font-size:0.88rem;">目前沒有可取消的預約。</p>';
+    })
+    .catch(function(){cl.innerHTML='<p class="qr-not-found">查詢失敗，請稍後再試。</p>';});
+}
+
+function doCancel(phone,checkin){
+  if(!confirm('確定要取消 '+checkin+' 的預約嗎？'))return;
+  fetch(API+'?action=cancel&phone='+phone+'&id='+checkin)
+    .then(function(res){return res.json();})
+    .then(function(r){
+      if(r[0]&&r[0].ok){
+        document.getElementById('cancelList').innerHTML='';
+        document.getElementById('cSuccess').style.display='block';
+      } else {
+        alert('取消失敗，請透過 LINE 聯絡我們。');
+      }
+    })
+    .catch(function(){alert('取消失敗，請透過 LINE 聯絡我們。');});
 }
 
 document.querySelector('.hamburger').onclick=function(){
