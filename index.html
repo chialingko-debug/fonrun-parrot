@@ -178,6 +178,23 @@ section{padding:6rem 2.5rem;position:relative;}
 .sec{max-width:1060px;margin:0 auto;}
 .sec-alt{background:linear-gradient(180deg,rgba(28,53,40,0.22) 0%,rgba(14,26,18,0.1) 100%);}
 .sec-dark{background:rgba(8,15,10,0.35);}
+.extra-checks{display:flex;flex-direction:column;gap:8px;margin-bottom:1rem;}
+.extra-item{
+  display:flex;align-items:center;gap:12px;
+  padding:12px 14px;cursor:pointer;
+  background:rgba(8,16,11,0.45);border:1px solid rgba(201,168,76,0.1);
+  border-radius:3px;transition:border-color 0.2s,background 0.2s;
+}
+.extra-item:hover{border-color:rgba(201,168,76,0.3);background:rgba(28,53,40,0.5);}
+.extra-item input[type="checkbox"]{
+  width:18px;height:18px;flex-shrink:0;accent-color:var(--gold);cursor:pointer;
+}
+.extra-item input[type="checkbox"]:checked+.extra-box{opacity:1;}
+.extra-box{display:flex;flex-direction:column;gap:2px;opacity:0.7;transition:opacity 0.2s;}
+.extra-item input[type="checkbox"]:checked~.extra-box,.extra-item:hover .extra-box{opacity:1;}
+.extra-price{font-family:'Cormorant Garamond',serif;font-size:1.1rem;font-weight:600;color:var(--gold-lt);line-height:1.2;}
+.extra-desc{font-size:0.8rem;color:var(--warm);font-weight:300;}
+
 .agree-row{
   display:flex;align-items:flex-start;gap:12px;
   margin:0.8rem 0 1.2rem;padding:1rem 1.2rem;
@@ -725,6 +742,28 @@ footer p{font-size:0.73rem;color:rgba(212,201,168,0.22);line-height:2.1;}
               <div class="bird-rows" id="birdRows"></div>
               <button type="button" class="btn-add-bird" onclick="addBirdRow()">＋ 新增鳥種</button>
               <input type="hidden" name="birds_summary" id="birdsSummary"/>
+
+              <!-- 附加費用 -->
+              <div style="margin-bottom:0.5rem;margin-top:0.3rem;">
+                <label style="font-size:0.66rem;letter-spacing:0.22em;text-transform:uppercase;color:rgba(201,168,76,0.55);">附加服務（選填）</label>
+              </div>
+              <div class="extra-checks">
+                <label class="extra-item">
+                  <input type="checkbox" name="extra_med" id="extraMed" onchange="calcPrice()"/>
+                  <span class="extra-box">
+                    <span class="extra-price">+NT$100 / 天</span>
+                    <span class="extra-desc">灌奶 / 塗藥 / 灌藥（每日）</span>
+                  </span>
+                </label>
+                <label class="extra-item">
+                  <input type="checkbox" name="extra_meal" id="extraMeal" onchange="calcPrice()"/>
+                  <span class="extra-box">
+                    <span class="extra-price">+NT$200 / 天</span>
+                    <span class="extra-desc">3–4 餐者（每日）</span>
+                  </span>
+                </label>
+              </div>
+
               <div class="price-calc-box" id="priceCalc">
                 <div class="calc-label">費用試算</div>
                 <div class="calc-total" id="calcTotal">NT$ —</div>
@@ -994,8 +1033,8 @@ function getDays(){
   var d2=document.getElementById('fCheckout').value;
   if(!d1||!d2)return 0;
   var diff=Math.round((new Date(d2)-new Date(d1))/86400000);
-  // 同天入住同天接回也算 1 天
-  return diff>=0?Math.max(diff,1):0;
+  // 含頭含尾：5/17–5/23 = 7天（diff=6，+1）
+  return diff>=0?diff+1:0;
 }
 
 function calcPrice(){
@@ -1013,6 +1052,9 @@ function calcPrice(){
   });
   if(days<=0||birds.length===0){box.classList.remove('show');return;}
 
+  // 計算鳥類總隻數（給附加費用用）
+  var totalBirds=birds.reduce(function(s,b){return s+b.count;},0);
+
   var baseTotal=0,breakdown=[];
   var fmt=function(n){return 'NT$ '+n.toLocaleString();};
   birds.forEach(function(b){
@@ -1021,6 +1063,24 @@ function calcPrice(){
     breakdown.push(b.name.split(' (')[0]+'　'+b.price+'元 × '+b.count+'隻 × '+days+'天 ＝ '+fmt(sub));
   });
 
+  // 附加費用
+  var extraTotal=0;
+  var medChecked=document.getElementById('extraMed').checked;
+  var mealChecked=document.getElementById('extraMeal').checked;
+  if(medChecked){
+    var medAmt=100*totalBirds*days;
+    extraTotal+=medAmt;
+    breakdown.push('灌奶/塗藥/灌藥　100元 × '+totalBirds+'隻 × '+days+'天 ＝ '+fmt(medAmt));
+  }
+  if(mealChecked){
+    var mealAmt=200*totalBirds*days;
+    extraTotal+=mealAmt;
+    breakdown.push('3–4餐　200元 × '+totalBirds+'隻 × '+days+'天 ＝ '+fmt(mealAmt));
+  }
+
+  var grandBase=baseTotal+extraTotal;
+
+  // 折扣（只對鳥類費用打折，附加費用不打折）
   var m=new Date(document.getElementById('fCheckin').value).getMonth();
   var noDiscount=(m===0||m===1||m===6||m===7);
   var discount=1,discLabel='';
@@ -1030,24 +1090,32 @@ function calcPrice(){
     else if(days>=14){discount=0.9;discLabel='🎉 住滿二週・9折';}
     else if(days>=7){discount=0.95;discLabel='🎉 住滿一週・95折';}
   }
-  var total=Math.round(baseTotal*discount);
+  var discountedBird=Math.round(baseTotal*discount);
+  var total=discountedBird+extraTotal;
 
   document.getElementById('calcTotal').textContent=fmt(total);
   var bd=document.getElementById('calcBreakdown');
   bd.innerHTML='';
   breakdown.forEach(function(line){var d=document.createElement('div');d.textContent=line;bd.appendChild(d);});
-  if(birds.length>1){
+  if(breakdown.length>1){
     var t=document.createElement('div');
     t.style.cssText='font-weight:500;color:var(--cream);margin-top:6px;padding-top:6px;border-top:1px dashed rgba(201,168,76,0.18);';
-    t.textContent='小計（折前）＝ '+fmt(baseTotal);
+    t.textContent='小計（折前）＝ '+fmt(grandBase);
     bd.appendChild(t);
   }
   var dEl=document.getElementById('calcDiscount');
-  if(discLabel)dEl.textContent=discLabel+'　折後合計 '+fmt(total);
-  else if(noDiscount&&days>=7)dEl.textContent='⚠ 此月份不適用長住折扣';
-  else dEl.textContent='';
+  if(discLabel){
+    var msg=discLabel+'（鳥類費用折後 '+fmt(discountedBird)+'）';
+    if(extraTotal>0)msg+='　附加費用 '+fmt(extraTotal);
+    msg+='　合計 '+fmt(total);
+    dEl.textContent=msg;
+  } else if(noDiscount&&days>=7){
+    dEl.textContent='⚠ 此月份不適用長住折扣';
+  } else {dEl.textContent='';}
 
   var summary=birds.map(function(b){return b.name.split(' (')[0]+' × '+b.count+'隻';}).join('、');
+  if(medChecked)summary+='　＋灌奶/塗藥/灌藥';
+  if(mealChecked)summary+='　＋3–4餐';
   summary+='　共 '+days+'天　合計 '+fmt(total);
   document.getElementById('birdsSummary').value=summary;
   box.classList.add('show');
