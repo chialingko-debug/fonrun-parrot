@@ -189,6 +189,18 @@ section{padding:6rem 2.5rem;position:relative;}
 .extra-item input[type="checkbox"]{
   width:18px;height:18px;flex-shrink:0;accent-color:var(--gold);cursor:pointer;
 }
+.extra-count-wrap{
+  display:flex;align-items:center;gap:6px;margin-left:auto;flex-shrink:0;
+}
+.extra-count-label{font-size:0.72rem;color:rgba(201,168,76,0.55);letter-spacing:0.1em;}
+.extra-count-input{
+  width:56px;padding:5px 8px;background:rgba(8,16,11,0.65);
+  border:1px solid rgba(201,168,76,0.2);border-radius:2px;
+  font-family:'Zen Maru Gothic',sans-serif;font-size:0.9rem;
+  color:var(--cream);text-align:center;outline:none;
+  transition:border-color 0.2s;
+}
+.extra-count-input:focus{border-color:rgba(201,168,76,0.5);}
 .extra-item input[type="checkbox"]:checked+.extra-box{opacity:1;}
 .extra-box{display:flex;flex-direction:column;gap:2px;opacity:0.7;transition:opacity 0.2s;}
 .extra-item input[type="checkbox"]:checked~.extra-box,.extra-item:hover .extra-box{opacity:1;}
@@ -709,12 +721,20 @@ footer p{font-size:0.73rem;color:rgba(212,201,168,0.22);line-height:2.1;}
                     <span class="extra-price">+NT$100 / 天</span>
                     <span class="extra-desc">灌奶 / 塗藥 / 灌藥（每日）</span>
                   </span>
+                  <span class="extra-count-wrap">
+                    <span class="extra-count-label">隻數</span>
+                    <input type="number" id="extraMedCount" min="1" value="1" class="extra-count-input" onclick="event.preventDefault()" oninput="calcPrice()"/>
+                  </span>
                 </label>
                 <label class="extra-item">
                   <input type="checkbox" name="extra_meal" id="extraMeal" onchange="calcPrice()"/>
                   <span class="extra-box">
                     <span class="extra-price">+NT$200 / 天</span>
                     <span class="extra-desc">3–4 餐者（每日）</span>
+                  </span>
+                  <span class="extra-count-wrap">
+                    <span class="extra-count-label">隻數</span>
+                    <input type="number" id="extraMealCount" min="1" value="1" class="extra-count-input" onclick="event.preventDefault()" oninput="calcPrice()"/>
                   </span>
                 </label>
               </div>
@@ -986,7 +1006,7 @@ function buildSpeciesSelect(sel,onchange){
     grp.options.forEach(function(o){
       var opt=document.createElement('option');
       opt.value=o.price;
-      opt.textContent=o.text+(o.price?' ('+o.price+'元/晚)':'');
+      opt.textContent=o.text+(o.price?' ('+o.price+'元)':'');
       og.appendChild(opt);
     });
     sel.appendChild(og);
@@ -1068,15 +1088,17 @@ function calcPrice(){
   var extraTotal=0;
   var medChecked=document.getElementById('extraMed').checked;
   var mealChecked=document.getElementById('extraMeal').checked;
+  var medCount=parseInt(document.getElementById('extraMedCount').value)||1;
+  var mealCount=parseInt(document.getElementById('extraMealCount').value)||1;
   if(medChecked){
-    var medAmt=100*totalBirds*days;
+    var medAmt=100*medCount*days;
     extraTotal+=medAmt;
-    breakdown.push('灌奶/塗藥/灌藥　100元 × '+totalBirds+'隻 × '+days+'天 ＝ '+fmt(medAmt));
+    breakdown.push('灌奶/塗藥/灌藥　100元 × '+medCount+'隻 × '+days+'天 ＝ '+fmt(medAmt));
   }
   if(mealChecked){
-    var mealAmt=200*totalBirds*days;
+    var mealAmt=200*mealCount*days;
     extraTotal+=mealAmt;
-    breakdown.push('3–4餐　200元 × '+totalBirds+'隻 × '+days+'天 ＝ '+fmt(mealAmt));
+    breakdown.push('3–4餐　200元 × '+mealCount+'隻 × '+days+'天 ＝ '+fmt(mealAmt));
   }
 
   var grandBase=baseTotal+extraTotal;
@@ -1115,8 +1137,8 @@ function calcPrice(){
   } else {dEl.textContent='';}
 
   var summary=birds.map(function(b){return b.name.split(' (')[0]+' × '+b.count+'隻';}).join('、');
-  if(medChecked)summary+='　＋灌奶/塗藥/灌藥';
-  if(mealChecked)summary+='　＋3–4餐';
+  if(medChecked)summary+='　＋灌奶/塗藥/灌藥×'+medCount+'隻';
+  if(mealChecked)summary+='　＋3–4餐×'+mealCount+'隻';
   summary+='　共 '+days+'天　合計 '+fmt(total);
   document.getElementById('birdsSummary').value=summary;
   box.classList.add('show');
