@@ -1088,32 +1088,86 @@ function switchTab(name){
   });
 }
 
-// Query booking — looks up stored Formspree submissions by phone
-// Since there's no real backend, we show a friendly "contact via LINE" message
+var GAS_URL='https://script.google.com/macros/s/AKfycbzogzw5ql5NS3eMosBvHTKETrPKO0PRBqNjodgPxte4KzZS18KP0PzVsr7SoT5ljiU/exec';
+
 function clearQueryResult(){
   var r=document.getElementById('queryResult');
-  r.classList.remove('show'); r.innerHTML='';
+  r.classList.remove('show');r.innerHTML='';
 }
+
 function queryBooking(){
-  var phone=document.getElementById('qPhone').value.replace(/\D/g,'');
+  var raw=document.getElementById('qPhone').value.replace(/\D/g,'');
   var r=document.getElementById('queryResult');
-  if(phone.length<8){
+
+  if(raw.length<8){
     r.innerHTML='<p class="qr-not-found">請輸入正確的電話號碼。</p>';
-    r.classList.add('show'); return;
+    r.classList.add('show');return;
   }
-  // Simulate lookup — since this is a static site with no real DB,
-  // we guide the user to confirm via LINE
-  r.innerHTML=
-    '<div class="qr-label">查詢電話</div>'+
-    '<div class="qr-val">'+formatPhone(phone)+'</div>'+
-    '<div class="qr-label" style="margin-top:0.6rem;">狀態說明</div>'+
-    '<div class="qr-val" style="font-size:0.9rem;color:var(--warm);">'+
-      '預約紀錄儲存於我方系統，<br>'+
-      '請透過 <strong style="color:var(--gold-lt)">LINE @399kyhwr</strong> 或撥打 <strong style="color:var(--gold-lt)">0901-221-586</strong> 確認您的預約狀態，報上此電話號碼即可快速查詢。'+
-    '</div>'+
-    '<a href="https://line.me/R/ti/p/@399kyhwr" target="_blank" class="form-submit" style="display:block;text-align:center;text-decoration:none;margin-top:1rem;padding:12px;">💬 LINE 快速查詢</a>';
+
+  // 顯示載入中
+  r.innerHTML='<p style="font-size:0.85rem;color:var(--warm);text-align:center;padding:1rem 0;">查詢中，請稍候…</p>';
   r.classList.add('show');
+
+  var url=GAS_URL+'?action=query&phone='+encodeURIComponent(raw);
+
+  fetch(url)
+    .then(function(res){return res.json();})
+    .then(function(data){
+      if(!data||data.length===0){
+        r.innerHTML=
+          '<p class="qr-not-found">查無此電話的預約紀錄。</p>'+
+          '<p style="font-size:0.8rem;color:var(--warm);margin-top:8px;line-height:1.9;">'+
+          '請確認電話號碼是否正確，或透過 '+
+          '<a href="https://line.me/R/ti/p/@399kyhwr" target="_blank" style="color:var(--gold-lt)">LINE @399kyhwr</a> 聯繫我們。</p>';
+        return;
+      }
+
+      var html='';
+      data.forEach(function(b,idx){
+        var statusColor=b.status==='已取消'?'rgba(220,80,80,0.85)':
+                        b.status==='已確認'?'rgba(80,180,120,0.9)':
+                        'var(--gold-lt)';
+        html+=
+          '<div style="'+(idx>0?'margin-top:1.2rem;padding-top:1.2rem;border-top:1px solid rgba(201,168,76,0.12);':'')+'">' +
+          // 狀態 badge
+          '<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:0.9rem;">'+
+            '<span style="font-size:0.63rem;letter-spacing:0.28em;text-transform:uppercase;color:rgba(201,168,76,0.5);">預約紀錄 #'+(idx+1)+'</span>'+
+            '<span style="font-size:0.72rem;font-weight:500;color:'+statusColor+';letter-spacing:0.1em;">'+b.status+'</span>'+
+          '</div>'+
+          // 主人姓名
+          '<div class="qr-label">飼主姓名</div>'+
+          '<div class="qr-val">'+b.name+'</div>'+
+          // 鳥寶名
+          '<div class="qr-label" style="margin-top:0.6rem;">鳥寶資訊</div>'+
+          '<div class="qr-val">'+b.birds+'</div>'+
+          // 入住時間
+          '<div style="display:grid;grid-template-columns:1fr 1fr;gap:0.8rem;margin-top:0.6rem;">'+
+            '<div>'+
+              '<div class="qr-label">🏠 入住時間</div>'+
+              '<div class="qr-val" style="font-size:0.92rem;">'+b.checkin+'</div>'+
+              '<div style="font-size:0.8rem;color:var(--sage);">'+b.cinTime+'</div>'+
+            '</div>'+
+            '<div>'+
+              '<div class="qr-label">🚗 接鳥時間</div>'+
+              '<div class="qr-val" style="font-size:0.92rem;">'+b.checkout+'</div>'+
+              '<div style="font-size:0.8rem;color:var(--sage);">'+b.coutTime+'</div>'+
+            '</div>'+
+          '</div>'+
+          // 費用
+          (b.fee?'<div class="qr-label" style="margin-top:0.6rem;">費用試算</div>'+
+          '<div style="font-family:\'Cormorant Garamond\',serif;font-size:1.3rem;font-weight:300;color:var(--gold-lt);">'+b.fee+'</div>':'')+ 
+          '</div>';
+      });
+
+      r.innerHTML=html;
+    })
+    .catch(function(err){
+      r.innerHTML=
+        '<p class="qr-not-found">查詢失敗，請稍後再試。</p>'+
+        '<p style="font-size:0.78rem;color:rgba(212,201,168,0.4);margin-top:6px;">'+err+'</p>';
+    });
 }
+
 function formatPhone(s){
   if(s.length===10) return s.slice(0,4)+'-'+s.slice(4,7)+'-'+s.slice(7);
   return s;
