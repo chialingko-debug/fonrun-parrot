@@ -1108,9 +1108,9 @@ function queryBooking(){
   r.innerHTML='<p style="font-size:0.85rem;color:var(--warm);text-align:center;padding:1rem 0;">查詢中，請稍候…</p>';
   r.classList.add('show');
 
-  var url=GAS_URL+'?action=query&phone='+encodeURIComponent(raw);
+  var url=GAS_URL+'?action=query&phone='+encodeURIComponent(raw)+'&t='+Date.now();
 
-  fetch(url)
+  fetch(url,{cache:'no-store'})
     .then(function(res){return res.json();})
     .then(function(data){
       if(!data||data.length===0){
