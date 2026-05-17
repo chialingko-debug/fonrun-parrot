@@ -176,8 +176,18 @@ nav{
 /* SECTIONS */
 section{padding:6rem 2.5rem;position:relative;}
 .sec{max-width:1060px;margin:0 auto;}
-.sec-alt{background:linear-gradient(180deg,rgba(28,53,40,0.38) 0%,rgba(14,26,18,0.18) 100%);}
-.sec-dark{background:rgba(8,15,10,0.5);}
+.sec-alt{background:linear-gradient(180deg,rgba(28,53,40,0.22) 0%,rgba(14,26,18,0.1) 100%);}
+.sec-dark{background:rgba(8,15,10,0.35);}
+.agree-row{
+  display:flex;align-items:flex-start;gap:12px;
+  margin:0.8rem 0 1.2rem;padding:1rem 1.2rem;
+  background:rgba(201,168,76,0.05);border:1px solid rgba(201,168,76,0.18);border-radius:3px;
+}
+.agree-row input[type="checkbox"]{
+  width:18px;height:18px;flex-shrink:0;margin-top:3px;
+  accent-color:var(--gold);cursor:pointer;
+}
+.agree-label{font-size:0.82rem;color:var(--warm);line-height:1.8;cursor:pointer;font-weight:300;}
 
 .sec-header{margin-bottom:3.5rem;}
 .sec-no{
@@ -725,6 +735,10 @@ footer p{font-size:0.73rem;color:rgba(212,201,168,0.22);line-height:2.1;}
                 <label>特殊需求 / 備注</label>
                 <textarea name="notes" placeholder="例如：需餵藥、需灌奶、高齡鳥、怕生、已完成雙病毒檢測等…"></textarea>
               </div>
+              <div class="agree-row">
+                <input type="checkbox" id="agreeCheck" required/>
+                <label for="agreeCheck" class="agree-label">我已閱讀並同意<a href="#rules" style="color:var(--gold-lt);text-decoration:underline;text-underline-offset:3px;">鳳潤鳥宿入住條款</a>，預約住宿即視為同意所有規定</label>
+              </div>
               <button type="submit" class="form-submit">送出預約申請</button>
               <p class="form-note">送出後我會透過 LINE 與您確認，無需訂金</p>
             </form>
@@ -980,7 +994,8 @@ function getDays(){
   var d2=document.getElementById('fCheckout').value;
   if(!d1||!d2)return 0;
   var diff=Math.round((new Date(d2)-new Date(d1))/86400000);
-  return diff>0?diff:0;
+  // 同天入住同天接回也算 1 天
+  return diff>=0?Math.max(diff,1):0;
 }
 
 function calcPrice(){
