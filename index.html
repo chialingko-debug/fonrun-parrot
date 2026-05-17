@@ -1022,7 +1022,7 @@ function submitCancel(e){
   var fd=new FormData(form);
   fd.append('_subject','【取消預約】'+fd.get('cancel_phone'));
   fd.append('form_type','取消預約');
-  fetch('https://formspree.io/f/YOUR_FORM_ID',{
+  fetch('https://formspree.io/f/mredzrzd',{
     method:'POST',body:fd,headers:{'Accept':'application/json'}
   }).then(function(){form.style.display='none';succ.style.display='block';})
     .catch(function(){form.style.display='none';succ.style.display='block';});
@@ -1237,7 +1237,7 @@ function submitForm(e){
   e.preventDefault();
   var form=document.getElementById('bForm');
   var succ=document.getElementById('fSuccess');
-  fetch('https://formspree.io/f/YOUR_FORM_ID',{
+  fetch('https://formspree.io/f/mredzrzd',{
     method:'POST',body:new FormData(form),headers:{'Accept':'application/json'}
   }).then(function(){form.style.display='none';succ.classList.add('show');})
     .catch(function(){form.style.display='none';succ.classList.add('show');});
