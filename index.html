@@ -436,6 +436,10 @@ section{padding:6rem 2.5rem;position:relative;}
   border-color:rgba(201,168,76,0.45);background:rgba(8,16,11,0.85);
 }
 .fg select option{background:#1c3528;color:var(--cream);}
+/* 時間選單未選時，顏色與「請選擇日期」一致 */
+#fCheckinTime,#fCheckoutTime{color:rgba(212,201,168,0.35);}
+#fCheckinTime.selected,#fCheckoutTime.selected{color:var(--cream);}
+#fCheckinTime option:not([disabled]),#fCheckoutTime option:not([disabled]){color:var(--cream);}
 .fg textarea{resize:vertical;min-height:90px;}
 .datetime-row{display:grid;grid-template-columns:1.35fr 1fr;gap:8px;}
 
@@ -865,7 +869,7 @@ footer p{font-size:0.73rem;color:rgba(212,201,168,0.22);line-height:2.1;}
                       <div class="cal-popup" id="calCheckin"></div>
                       <input type="hidden" name="checkin_date" id="fCheckin" required/>
                     </div>
-                    <select name="checkin_time" id="fCheckinTime" onchange="calcPrice()"></select>
+                    <select name="checkin_time" id="fCheckinTime" required></select>
                   </div>
                 </div>
                 <div class="fg">
@@ -879,7 +883,7 @@ footer p{font-size:0.73rem;color:rgba(212,201,168,0.22);line-height:2.1;}
                       <div class="cal-popup" id="calCheckout"></div>
                       <input type="hidden" name="checkout_date" id="fCheckout" required/>
                     </div>
-                    <select name="checkout_time" id="fCheckoutTime" onchange="calcPrice()"></select>
+                    <select name="checkout_time" id="fCheckoutTime" required></select>
                   </div>
                 </div>
               </div>
@@ -1424,6 +1428,10 @@ function calcPrice(){
 
 function buildTimeSelect(sel){
   sel.innerHTML='';
+  var ph=document.createElement('option');
+  ph.value='';ph.textContent='請選時間';
+  ph.disabled=true;ph.selected=true;
+  sel.appendChild(ph);
   for(var h=11;h<=20;h++){
     ['00','30'].forEach(function(m){
       if(h===20&&m==='30')return;
@@ -1432,6 +1440,13 @@ function buildTimeSelect(sel){
       sel.appendChild(o);
     });
   }
+  // 選了時間後把顏色改成正常
+  sel.onchange=function(){
+    if(this.value){
+      this.classList.add('selected');
+    }
+    calcPrice();
+  };
 }
 
 // ── 自訂日曆 ──
