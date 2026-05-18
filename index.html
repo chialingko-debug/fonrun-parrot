@@ -428,7 +428,7 @@ section{padding:6rem 2.5rem;position:relative;}
 .fg input,.fg select,.fg textarea{
   padding:10px 14px;background:rgba(8,16,11,0.65);
   border:1px solid rgba(201,168,76,0.14);border-radius:14px;
-  font-family:'Zen Maru Gothic',sans-serif;font-size:1.1rem;
+  font-family:'Zen Maru Gothic',sans-serif;font-size:0.90rem;
   color:var(--cream);width:100%;transition:border-color 0.2s;outline:none;
 }
 .fg input::placeholder{color:rgba(212,201,168,0.28);}
@@ -1093,22 +1093,43 @@ function switchTab(name){
     p.classList.toggle('active', p.id==='panel-'+name);
   });
 
-  // 切回預約住宿時，若停在完成畫面，自動還原成表單
+  // 切回預約住宿：完整重置表單
   if(name==='book'){
     var form=document.getElementById('bForm');
     var succ=document.getElementById('fSuccess');
-    if(succ&&succ.classList.contains('show')){
-      succ.classList.remove('show');
-      if(form)form.style.display='';
-    }
+    if(succ) succ.classList.remove('show');
+    if(form){ form.style.display=''; form.reset(); }
+
+    // 清空日期顯示
+    var dispC=document.getElementById('dispCheckin');
+    var dispO=document.getElementById('dispCheckout');
+    if(dispC){ dispC.textContent='請選擇日期'; document.getElementById('trigCheckin').classList.add('empty'); }
+    if(dispO){ dispO.textContent='請選擇日期'; document.getElementById('trigCheckout').classList.add('empty'); }
+    // 清空 hidden date values
+    var fc=document.getElementById('fCheckin'); if(fc) fc.value='';
+    var fo=document.getElementById('fCheckout'); if(fo) fo.value='';
+    // 重置日曆狀態
+    calState.checkin.selected=null; calState.checkout.selected=null;
+    var today=new Date(); today.setHours(0,0,0,0);
+    calState.checkin.year=today.getFullYear(); calState.checkin.month=today.getMonth();
+    calState.checkout.year=today.getFullYear(); calState.checkout.month=today.getMonth();
+    calMinCheckout=new Date(today.getTime()+86400000);
+    // 重置時間選單
+    var ct=document.getElementById('fCheckinTime'); if(ct){ ct.selectedIndex=0; ct.classList.remove('selected'); }
+    var ot=document.getElementById('fCheckoutTime'); if(ot){ ot.selectedIndex=0; ot.classList.remove('selected'); }
+    // 重置鳥兒列
+    var birdRows=document.getElementById('birdRows'); if(birdRows) birdRows.innerHTML='';
+    birdRowCount=0; addBirdRow();
+    // 隱藏費用試算
+    var box=document.getElementById('priceCalc'); if(box) box.classList.remove('show');
   }
 
-  // 切回查詢預約時，清空上次的查詢結果
+  // 切到查詢預約：清空上次結果
   if(name==='query'){
     var r=document.getElementById('queryResult');
     var q=document.getElementById('qPhone');
-    if(r){r.innerHTML='';r.classList.remove('show');}
-    if(q)q.value='';
+    if(r){ r.innerHTML=''; r.classList.remove('show'); }
+    if(q) q.value='';
   }
 }
 
