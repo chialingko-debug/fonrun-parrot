@@ -451,7 +451,7 @@ section{padding:6rem 2.5rem;position:relative;}
   background:rgba(8,16,11,0.65);
   border:1px solid rgba(201,168,76,0.18);
   border-radius:14px;
-  font-family:'Zen Maru Gothic',sans-serif;font-size:1.1rem;
+  font-family:'Zen Maru Gothic',sans-serif;font-size:0.90rem;
   color:var(--cream);width:100%;cursor:pointer;
   transition:border-color 0.22s,background 0.22s,box-shadow 0.22s;
   user-select:none;letter-spacing:0.04em;
@@ -865,7 +865,7 @@ footer p{font-size:0.88rem;color:rgba(212,201,168,0.22);line-height:2.1;}
                   <div class="datetime-row">
                     <div class="date-field-wrap" id="wrapCheckin">
                       <div class="date-trigger empty" id="trigCheckin" onclick="toggleCal('checkin')">
-                        <span id="dispCheckin">請選擇日期</span>
+                        <span id="dispCheckin">請選日期</span>
                         <span class="date-trigger-icon">📅</span>
                       </div>
                       <div class="cal-popup" id="calCheckin"></div>
@@ -879,7 +879,7 @@ footer p{font-size:0.88rem;color:rgba(212,201,168,0.22);line-height:2.1;}
                   <div class="datetime-row">
                     <div class="date-field-wrap" id="wrapCheckout">
                       <div class="date-trigger empty" id="trigCheckout" onclick="toggleCal('checkout')">
-                        <span id="dispCheckout">請選擇日期</span>
+                        <span id="dispCheckout">請選日期</span>
                         <span class="date-trigger-icon">📅</span>
                       </div>
                       <div class="cal-popup" id="calCheckout"></div>
@@ -1103,8 +1103,8 @@ function switchTab(name){
     // 清空日期顯示
     var dispC=document.getElementById('dispCheckin');
     var dispO=document.getElementById('dispCheckout');
-    if(dispC){ dispC.textContent='請選擇日期'; document.getElementById('trigCheckin').classList.add('empty'); }
-    if(dispO){ dispO.textContent='請選擇日期'; document.getElementById('trigCheckout').classList.add('empty'); }
+    if(dispC){ dispC.textContent='請選日期'; document.getElementById('trigCheckin').classList.add('empty'); }
+    if(dispO){ dispO.textContent='請選日期'; document.getElementById('trigCheckout').classList.add('empty'); }
     // 清空 hidden date values
     var fc=document.getElementById('fCheckin'); if(fc) fc.value='';
     var fo=document.getElementById('fCheckout'); if(fo) fo.value='';
@@ -1601,7 +1601,7 @@ function pickDate(which,dateStr){
     if(co.selected&&co.selected<=dateStr){
       co.selected=null;
       document.getElementById('fCheckout').value='';
-      document.getElementById('dispCheckout').textContent='請選擇日期';
+      document.getElementById('dispCheckout').textContent='請選日期';
       document.getElementById('trigCheckout').classList.add('empty');
     }
   }
