@@ -1092,6 +1092,24 @@ function switchTab(name){
   document.querySelectorAll('.btab-panel').forEach(function(p){
     p.classList.toggle('active', p.id==='panel-'+name);
   });
+
+  // 切回預約住宿時，若停在完成畫面，自動還原成表單
+  if(name==='book'){
+    var form=document.getElementById('bForm');
+    var succ=document.getElementById('fSuccess');
+    if(succ&&succ.classList.contains('show')){
+      succ.classList.remove('show');
+      if(form)form.style.display='';
+    }
+  }
+
+  // 切回查詢預約時，清空上次的查詢結果
+  if(name==='query'){
+    var r=document.getElementById('queryResult');
+    var q=document.getElementById('qPhone');
+    if(r){r.innerHTML='';r.classList.remove('show');}
+    if(q)q.value='';
+  }
 }
 
 var GAS_URL='https://script.google.com/macros/s/AKfycbwUmd8yIErbEaKTTLQCXwIGQ_6_b7--ZmuPlPDHx0CbJYpOHJdLyS83JRqVbZTf3ssC/exec';
