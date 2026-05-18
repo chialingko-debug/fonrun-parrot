@@ -1119,9 +1119,14 @@ function queryBooking(){
     .then(function(data){
       if(!data||data.length===0){
         r.innerHTML=
-          '<p class="qr-not-found">查無此電話的預約紀錄。</p>'+
-          '<p style="font-size:0.8rem;color:var(--warm);margin-top:8px;line-height:1.9;">'+
-          '請確認電話號碼是否正確，或透過 '+
+          '<p class="qr-not-found">查無此電話的預約紀錄</p>'+
+          '<ol style="font-size:0.82rem;color:var(--warm);margin-top:14px;line-height:2.1;padding-left:1.4em;">'+
+          '<li>請確認電話號碼是否正確</li>'+
+          '<li>查詢結果如顯示：<span style="color:var(--gold-lt);font-weight:500;">確認中</span>　即表示預約完成尚待確認</li>'+
+          '<li>查詢結果如顯示：<span style="color:rgba(80,180,120,0.95);font-weight:500;">已確認</span>　即表示已經預約完成，請依約入宿喔</li>'+
+          '</ol>'+
+          '<p style="font-size:0.8rem;color:var(--warm);margin-top:14px;line-height:1.9;">'+
+          '如還有其他疑問，歡迎透過 '+
           '<a href="https://line.me/R/ti/p/@399kyhwr" target="_blank" style="color:var(--gold-lt)">LINE @399kyhwr</a> 聯繫我們。</p>';
         return;
       }
@@ -1613,8 +1618,15 @@ function submitForm(e){
   var succ=document.getElementById('fSuccess');
   fetch('https://formspree.io/f/mredzrzd',{
     method:'POST',body:new FormData(form),headers:{'Accept':'application/json'}
-  }).then(function(){form.style.display='none';succ.classList.add('show');})
-    .catch(function(){form.style.display='none';succ.classList.add('show');});
+  }).then(function(){
+    form.style.display='none';
+    succ.classList.add('show');
+    succ.scrollIntoView({behavior:'smooth',block:'start'});
+  }).catch(function(){
+    form.style.display='none';
+    succ.classList.add('show');
+    succ.scrollIntoView({behavior:'smooth',block:'start'});
+  });
 }
 </script>
 </body>
