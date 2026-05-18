@@ -1489,9 +1489,9 @@ function renderCal(which){
 
   popup.innerHTML=
     '<div class="cal-header">'+
-      '<button type="button" class="cal-nav" onclick="moveCal(\''+which+'\',-1)">&#8249;</button>'+
+      '<button type="button" class="cal-nav" onclick="moveCal(\''+which+'\',-1,event)">&#8249;</button>'+
       '<span class="cal-title">'+title+'</span>'+
-      '<button type="button" class="cal-nav" onclick="moveCal(\''+which+'\',1)">&#8250;</button>'+
+      '<button type="button" class="cal-nav" onclick="moveCal(\''+which+'\',1,event)">&#8250;</button>'+
     '</div>'+
     '<div class="cal-weekdays">'+wdHtml+'</div>'+
     '<div class="cal-days">'+cells+'</div>';
@@ -1499,7 +1499,8 @@ function renderCal(which){
 
 function cap(s){return s.charAt(0).toUpperCase()+s.slice(1);}
 
-function moveCal(which,dir){
+function moveCal(which,dir,e){
+  if(e){e.stopPropagation();}
   var st=calState[which];
   st.month+=dir;
   if(st.month>11){st.month=0;st.year++;}
@@ -1546,6 +1547,9 @@ function pickDate(which,dateStr){
     // set checkout min to next day
     var next=parseYMD(dateStr);next.setDate(next.getDate()+1);
     calMinCheckout=next;
+    // 讓接回日曆直接跳到入托日期所在的月份，不要停在今天
+    calState.checkout.year=next.getFullYear();
+    calState.checkout.month=next.getMonth();
     // clear checkout if it's now invalid
     var co=calState.checkout;
     if(co.selected&&co.selected<=dateStr){
