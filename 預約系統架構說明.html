@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+<meta charset="UTF-8"/>
+<title>鳳潤鳥宿網站架構與預約功能說明</title>
+<style>
+  @page { size: A4; margin: 2cm; }
+  body{
+    font-family:"Microsoft JhengHei","PMingLiU",sans-serif;
+    line-height:1.8; color:#222; max-width:800px; margin:0 auto; padding:2rem;
+  }
+  h1{font-size:1.6rem;border-bottom:3px solid #c9a84c;padding-bottom:0.5rem;}
+  h2{font-size:1.25rem;margin-top:2rem;color:#8a6d1f;border-left:5px solid #c9a84c;padding-left:0.6rem;}
+  h3{font-size:1.05rem;margin-top:1.2rem;}
+  code{background:#f4f1e8;padding:2px 6px;border-radius:4px;font-size:0.92em;word-break:break-all;}
+  pre{background:#f4f1e8;padding:0.8rem 1rem;border-radius:8px;overflow-x:auto;font-size:0.85em;}
+  ul,ol{padding-left:1.4em;}
+  li{margin-bottom:0.4em;}
+  blockquote{border-left:4px solid #ccc;margin:1rem 0;padding:0.4rem 1rem;color:#555;background:#fafafa;}
+  .note{background:#fff8e1;border:1px solid #e0c878;border-radius:8px;padding:0.8rem 1.2rem;margin:1rem 0;}
+  .footer{margin-top:3rem;font-size:0.8rem;color:#888;border-top:1px solid #ddd;padding-top:0.6rem;}
+</style>
+</head>
+<body>
+
+<h1>鳳潤鳥宿網站架構與預約功能說明</h1>
+<blockquote>本說明依據 <code>index.html</code> 現有程式碼整理而成，作為日後維護或向他人說明的參考。</blockquote>
+
+<h2>一、整體架構</h2>
+<p>這是一個<strong>純前端靜態網頁</strong>（單一檔案 <code>index.html</code>，內含 HTML + CSS + JavaScript），沒有獨立的後端伺服器或框架（不是 React/Vue，也沒有 Node.js 後端）。</p>
+<ul>
+  <li><strong>託管方式</strong>：放在 GitHub repository（<code>chialingko-debug/fonrun-parrot</code>），可透過 GitHub Pages 直接發布上線。</li>
+  <li><strong>字型</strong>：Google Fonts（Cormorant Garamond、Noto Serif TC、Zen Maru Gothic）＋部分標題使用系統內建標楷體。</li>
+  <li><strong>頁面結構</strong>：單頁式（One Page），用錨點（<code>#pricing</code>、<code>#rules</code>、<code>#booking</code>、<code>#faq</code>、<code>#contact</code>）做導覽捲動，沒有真正的多頁路由。</li>
+  <li><strong>互動邏輯</strong>：全部寫在 <code>&lt;script&gt;</code> 區塊內的原生 JavaScript（無框架），包含日曆元件、價格試算、表單驗證、分頁切換等。</li>
+</ul>
+
+<h2>二、預約功能的兩條資料路徑</h2>
+<p>網站的「線上預約」區塊（<code>#booking</code>）其實是<strong>兩個獨立系統</strong>串接起來的，分別負責「寫入」和「查詢」。</p>
+
+<h3>1. 送出預約（寫入）→ Formspree</h3>
+<ul>
+  <li>表單 <code>id="bForm"</code> 送出時觸發 <code>submitForm(event)</code>。</li>
+  <li>送出前，JS 會把鳥寶資訊整理成文字摘要（鳥名、品種、是否需要灌奶/塗藥等），塞進隱藏欄位 <code>birds_summary</code>、<code>estimated_total</code>、<code>price_breakdown</code>。</li>
+  <li>接著用 <code>fetch()</code> 把整個表單資料 POST 到第三方表單服務 <strong>Formspree</strong>：
+  <pre>https://formspree.io/f/mredzrzd</pre>
+  Formspree 會把預約內容轉成 email 通知寄到你註冊時用的信箱。</li>
+  <li>送出後（不論成功或失敗），前端都會隱藏表單、顯示「預約申請已送出」的成功畫面。</li>
+</ul>
+
+<div class="note">
+<strong>注意：</strong>目前程式碼中，Formspree 收到的資料<strong>不會自動寫入 Google Sheet 或 Google 日曆</strong>。也就是說「寫入」與「查詢」這兩條路徑，在程式碼層面<strong>沒有自動串接</strong>——除非你在 Formspree 後台另外設定了 Zapier／Make（Integromat）之類的自動化工具，把表單資料同步寫進 Google Sheet。這部分設定不在 <code>index.html</code> 裡，是在 Formspree 或 Zapier 後台，目前看不到。
+</div>
+
+<h3>2. 查詢預約 → Google Apps Script（GAS）</h3>
+<ul>
+  <li>查詢分頁呼叫 <code>queryBooking()</code>，用使用者輸入的電話號碼組成 GET 請求：
+  <pre>GAS_URL + '?action=query&phone=xxx&t=時間戳'</pre></li>
+  <li><code>GAS_URL</code> 是一個已部署的 <strong>Google Apps Script Web App</strong> 網址：
+  <pre>https://script.google.com/macros/s/AKfycbwUmd8yIErbEaKTTLQCXwIGQ_6_b7--ZmuPlPDHx0CbJYpOHJdLyS83JRqVbZTf3ssC/exec</pre></li>
+  <li>這個 Apps Script 後端（程式碼不在此專案資料夾中，是另外部署在你的 Google 帳號下的 <code>.gs</code> 腳本）負責：
+    <ol>
+      <li>讀取某個 Google Sheet 裡的預約資料列</li>
+      <li>依電話號碼篩選符合的紀錄</li>
+      <li>回傳 JSON 陣列，每筆包含姓名、鳥寶資訊、入退住日期時間、狀態（確認中／已確認／已取消）等欄位</li>
+    </ol>
+  </li>
+  <li>前端拿到 JSON 後直接渲染成查詢結果卡片。</li>
+</ul>
+
+<div class="note">
+<strong>Google 日曆部分：</strong><code>index.html</code> 的前端程式碼中<strong>沒有任何地方直接呼叫 Google Calendar API</strong>。如果 Google Sheet 後面有串 Google 日曆（例如 Apps Script 用 <code>CalendarApp</code> 把預約寫入日曆事件），那段邏輯寫在 Apps Script（<code>.gs</code>）裡，不在這個專案、也不在 HTML 檔案中，目前無法查看。
+</div>
+
+<h2>三、目前架構的限制與需要補充確認的地方</h2>
+<ol>
+  <li><strong>Formspree → Google Sheet 沒有自動串接的程式碼</strong>：除非在 Formspree／Zapier 後台另外設定，否則送出的預約不會自動進到查詢系統讀取的那份 Google Sheet。如果現在查詢功能能正常查到剛送出的預約，代表中間一定有別的自動化（Zapier/Make，或手動謄寫）。</li>
+  <li><strong>Apps Script 原始碼不在這個 repo</strong>：<code>GAS_URL</code> 指向的腳本內容（如何讀 Sheet、如何寫日曆）目前無法在此專案中查看或編輯，是獨立部署在 Google 帳號裡的。若要修改查詢邏輯或日曆串接，需要到 <code>script.google.com</code> 開啟對應的 Apps Script 專案。</li>
+  <li>若想要更完整、準確的串接說明（特別是 Sheet ↔ 日曆 ↔ Formspree 三者怎麼接起來），建議把 Apps Script 的 <code>.gs</code> 原始碼一併提供，可以一起補上完整流程圖。</li>
+</ol>
+
+<div class="footer">產生日期：2026-06-20</div>
+
+</body>
+</html>
