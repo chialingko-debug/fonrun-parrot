@@ -1722,7 +1722,11 @@ function submitForm(e){
         succ.scrollIntoView({behavior:'smooth',block:'start'});
 
         // 寫入 Google 日曆（背景執行，不影響送出流程）
-        var calPayload=Object.assign({},payload,{booking_no:bookingNo});
+        var calPayload=Object.assign({},payload,{
+          booking_no:bookingNo,
+          checkin_time:document.getElementById('fCheckinTime').value,
+          checkout_time:document.getElementById('fCheckoutTime').value
+        });
         fetch('https://script.google.com/macros/s/AKfycbza4kT1B1JWhzXN9KYVsoGzPIPJcDPXQsp_ajuNIwSKremlu-Aj_7kem0iiCdt70VI/exec',{
           method:'POST',
           headers:{'Content-Type':'text/plain'},
