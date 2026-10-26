@@ -942,7 +942,7 @@ footer p{font-size:0.88rem;color:rgba(212,201,168,0.22);line-height:2.1;}
                 <input type="checkbox" id="agreeCheck" required/>
                 <label for="agreeCheck" class="agree-label">我已閱讀並同意<a href="#rules" style="color:var(--gold-lt);text-decoration:underline;text-underline-offset:3px;">鳳潤鳥宿入住條款</a>，預約住宿即視為同意所有規定</label>
               </div>
-              <button type="submit" class="form-submit">送出預約申請</button>
+              <button type="submit" id="submitBtn" class="form-submit">送出預約申請</button>
               <p class="form-note">送出後我會透過 LINE 與您確認，無需訂金</p>
             </form>
             <div class="form-success" id="fSuccess">
@@ -1633,42 +1633,87 @@ window.addEventListener('DOMContentLoaded',function(){
   calState.checkout.month=today.getMonth();
 });
 
+var SUPABASE_URL='https://hxbaanirskvcljflfusx.supabase.co';
+var SUPABASE_KEY='sb_publishable_gaXzCH2LlptcjVWvaXMWTg_fmeeg9uR';
+
 function submitForm(e){
   e.preventDefault();
 
-  // 送出前強制重新收集鳥寶名字，確保名字欄有填到
+  var form=document.getElementById('bForm');
+  var succ=document.getElementById('fSuccess');
+  var submitBtn=document.getElementById('submitBtn');
+  if(submitBtn){submitBtn.disabled=true;submitBtn.textContent='送出中...';}
+
+  // 收集鳥隻資料
   var rows=document.querySelectorAll('.bird-row');
-  var nameParts=[];
+  var birdsData=[];
   rows.forEach(function(row){
     var rid=row.id.replace('brow-','');
     var sel=document.getElementById('bspec-'+rid);
     var nameInput=row.querySelector('input[name="bird_name_'+rid+'"]');
+    var cntInput=document.getElementById('bcnt-'+rid);
     var price=sel?parseInt(sel.value):0;
     if(price>0){
       var birdName=nameInput&&nameInput.value.trim()?nameInput.value.trim():'（未填名字）';
       var species=sel.options[sel.selectedIndex]?sel.options[sel.selectedIndex].text:'';
-      nameParts.push(birdName+'（'+species+'）');
+      var cnt=cntInput?parseInt(cntInput.value)||1:1;
+      birdsData.push({name:birdName,species:species,count:cnt,price:price});
     }
   });
+
   var medChecked=document.getElementById('extraMed').checked;
   var mealChecked=document.getElementById('extraMeal').checked;
-  var summary=nameParts.join('、');
-  if(medChecked)summary+='　｜需灌奶/塗藥/灌藥';
-  if(mealChecked)summary+='　｜需3–4餐';
-  document.getElementById('birdsSummary').value=summary;
+  var medCount=parseInt(document.getElementById('extraMedCount').value)||1;
+  var mealCount=parseInt(document.getElementById('extraMealCount').value)||1;
+  var days=getDays();
 
-  var form=document.getElementById('bForm');
-  var succ=document.getElementById('fSuccess');
-  fetch('https://formspree.io/f/mredzrzd',{
-    method:'POST',body:new FormData(form),headers:{'Accept':'application/json'}
-  }).then(function(){
-    form.style.display='none';
-    succ.classList.add('show');
-    succ.scrollIntoView({behavior:'smooth',block:'start'});
-  }).catch(function(){
-    form.style.display='none';
-    succ.classList.add('show');
-    succ.scrollIntoView({behavior:'smooth',block:'start'});
+  // 費用計算
+  var baseFee=birdsData.reduce(function(s,b){return s+b.price*b.count*days;},0);
+  var addonFee=0;
+  if(medChecked)addonFee+=100*medCount*days;
+  if(mealChecked)addonFee+=200*mealCount*days;
+  var totalFeeVal=baseFee+addonFee;
+
+  // 客戶備註
+  var noteEl=form.querySelector('[name="customer_note"]')||form.querySelector('textarea');
+  var customerNote=noteEl?noteEl.value.trim():'';
+
+  var payload={
+    line_name:form.querySelector('[name="line_name"]').value.trim(),
+    fb_name:form.querySelector('[name="fb_name"]').value.trim(),
+    checkin_date:document.getElementById('fCheckin').value,
+    checkout_date:document.getElementById('fCheckout').value,
+    birds:birdsData,
+    addon_med:medChecked,
+    addon_meal:mealChecked,
+    base_fee:baseFee,
+    addon_fee:addonFee,
+    vip_fee:0,
+    total_fee:totalFeeVal,
+    customer_note:customerNote
+  };
+
+  fetch(SUPABASE_URL+'/rest/v1/bookings',{
+    method:'POST',
+    headers:{
+      'Content-Type':'application/json',
+      'apikey':SUPABASE_KEY,
+      'Authorization':'Bearer '+SUPABASE_KEY,
+      'Prefer':'return=minimal'
+    },
+    body:JSON.stringify(payload)
+  }).then(function(res){
+    if(res.ok||res.status===201){
+      form.style.display='none';
+      succ.classList.add('show');
+      succ.scrollIntoView({behavior:'smooth',block:'start'});
+    } else {
+      return res.text().then(function(t){throw new Error(t);});
+    }
+  }).catch(function(err){
+    console.error('送出失敗',err);
+    if(submitBtn){submitBtn.disabled=false;submitBtn.textContent='送出預約';}
+    alert('送出失敗，請稍後再試或透過 LINE 聯繫我們。');
   });
 }
 </script>
