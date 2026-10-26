@@ -7,101 +7,130 @@
 <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@300;400;500;700&family=Cormorant+Garamond:wght@300;400;600&display=swap" rel="stylesheet"/>
 <style>
 :root{
-  --bg:#1a1410;--surface:#241e18;--surface2:#2e2620;--border:#3a3028;
+  --bg:#1a1410;--surface:#241e18;--border:#3a3028;
   --gold:#e07050;--gold-lt:#f09070;--text:#e8d8c0;--text-dim:#a08868;
   --green:#5a9a6a;--red:#c05040;--yellow:#c8a040;
 }
 *{box-sizing:border-box;margin:0;padding:0;}
-body{font-family:'Noto Sans TC',sans-serif;background:var(--bg);color:var(--text);min-height:100vh;font-size:15px;}
+body{font-family:'Noto Sans TC',sans-serif;background:var(--bg);color:var(--text);min-height:100vh;font-size:14px;}
 
 /* LOGIN */
 #loginScreen{display:flex;align-items:center;justify-content:center;min-height:100vh;background:radial-gradient(ellipse at 50% 40%,rgba(224,112,80,0.08),transparent 70%),var(--bg);}
 .login-box{width:360px;padding:2.5rem;background:var(--surface);border:1px solid var(--border);border-radius:20px;}
-.login-logo{font-family:'Cormorant Garamond',serif;font-size:1.6rem;font-weight:300;color:var(--gold);text-align:center;margin-bottom:0.3rem;letter-spacing:0.1em;}
+.login-logo{font-family:'Cormorant Garamond',serif;font-size:1.6rem;color:var(--gold);text-align:center;margin-bottom:0.3rem;letter-spacing:0.1em;}
 .login-sub{font-size:0.8rem;color:var(--text-dim);text-align:center;margin-bottom:2rem;letter-spacing:0.2em;}
-.login-box label{display:block;font-size:0.8rem;color:var(--text-dim);margin-bottom:6px;letter-spacing:0.12em;}
-.login-box input{width:100%;padding:10px 14px;background:var(--bg);border:1px solid var(--border);border-radius:10px;color:var(--text);font-size:0.95rem;outline:none;margin-bottom:1rem;transition:border-color 0.2s;font-family:'Noto Sans TC',sans-serif;}
+.login-box label{display:block;font-size:0.8rem;color:var(--text-dim);margin-bottom:6px;}
+.login-box input{width:100%;padding:10px 14px;background:var(--bg);border:1px solid var(--border);border-radius:10px;color:var(--text);font-size:0.95rem;outline:none;margin-bottom:1rem;font-family:inherit;}
 .login-box input:focus{border-color:rgba(224,112,80,0.5);}
-.login-btn{width:100%;padding:11px;background:var(--gold);color:#1a1410;border:none;border-radius:10px;font-size:0.95rem;font-weight:700;cursor:pointer;transition:background 0.2s;font-family:'Noto Sans TC',sans-serif;letter-spacing:0.1em;}
+.login-btn{width:100%;padding:11px;background:var(--gold);color:#1a1410;border:none;border-radius:10px;font-size:0.95rem;font-weight:700;cursor:pointer;font-family:inherit;}
 .login-btn:hover{background:var(--gold-lt);}
 .login-err{color:var(--red);font-size:0.85rem;text-align:center;margin-top:0.8rem;min-height:1.2em;}
 
-/* ADMIN */
+/* TOPBAR */
 #adminScreen{display:none;}
-.topbar{display:flex;align-items:center;justify-content:space-between;padding:0 1.5rem;height:56px;background:var(--surface);border-bottom:1px solid var(--border);position:sticky;top:0;z-index:100;}
-.topbar-logo{font-family:'Cormorant Garamond',serif;font-size:1.2rem;color:var(--gold);letter-spacing:0.1em;}
-.topbar-right{display:flex;align-items:center;gap:1rem;}
-.logout-btn{padding:6px 14px;background:transparent;border:1px solid var(--border);border-radius:8px;color:var(--text-dim);font-size:0.82rem;cursor:pointer;transition:border-color 0.2s,color 0.2s;font-family:'Noto Sans TC',sans-serif;}
+.topbar{display:flex;align-items:center;justify-content:space-between;padding:0 1.5rem;height:52px;background:var(--surface);border-bottom:1px solid var(--border);position:sticky;top:0;z-index:100;}
+.topbar-logo{font-family:'Cormorant Garamond',serif;font-size:1.15rem;color:var(--gold);letter-spacing:0.1em;}
+.logout-btn{padding:5px 14px;background:transparent;border:1px solid var(--border);border-radius:8px;color:var(--text-dim);font-size:0.8rem;cursor:pointer;font-family:inherit;}
 .logout-btn:hover{border-color:var(--gold);color:var(--gold);}
-.tabs{display:flex;gap:4px;padding:1rem 1.5rem 0;border-bottom:1px solid var(--border);}
-.tab{padding:8px 20px;border-radius:10px 10px 0 0;cursor:pointer;font-size:0.88rem;color:var(--text-dim);border:1px solid transparent;border-bottom:none;transition:color 0.2s,background 0.2s;}
-.tab:hover{color:var(--text);}
+
+/* TABS */
+.tabs{display:flex;gap:4px;padding:0.8rem 1.5rem 0;border-bottom:1px solid var(--border);}
+.tab{padding:7px 18px;border-radius:8px 8px 0 0;cursor:pointer;font-size:0.85rem;color:var(--text-dim);border:1px solid transparent;border-bottom:none;}
 .tab.active{color:var(--gold);background:var(--surface);border-color:var(--border);}
-.content{padding:1.5rem;}
+.content{padding:1.2rem 1.5rem;}
 
 /* STATS */
-.stats-bar{display:grid;grid-template-columns:repeat(4,1fr);gap:1rem;margin-bottom:1.5rem;}
-.stat-card{background:var(--surface);border:1px solid var(--border);border-radius:14px;padding:1rem 1.2rem;}
-.stat-label{font-size:0.75rem;color:var(--text-dim);letter-spacing:0.1em;margin-bottom:6px;}
-.stat-value{font-family:'Cormorant Garamond',serif;font-size:1.8rem;font-weight:300;color:var(--gold-lt);}
-.stat-sub{font-size:0.78rem;color:var(--text-dim);margin-top:2px;}
+.stats-bar{display:grid;grid-template-columns:repeat(4,1fr);gap:0.8rem;margin-bottom:1.2rem;}
+.stat-card{background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:0.9rem 1rem;}
+.stat-label{font-size:0.72rem;color:var(--text-dim);margin-bottom:4px;}
+.stat-value{font-family:'Cormorant Garamond',serif;font-size:1.7rem;color:var(--gold-lt);}
+.stat-sub{font-size:0.72rem;color:var(--text-dim);}
 
 /* FILTER */
-.filter-bar{display:flex;gap:0.8rem;align-items:center;margin-bottom:1rem;flex-wrap:wrap;}
-.filter-bar input,.filter-bar select{padding:8px 12px;background:var(--surface);border:1px solid var(--border);border-radius:8px;color:var(--text);font-size:0.85rem;outline:none;font-family:'Noto Sans TC',sans-serif;}
+.filter-bar{display:flex;gap:0.7rem;align-items:center;margin-bottom:1rem;flex-wrap:wrap;}
+.filter-bar input,.filter-bar select{padding:7px 10px;background:var(--surface);border:1px solid var(--border);border-radius:7px;color:var(--text);font-size:0.82rem;outline:none;font-family:inherit;}
+.filter-bar input{width:160px;}
 .filter-bar input:focus,.filter-bar select:focus{border-color:rgba(224,112,80,0.4);}
-.filter-bar input{width:180px;}
 
-/* TABLE */
-.table-wrap{overflow-x:auto;}
-table{width:100%;border-collapse:collapse;font-size:0.85rem;}
-thead tr{border-bottom:2px solid var(--border);}
-th{padding:10px 12px;text-align:left;font-size:0.75rem;color:var(--text-dim);font-weight:400;letter-spacing:0.1em;white-space:nowrap;}
-td{padding:10px 12px;border-bottom:1px solid rgba(58,48,40,0.5);vertical-align:top;}
-tr:hover td{background:rgba(224,112,80,0.03);}
-.badge{display:inline-block;padding:2px 10px;border-radius:20px;font-size:0.75rem;font-weight:500;}
+/* BOOKING CARDS */
+.booking-list{display:flex;flex-direction:column;gap:0.7rem;}
+.booking-card{background:var(--surface);border:1px solid var(--border);border-radius:12px;overflow:hidden;}
+.card-header{display:flex;align-items:center;justify-content:space-between;padding:0.8rem 1rem;cursor:pointer;gap:1rem;}
+.card-header:hover{background:rgba(224,112,80,0.03);}
+.card-id{font-size:0.72rem;color:var(--text-dim);min-width:28px;}
+.card-main{flex:1;display:grid;grid-template-columns:1.5fr 1fr 1fr 1fr 1fr;gap:0.5rem;align-items:center;}
+.card-name{font-weight:500;color:var(--text);}
+.card-date{font-size:0.82rem;color:var(--text-dim);}
+.card-fee{font-size:0.85rem;color:var(--gold-lt);}
+.card-actions{display:flex;align-items:center;gap:0.5rem;}
+.badge{display:inline-block;padding:2px 9px;border-radius:20px;font-size:0.72rem;font-weight:500;}
 .badge-pending{background:rgba(200,160,64,0.15);color:var(--yellow);}
 .badge-confirmed{background:rgba(90,154,106,0.15);color:var(--green);}
 .badge-done{background:rgba(90,90,100,0.2);color:var(--text-dim);}
 .badge-cancel{background:rgba(192,80,64,0.15);color:var(--red);}
 .badge-editor{background:rgba(224,112,80,0.15);color:var(--gold-lt);}
 .badge-viewer{background:rgba(90,90,100,0.2);color:var(--text-dim);}
-.action-btn{padding:4px 10px;border-radius:6px;font-size:0.78rem;cursor:pointer;border:1px solid var(--border);background:transparent;color:var(--text-dim);transition:all 0.15s;font-family:'Noto Sans TC',sans-serif;margin-right:4px;}
-.action-btn:hover{border-color:var(--gold);color:var(--gold);}
-.action-btn.danger:hover{border-color:var(--red);color:var(--red);}
+.expand-btn{font-size:0.72rem;color:var(--text-dim);padding:3px 8px;border:1px solid var(--border);border-radius:5px;background:transparent;cursor:pointer;font-family:inherit;}
+.edit-btn{font-size:0.72rem;color:var(--gold);padding:3px 10px;border:1px solid rgba(224,112,80,0.4);border-radius:5px;background:transparent;cursor:pointer;font-family:inherit;}
+.edit-btn:hover{background:rgba(224,112,80,0.1);}
+
+/* CARD DETAIL */
+.card-detail{display:none;padding:0 1rem 1rem;border-top:1px solid var(--border);}
+.card-detail.open{display:block;}
+.detail-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:0.8rem;padding-top:0.8rem;}
+.detail-item{}
+.detail-label{font-size:0.7rem;color:var(--text-dim);margin-bottom:3px;letter-spacing:0.05em;}
+.detail-value{font-size:0.85rem;color:var(--text);}
+.detail-value.gold{color:var(--gold-lt);}
+.detail-value.note{font-size:0.82rem;color:var(--text-dim);line-height:1.6;}
+.birds-detail{grid-column:1/-1;background:rgba(0,0,0,0.15);border-radius:8px;padding:0.7rem 0.9rem;}
+.bird-row-detail{display:flex;gap:1rem;font-size:0.82rem;padding:3px 0;border-bottom:1px solid rgba(58,48,40,0.4);}
+.bird-row-detail:last-child{border-bottom:none;}
 
 /* MODAL */
-.modal-overlay{display:none;position:fixed;inset:0;background:rgba(10,8,6,0.8);z-index:200;align-items:center;justify-content:center;}
+.modal-overlay{display:none;position:fixed;inset:0;background:rgba(10,8,6,0.85);z-index:200;align-items:center;justify-content:center;}
 .modal-overlay.open{display:flex;}
-.modal{background:var(--surface);border:1px solid var(--border);border-radius:16px;padding:1.8rem;width:480px;max-width:95vw;max-height:90vh;overflow-y:auto;}
-.modal-title{font-size:1rem;font-weight:500;color:var(--text);margin-bottom:1.2rem;}
-.modal label{display:block;font-size:0.78rem;color:var(--text-dim);margin-bottom:5px;margin-top:0.8rem;}
-.modal input,.modal select,.modal textarea{width:100%;padding:9px 12px;background:var(--bg);border:1px solid var(--border);border-radius:8px;color:var(--text);font-size:0.9rem;outline:none;font-family:'Noto Sans TC',sans-serif;}
-.modal textarea{resize:vertical;min-height:80px;}
+.modal{background:var(--surface);border:1px solid var(--border);border-radius:16px;padding:1.6rem;width:500px;max-width:95vw;max-height:90vh;overflow-y:auto;}
+.modal-title{font-size:0.95rem;font-weight:500;color:var(--text);margin-bottom:1rem;}
+.modal label{display:block;font-size:0.75rem;color:var(--text-dim);margin-bottom:4px;margin-top:0.7rem;}
+.modal input,.modal select,.modal textarea{width:100%;padding:8px 11px;background:var(--bg);border:1px solid var(--border);border-radius:7px;color:var(--text);font-size:0.88rem;outline:none;font-family:inherit;}
+.modal textarea{resize:vertical;min-height:75px;}
 .modal input:focus,.modal select:focus,.modal textarea:focus{border-color:rgba(224,112,80,0.4);}
-.modal-btns{display:flex;gap:0.8rem;margin-top:1.5rem;justify-content:flex-end;}
-.btn-save{padding:8px 22px;background:var(--gold);color:#1a1410;border:none;border-radius:8px;font-size:0.88rem;font-weight:700;cursor:pointer;font-family:'Noto Sans TC',sans-serif;}
+.modal-btns{display:flex;gap:0.7rem;margin-top:1.2rem;justify-content:flex-end;}
+.btn-save{padding:7px 20px;background:var(--gold);color:#1a1410;border:none;border-radius:7px;font-size:0.85rem;font-weight:700;cursor:pointer;font-family:inherit;}
 .btn-save:hover{background:var(--gold-lt);}
-.btn-cancel{padding:8px 16px;background:transparent;border:1px solid var(--border);border-radius:8px;color:var(--text-dim);font-size:0.88rem;cursor:pointer;font-family:'Noto Sans TC',sans-serif;}
+.btn-cancel{padding:7px 14px;background:transparent;border:1px solid var(--border);border-radius:7px;color:var(--text-dim);font-size:0.85rem;cursor:pointer;font-family:inherit;}
 .btn-cancel:hover{border-color:var(--gold);color:var(--gold);}
 
 /* REPORT */
-.report-header{display:flex;align-items:center;gap:1rem;margin-bottom:1.5rem;}
-.report-header select{padding:8px 12px;background:var(--surface);border:1px solid var(--border);border-radius:8px;color:var(--text);font-size:0.88rem;outline:none;font-family:'Noto Sans TC',sans-serif;}
-.report-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1rem;margin-bottom:1.5rem;}
-.report-card{background:var(--surface);border:1px solid var(--border);border-radius:14px;padding:1.2rem;text-align:center;}
-.report-card .rc-label{font-size:0.78rem;color:var(--text-dim);margin-bottom:8px;}
-.report-card .rc-value{font-family:'Cormorant Garamond',serif;font-size:2rem;font-weight:300;color:var(--gold-lt);}
-.report-table-wrap{background:var(--surface);border:1px solid var(--border);border-radius:14px;overflow:hidden;}
-.report-table-title{padding:1rem 1.2rem;border-bottom:1px solid var(--border);font-size:0.88rem;color:var(--text-dim);}
+.report-header{display:flex;align-items:center;gap:1rem;margin-bottom:1.2rem;}
+.report-header select{padding:7px 10px;background:var(--surface);border:1px solid var(--border);border-radius:7px;color:var(--text);font-size:0.85rem;outline:none;font-family:inherit;}
+.report-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:0.8rem;margin-bottom:1.2rem;}
+.report-card{background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:1rem;text-align:center;}
+.rc-label{font-size:0.72rem;color:var(--text-dim);margin-bottom:6px;}
+.rc-value{font-family:'Cormorant Garamond',serif;font-size:1.8rem;color:var(--gold-lt);}
+.report-table-wrap{background:var(--surface);border:1px solid var(--border);border-radius:12px;overflow:hidden;}
+.report-table-title{padding:0.8rem 1rem;border-bottom:1px solid var(--border);font-size:0.85rem;color:var(--text-dim);}
+table{width:100%;border-collapse:collapse;font-size:0.82rem;}
+thead tr{border-bottom:1px solid var(--border);}
+th{padding:8px 10px;text-align:left;font-size:0.7rem;color:var(--text-dim);font-weight:400;white-space:nowrap;}
+td{padding:8px 10px;border-bottom:1px solid rgba(58,48,40,0.4);vertical-align:middle;}
 
 /* ACCOUNTS */
-.add-btn{padding:8px 18px;background:var(--gold);color:#1a1410;border:none;border-radius:8px;font-size:0.85rem;font-weight:700;cursor:pointer;font-family:'Noto Sans TC',sans-serif;margin-bottom:1rem;}
+.add-btn{padding:7px 16px;background:var(--gold);color:#1a1410;border:none;border-radius:7px;font-size:0.82rem;font-weight:700;cursor:pointer;font-family:inherit;margin-bottom:1rem;}
 .add-btn:hover{background:var(--gold-lt);}
+.action-btn{padding:3px 9px;border-radius:5px;font-size:0.75rem;cursor:pointer;border:1px solid var(--border);background:transparent;color:var(--text-dim);font-family:inherit;margin-right:3px;}
+.action-btn:hover{border-color:var(--gold);color:var(--gold);}
+.action-btn.danger:hover{border-color:var(--red);color:var(--red);}
 
-.loading{text-align:center;padding:2rem;color:var(--text-dim);font-size:0.9rem;}
-.empty{text-align:center;padding:3rem;color:var(--text-dim);font-size:0.9rem;}
-@media(max-width:768px){.stats-bar{grid-template-columns:repeat(2,1fr);}.report-grid{grid-template-columns:repeat(2,1fr);}.filter-bar input{width:140px;}}
+.empty{text-align:center;padding:2rem;color:var(--text-dim);}
+.loading{text-align:center;padding:2rem;color:var(--text-dim);}
+@media(max-width:768px){
+  .stats-bar{grid-template-columns:repeat(2,1fr);}
+  .report-grid{grid-template-columns:repeat(2,1fr);}
+  .card-main{grid-template-columns:1fr 1fr;}
+  .detail-grid{grid-template-columns:repeat(2,1fr);}
+}
 </style>
 </head>
 <body>
@@ -111,9 +140,9 @@ tr:hover td{background:rgba(224,112,80,0.03);}
     <div class="login-logo">鳳潤鳥宿</div>
     <div class="login-sub">後台管理系統</div>
     <label>帳號</label>
-    <input type="text" id="loginUser" placeholder="請輸入帳號" autocomplete="username"/>
+    <input type="text" id="loginUser" placeholder="請輸入帳號"/>
     <label>密碼</label>
-    <input type="password" id="loginPass" placeholder="請輸入密碼" autocomplete="current-password" onkeydown="if(event.key==='Enter')doLogin()"/>
+    <input type="password" id="loginPass" placeholder="請輸入密碼" onkeydown="if(event.key==='Enter')doLogin()"/>
     <button class="login-btn" onclick="doLogin()">登入</button>
     <div class="login-err" id="loginErr"></div>
   </div>
@@ -122,8 +151,8 @@ tr:hover td{background:rgba(224,112,80,0.03);}
 <div id="adminScreen">
   <div class="topbar">
     <div class="topbar-logo">鳳潤鳥宿・後台</div>
-    <div class="topbar-right">
-      <span style="font-size:0.82rem;color:var(--text-dim);" id="topUserInfo"></span>
+    <div style="display:flex;align-items:center;gap:1rem;">
+      <span style="font-size:0.8rem;color:var(--text-dim);" id="topUserInfo"></span>
       <button class="logout-btn" onclick="doLogout()">登出</button>
     </div>
   </div>
@@ -152,41 +181,36 @@ tr:hover td{background:rgba(224,112,80,0.03);}
       </select>
       <input type="month" id="filterMonth" onchange="renderList()"/>
     </div>
-    <div class="table-wrap">
-      <table>
-        <thead><tr><th>#</th><th>飼主</th><th>電話</th><th>鳥寶</th><th>入住</th><th>接回</th><th>估算費用</th><th>實收</th><th>狀態</th><th>操作</th></tr></thead>
-        <tbody id="bookingTbody"><tr><td colspan="10" class="loading">載入中…</td></tr></tbody>
-      </table>
-    </div>
+    <div class="booking-list" id="bookingList"><div class="loading">載入中…</div></div>
   </div>
 
   <!-- 月報表 -->
   <div id="tabReport" class="content" style="display:none;">
     <div class="report-header">
-      <span style="font-size:0.9rem;color:var(--text-dim);">選擇月份</span>
+      <span style="font-size:0.85rem;color:var(--text-dim);">選擇月份</span>
       <select id="reportMonth" onchange="renderReport()"></select>
     </div>
     <div class="report-grid">
       <div class="report-card"><div class="rc-label">總預約筆數</div><div class="rc-value" id="r1">—</div></div>
-      <div class="report-card"><div class="rc-label">估算總收入</div><div class="rc-value" id="r2">—</div><div style="font-size:0.75rem;color:var(--text-dim);">NT$</div></div>
-      <div class="report-card"><div class="rc-label">實收金額</div><div class="rc-value" id="r3">—</div><div style="font-size:0.75rem;color:var(--text-dim);">NT$</div></div>
-      <div class="report-card"><div class="rc-label">支出金額</div><div class="rc-value" id="r4">—</div><div style="font-size:0.75rem;color:var(--text-dim);">NT$</div></div>
-      <div class="report-card"><div class="rc-label">淨收入</div><div class="rc-value" id="r5">—</div><div style="font-size:0.75rem;color:var(--text-dim);">NT$</div></div>
-      <div class="report-card"><div class="rc-label">平均每筆費用</div><div class="rc-value" id="r6">—</div><div style="font-size:0.75rem;color:var(--text-dim);">NT$</div></div>
+      <div class="report-card"><div class="rc-label">估算總收入</div><div class="rc-value" id="r2">—</div><div style="font-size:0.7rem;color:var(--text-dim);">NT$</div></div>
+      <div class="report-card"><div class="rc-label">實收金額</div><div class="rc-value" id="r3">—</div><div style="font-size:0.7rem;color:var(--text-dim);">NT$</div></div>
+      <div class="report-card"><div class="rc-label">支出金額</div><div class="rc-value" id="r4">—</div><div style="font-size:0.7rem;color:var(--text-dim);">NT$</div></div>
+      <div class="report-card"><div class="rc-label">淨收入</div><div class="rc-value" id="r5">—</div><div style="font-size:0.7rem;color:var(--text-dim);">NT$</div></div>
+      <div class="report-card"><div class="rc-label">平均每筆費用</div><div class="rc-value" id="r6">—</div><div style="font-size:0.7rem;color:var(--text-dim);">NT$</div></div>
     </div>
     <div class="report-table-wrap">
       <div class="report-table-title">本月預約明細</div>
       <table>
-        <thead><tr><th>#</th><th>飼主</th><th>入住</th><th>接回</th><th>鳥寶</th><th>估算費用</th><th>實收</th><th>支出</th><th>狀態</th></tr></thead>
+        <thead><tr><th>#</th><th>飼主</th><th>入住</th><th>接回</th><th>鳥寶</th><th>估算費用</th><th>附加費</th><th>VIP費</th><th>總費用</th><th>實收</th><th>支出</th><th>狀態</th></tr></thead>
         <tbody id="reportTbody"></tbody>
       </table>
     </div>
   </div>
 
-  <!-- 帳號管理（只有editor看得到）-->
+  <!-- 帳號管理 -->
   <div id="tabAccounts" class="content" style="display:none;">
     <button class="add-btn" onclick="openAddAccount()">＋ 新增帳號</button>
-    <div class="table-wrap">
+    <div class="report-table-wrap">
       <table>
         <thead><tr><th>#</th><th>帳號</th><th>顯示名稱</th><th>權限</th><th>建立時間</th><th>操作</th></tr></thead>
         <tbody id="accountTbody"><tr><td colspan="6" class="loading">載入中…</td></tr></tbody>
@@ -207,6 +231,8 @@ tr:hover td{background:rgba(224,112,80,0.03);}
       <option value="已完成">已完成</option>
       <option value="已取消">已取消</option>
     </select>
+    <label>VIP費用 (NT$)</label>
+    <input type="number" id="editVipFee" placeholder="0"/>
     <label>實收金額 (NT$)</label>
     <input type="number" id="editIncome" placeholder="0"/>
     <label>支出金額 (NT$)</label>
@@ -222,16 +248,16 @@ tr:hover td{background:rgba(224,112,80,0.03);}
   </div>
 </div>
 
-<!-- 新增/編輯帳號 Modal -->
+<!-- 帳號 Modal -->
 <div class="modal-overlay" id="accountModal">
   <div class="modal">
     <div class="modal-title" id="accountModalTitle">新增帳號</div>
     <input type="hidden" id="accountEditId"/>
     <label>帳號</label>
-    <input type="text" id="accountUsername" placeholder="請輸入帳號名稱"/>
+    <input type="text" id="accountUsername" placeholder="帳號名稱"/>
     <label>顯示名稱</label>
-    <input type="text" id="accountDisplayName" placeholder="例：小美、志明"/>
-    <label>密碼 <span id="passHint" style="color:var(--text-dim);font-size:0.75rem;">（留空則不修改）</span></label>
+    <input type="text" id="accountDisplayName" placeholder="例：小美"/>
+    <label>密碼 <span id="passHint" style="color:var(--text-dim);font-size:0.72rem;"></span></label>
     <input type="password" id="accountPassword" placeholder="請輸入密碼"/>
     <label>權限</label>
     <select id="accountRole">
@@ -248,37 +274,27 @@ tr:hover td{background:rgba(224,112,80,0.03);}
 <script>
 var SUPABASE_URL='https://hxbaanirskvcljflfusx.supabase.co';
 var SUPABASE_KEY='eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imh4YmFhbmlyc2t2Y2xqZmxmdXN4Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3OTI5OTk4NDMsImV4cCI6MjEwODU3NTg0M30.rn4uuKECikgLf0KVzrXG-I8G9HZC_vkhC36Eb7H898Y';
-
 var currentUser=null;
 var allBookings=[];
 
-// ── 密碼雜湊（用 SHA-256）──
 async function hashPassword(pass){
   var enc=new TextEncoder().encode(pass);
   var buf=await crypto.subtle.digest('SHA-256',enc);
   return Array.from(new Uint8Array(buf)).map(function(b){return b.toString(16).padStart(2,'0');}).join('');
 }
 
-// ── 登入 ──
 async function doLogin(){
   var username=document.getElementById('loginUser').value.trim();
   var password=document.getElementById('loginPass').value;
   var errEl=document.getElementById('loginErr');
-  errEl.textContent='驗證中…';
-
   if(!username||!password){errEl.textContent='請輸入帳號和密碼';return;}
-
+  errEl.textContent='驗證中…';
   var hash=await hashPassword(password);
-
   var res=await fetch(SUPABASE_URL+'/rest/v1/admin_users?username=eq.'+encodeURIComponent(username)+'&password_hash=eq.'+hash+'&select=id,username,display_name,role',{
     headers:{'apikey':SUPABASE_KEY,'Authorization':'Bearer '+SUPABASE_KEY}
   });
   var data=await res.json();
-
-  if(!data||data.length===0){
-    errEl.textContent='帳號或密碼錯誤';return;
-  }
-
+  if(!data||!data.length){errEl.textContent='帳號或密碼錯誤';return;}
   currentUser=data[0];
   errEl.textContent='';
   document.getElementById('loginScreen').style.display='none';
@@ -294,31 +310,22 @@ function doLogout(){
   document.getElementById('loginPass').value='';
 }
 
-// ── 初始化 ──
 function initAdmin(){
   var now=new Date();
   var ym=now.getFullYear()+'-'+String(now.getMonth()+1).padStart(2,'0');
   document.getElementById('filterMonth').value=ym;
   document.getElementById('topUserInfo').textContent=(currentUser.display_name||currentUser.username)+' · '+(currentUser.role==='editor'?'編輯者':'檢視者');
-
-  // editor 才顯示帳號管理 tab
   if(currentUser.role==='editor'){
-    var tabBar=document.getElementById('tabBar');
-    var accTab=document.createElement('div');
-    accTab.className='tab';
-    accTab.setAttribute('onclick',"switchTab('accounts')");
-    accTab.textContent='👤 帳號管理';
-    tabBar.appendChild(accTab);
+    var t=document.createElement('div');
+    t.className='tab';t.setAttribute('onclick',"switchTab('accounts')");t.textContent='👤 帳號管理';
+    document.getElementById('tabBar').appendChild(t);
   }
-
   buildReportMonthSelect();
   loadBookings();
 }
 
-// ── Tab 切換 ──
 function switchTab(tab){
-  var tabs=['list','report','accounts'];
-  tabs.forEach(function(t){
+  ['list','report','accounts'].forEach(function(t){
     var el=document.getElementById('tab'+t.charAt(0).toUpperCase()+t.slice(1));
     if(el)el.style.display=t===tab?'block':'none';
   });
@@ -329,7 +336,6 @@ function switchTab(tab){
   if(tab==='accounts')loadAccounts();
 }
 
-// ── 載入預約 ──
 function loadBookings(){
   fetch(SUPABASE_URL+'/rest/v1/bookings?order=created_at.desc&limit=500',{
     headers:{'apikey':SUPABASE_KEY,'Authorization':'Bearer '+SUPABASE_KEY}
@@ -337,14 +343,14 @@ function loadBookings(){
     allBookings=data||[];
     updateStats();renderList();
   }).catch(function(){
-    document.getElementById('bookingTbody').innerHTML='<tr><td colspan="10" class="empty">載入失敗</td></tr>';
+    document.getElementById('bookingList').innerHTML='<div class="empty">載入失敗，請重新整理</div>';
   });
 }
 
 function updateStats(){
   var now=new Date();
-  var thisMonth=now.getFullYear()+'-'+String(now.getMonth()+1).padStart(2,'0');
-  var m=allBookings.filter(function(b){return b.created_at&&b.created_at.startsWith(thisMonth);});
+  var ym=now.getFullYear()+'-'+String(now.getMonth()+1).padStart(2,'0');
+  var m=allBookings.filter(function(b){return b.created_at&&b.created_at.startsWith(ym);});
   document.getElementById('s1').textContent=m.length;
   document.getElementById('s2').textContent=m.filter(function(b){return !b.status||b.status==='確認中';}).length;
   document.getElementById('s3').textContent=m.reduce(function(s,b){return s+(b.total_fee||0);},0).toLocaleString();
@@ -364,35 +370,95 @@ function renderList(){
     return mn&&ms&&mm;
   });
 
-  if(!filtered.length){document.getElementById('bookingTbody').innerHTML='<tr><td colspan="10" class="empty">沒有符合的預約</td></tr>';return;}
+  if(!filtered.length){document.getElementById('bookingList').innerHTML='<div class="empty">沒有符合的預約</div>';return;}
 
   var html='';
   filtered.forEach(function(b,idx){
     var status=b.status||'確認中';
     var bc=status==='已確認'?'badge-confirmed':status==='已完成'?'badge-done':status==='已取消'?'badge-cancel':'badge-pending';
-    var birds=Array.isArray(b.birds)?b.birds.map(function(bi){return bi.name+'×'+bi.count;}).join('、'):'—';
-    html+='<tr>'+
-      '<td style="color:var(--text-dim);">'+(idx+1)+'</td>'+
-      '<td><div>'+(b.line_name||'—')+'</div>'+(b.fb_name?'<div style="font-size:0.78rem;color:var(--text-dim);">FB:'+b.fb_name+'</div>':'')+'</td>'+
-      '<td>'+(b.phone||'—')+'</td>'+
-      '<td style="max-width:120px;">'+birds+'</td>'+
-      '<td style="white-space:nowrap;">'+(b.checkin_date||'—')+'</td>'+
-      '<td style="white-space:nowrap;">'+(b.checkout_date||'—')+'</td>'+
-      '<td style="white-space:nowrap;color:var(--gold-lt);">'+(b.total_fee?'NT$'+b.total_fee.toLocaleString():'—')+'</td>'+
-      '<td style="white-space:nowrap;">'+(b.income?'NT$'+b.income.toLocaleString():'—')+'</td>'+
-      '<td><span class="badge '+bc+'">'+status+'</span></td>'+
-      '<td>'+(isEditor?'<button class="action-btn" onclick="openEdit('+b.id+')">編輯</button>':'<span style="font-size:0.78rem;color:var(--text-dim);">僅檢視</span>')+'</td>'+
-      '</tr>';
+    var birds=Array.isArray(b.birds)?b.birds:[];
+    var birdsText=birds.length?birds.map(function(bi){return bi.name+'×'+bi.count;}).join('、'):'—';
+
+    // birds detail rows
+    var birdsDetailHtml='';
+    if(birds.length){
+      birdsDetailHtml='<div class="birds-detail">';
+      birds.forEach(function(bi){
+        birdsDetailHtml+=
+          '<div class="bird-row-detail">'+
+          '<span style="min-width:80px;color:var(--text);">'+bi.name+'</span>'+
+          '<span style="min-width:100px;color:var(--text-dim);">'+bi.species+'</span>'+
+          '<span style="min-width:50px;">×'+bi.count+'隻</span>'+
+          '<span style="color:var(--gold-lt);">NT$'+bi.price+'/晚</span>'+
+          '</div>';
+      });
+      birdsDetailHtml+='</div>';
+    }
+
+    var addonText=[];
+    if(b.addon_med)addonText.push('灌奶/塗藥');
+    if(b.addon_meal)addonText.push('3-4餐');
+
+    html+=
+      '<div class="booking-card" id="card-'+b.id+'">'+
+      '<div class="card-header" onclick="toggleCard('+b.id+')">'+
+        '<span class="card-id">#'+(idx+1)+'</span>'+
+        '<div class="card-main">'+
+          '<div>'+
+            '<div class="card-name">'+(b.line_name||'—')+'</div>'+
+            '<div class="card-date">'+(b.phone||'')+'</div>'+
+          '</div>'+
+          '<div class="card-date">'+(b.checkin_date||'—')+'<br>→ '+(b.checkout_date||'—')+'</div>'+
+          '<div class="card-date">'+birdsText+'</div>'+
+          '<div class="card-fee">'+(b.total_fee?'NT$'+b.total_fee.toLocaleString():'—')+'</div>'+
+          '<span class="badge '+bc+'">'+status+'</span>'+
+        '</div>'+
+        '<div class="card-actions">'+
+          (isEditor?'<button class="edit-btn" onclick="event.stopPropagation();openEdit('+b.id+')">編輯</button>':'')+
+          '<button class="expand-btn" id="expbtn-'+b.id+'">▼</button>'+
+        '</div>'+
+      '</div>'+
+      '<div class="card-detail" id="detail-'+b.id+'">'+
+        '<div class="detail-grid">'+
+          '<div class="detail-item"><div class="detail-label">預約編號</div><div class="detail-value">#'+b.id+'</div></div>'+
+          '<div class="detail-item"><div class="detail-label">LINE 名稱</div><div class="detail-value">'+(b.line_name||'—')+'</div></div>'+
+          '<div class="detail-item"><div class="detail-label">FB 名稱</div><div class="detail-value">'+(b.fb_name||'—')+'</div></div>'+
+          '<div class="detail-item"><div class="detail-label">聯絡電話</div><div class="detail-value">'+(b.phone||'—')+'</div></div>'+
+          '<div class="detail-item"><div class="detail-label">入托日期</div><div class="detail-value">'+(b.checkin_date||'—')+'</div></div>'+
+          '<div class="detail-item"><div class="detail-label">接回日期</div><div class="detail-value">'+(b.checkout_date||'—')+'</div></div>'+
+          '<div class="detail-item"><div class="detail-label">附加服務</div><div class="detail-value">'+(addonText.length?addonText.join('、'):'無')+'</div></div>'+
+          '<div class="detail-item"><div class="detail-label">建立時間</div><div class="detail-value">'+(b.created_at?b.created_at.slice(0,16).replace('T',' '):'—')+'</div></div>'+
+          birdsDetailHtml+
+          '<div class="detail-item"><div class="detail-label">估算費用</div><div class="detail-value gold">'+(b.base_fee?'NT$'+b.base_fee.toLocaleString():'—')+'</div></div>'+
+          '<div class="detail-item"><div class="detail-label">附加費</div><div class="detail-value gold">'+(b.addon_fee?'NT$'+b.addon_fee.toLocaleString():'—')+'</div></div>'+
+          '<div class="detail-item"><div class="detail-label">VIP費用</div><div class="detail-value gold">'+(b.vip_fee?'NT$'+b.vip_fee.toLocaleString():'—')+'</div></div>'+
+          '<div class="detail-item"><div class="detail-label">總費用</div><div class="detail-value gold" style="font-size:1rem;font-weight:500;">'+(b.total_fee?'NT$'+b.total_fee.toLocaleString():'—')+'</div></div>'+
+          '<div class="detail-item"><div class="detail-label">實收金額</div><div class="detail-value gold">'+(b.income?'NT$'+b.income.toLocaleString():'—')+'</div></div>'+
+          '<div class="detail-item"><div class="detail-label">支出金額</div><div class="detail-value">'+(b.expense?'NT$'+b.expense.toLocaleString():'—')+'</div></div>'+
+          '<div class="detail-item" style="grid-column:span 2;"><div class="detail-label">支出說明</div><div class="detail-value note">'+(b.expense_note||'—')+'</div></div>'+
+          '<div class="detail-item" style="grid-column:1/-1;"><div class="detail-label">客戶備註</div><div class="detail-value note">'+(b.customer_note||'—')+'</div></div>'+
+          '<div class="detail-item" style="grid-column:1/-1;"><div class="detail-label">管理員備註</div><div class="detail-value note">'+(b.admin_note||'—')+'</div></div>'+
+        '</div>'+
+      '</div>'+
+      '</div>';
   });
-  document.getElementById('bookingTbody').innerHTML=html;
+  document.getElementById('bookingList').innerHTML=html;
 }
 
-// ── 編輯預約 ──
+function toggleCard(id){
+  var detail=document.getElementById('detail-'+id);
+  var btn=document.getElementById('expbtn-'+id);
+  var isOpen=detail.classList.contains('open');
+  detail.classList.toggle('open',!isOpen);
+  btn.textContent=isOpen?'▼':'▲';
+}
+
 function openEdit(id){
   var b=allBookings.find(function(x){return x.id===id;});
   if(!b)return;
   document.getElementById('editId').value=id;
   document.getElementById('editStatus').value=b.status||'確認中';
+  document.getElementById('editVipFee').value=b.vip_fee||'';
   document.getElementById('editIncome').value=b.income||'';
   document.getElementById('editExpense').value=b.expense||'';
   document.getElementById('editExpenseNote').value=b.expense_note||'';
@@ -402,8 +468,13 @@ function openEdit(id){
 
 function saveEdit(){
   var id=parseInt(document.getElementById('editId').value);
+  var vip=parseInt(document.getElementById('editVipFee').value)||0;
+  var b=allBookings.find(function(x){return x.id===id;});
+  var newTotal=b?(b.base_fee||0)+(b.addon_fee||0)+vip:0;
   var payload={
     status:document.getElementById('editStatus').value,
+    vip_fee:vip,
+    total_fee:newTotal||b.total_fee,
     income:parseInt(document.getElementById('editIncome').value)||0,
     expense:parseInt(document.getElementById('editExpense').value)||0,
     expense_note:document.getElementById('editExpenseNote').value.trim(),
@@ -430,35 +501,28 @@ function loadAccounts(){
     if(!data.length){document.getElementById('accountTbody').innerHTML='<tr><td colspan="6" class="empty">尚無帳號</td></tr>';return;}
     var html='';
     data.forEach(function(u,idx){
-      var rc=u.role==='editor'?'badge-editor':'badge-viewer';
-      var rl=u.role==='editor'?'可編輯':'僅檢視';
-      var date=u.created_at?u.created_at.slice(0,10):'—';
       var isSelf=currentUser&&u.id===currentUser.id;
       html+='<tr>'+
         '<td style="color:var(--text-dim);">'+(idx+1)+'</td>'+
-        '<td>'+u.username+(isSelf?' <span style="font-size:0.72rem;color:var(--text-dim);">（目前帳號）</span>':'')+'</td>'+
+        '<td>'+u.username+(isSelf?' <span style="font-size:0.7rem;color:var(--text-dim);">（目前）</span>':'')+'</td>'+
         '<td>'+(u.display_name||'—')+'</td>'+
-        '<td><span class="badge '+rc+'">'+rl+'</span></td>'+
-        '<td>'+date+'</td>'+
-        '<td>'+
-          '<button class="action-btn" onclick="openEditAccount('+u.id+')">編輯</button>'+
-          (!isSelf?'<button class="action-btn danger" onclick="deleteAccount('+u.id+',\''+u.username+'\')">刪除</button>':'')+
-        '</td>'+
+        '<td><span class="badge '+(u.role==='editor'?'badge-editor':'badge-viewer')+'">'+(u.role==='editor'?'可編輯':'僅檢視')+'</span></td>'+
+        '<td>'+(u.created_at?u.created_at.slice(0,10):'—')+'</td>'+
+        '<td><button class="action-btn" onclick="openEditAccount('+u.id+')">編輯</button>'+(!isSelf?'<button class="action-btn danger" onclick="deleteAccount('+u.id+',\''+u.username+'\')">刪除</button>':'')+'</td>'+
         '</tr>';
     });
     document.getElementById('accountTbody').innerHTML=html;
-  }).catch(function(){document.getElementById('accountTbody').innerHTML='<tr><td colspan="6" class="empty">載入失敗</td></tr>';});
+  });
 }
 
 function openAddAccount(){
   document.getElementById('accountModalTitle').textContent='新增帳號';
   document.getElementById('accountEditId').value='';
-  document.getElementById('accountUsername').value='';
+  document.getElementById('accountUsername').value='';document.getElementById('accountUsername').disabled=false;
   document.getElementById('accountDisplayName').value='';
   document.getElementById('accountPassword').value='';
   document.getElementById('accountRole').value='viewer';
   document.getElementById('passHint').textContent='';
-  document.getElementById('accountUsername').disabled=false;
   document.getElementById('accountModal').classList.add('open');
 }
 
@@ -470,8 +534,7 @@ function openEditAccount(id){
     var u=data[0];
     document.getElementById('accountModalTitle').textContent='編輯帳號';
     document.getElementById('accountEditId').value=u.id;
-    document.getElementById('accountUsername').value=u.username;
-    document.getElementById('accountUsername').disabled=true;
+    document.getElementById('accountUsername').value=u.username;document.getElementById('accountUsername').disabled=true;
     document.getElementById('accountDisplayName').value=u.display_name||'';
     document.getElementById('accountPassword').value='';
     document.getElementById('accountRole').value=u.role;
@@ -486,25 +549,20 @@ async function saveAccount(){
   var displayName=document.getElementById('accountDisplayName').value.trim();
   var password=document.getElementById('accountPassword').value;
   var role=document.getElementById('accountRole').value;
-
   if(!username){alert('請輸入帳號');return;}
   if(!id&&!password){alert('新增帳號請設定密碼');return;}
-
   var payload={display_name:displayName,role:role};
   if(!id)payload.username=username;
   if(password)payload.password_hash=await hashPassword(password);
-
   var url=id?SUPABASE_URL+'/rest/v1/admin_users?id=eq.'+id:SUPABASE_URL+'/rest/v1/admin_users';
-  var method=id?'PATCH':'POST';
-
   fetch(url,{
-    method:method,
+    method:id?'PATCH':'POST',
     headers:{'apikey':SUPABASE_KEY,'Authorization':'Bearer '+SUPABASE_KEY,'Content-Type':'application/json','Prefer':'return=minimal'},
     body:JSON.stringify(payload)
   }).then(function(r){
     if(r.ok){closeModal('accountModal');loadAccounts();}
-    else{alert('儲存失敗，帳號可能已存在');}
-  }).catch(function(){alert('儲存失敗');});
+    else alert('儲存失敗，帳號可能已存在');
+  });
 }
 
 function deleteAccount(id,username){
@@ -512,10 +570,7 @@ function deleteAccount(id,username){
   fetch(SUPABASE_URL+'/rest/v1/admin_users?id=eq.'+id,{
     method:'DELETE',
     headers:{'apikey':SUPABASE_KEY,'Authorization':'Bearer '+SUPABASE_KEY}
-  }).then(function(r){
-    if(r.ok)loadAccounts();
-    else alert('刪除失敗');
-  });
+  }).then(function(r){if(r.ok)loadAccounts();else alert('刪除失敗');});
 }
 
 // ── 月報表 ──
@@ -545,7 +600,7 @@ function renderReport(){
   document.getElementById('r5').textContent=(totalInc-totalExp).toLocaleString();
   document.getElementById('r6').textContent=(data.length?Math.round(totalFee/data.length):0).toLocaleString();
   var html='';
-  if(!data.length){html='<tr><td colspan="9" class="empty">此月份無資料</td></tr>';}
+  if(!data.length){html='<tr><td colspan="12" class="empty">此月份無資料</td></tr>';}
   else{data.forEach(function(b,idx){
     var status=b.status||'確認中';
     var bc=status==='已確認'?'badge-confirmed':status==='已完成'?'badge-done':status==='已取消'?'badge-cancel':'badge-pending';
@@ -556,7 +611,10 @@ function renderReport(){
       '<td>'+(b.checkin_date||'—')+'</td>'+
       '<td>'+(b.checkout_date||'—')+'</td>'+
       '<td>'+birds+'</td>'+
-      '<td>'+(b.total_fee?'NT$'+b.total_fee.toLocaleString():'—')+'</td>'+
+      '<td>'+(b.base_fee?'NT$'+b.base_fee.toLocaleString():'—')+'</td>'+
+      '<td>'+(b.addon_fee?'NT$'+b.addon_fee.toLocaleString():'—')+'</td>'+
+      '<td>'+(b.vip_fee?'NT$'+b.vip_fee.toLocaleString():'—')+'</td>'+
+      '<td style="color:var(--gold-lt);">'+(b.total_fee?'NT$'+b.total_fee.toLocaleString():'—')+'</td>'+
       '<td>'+(b.income?'NT$'+b.income.toLocaleString():'—')+'</td>'+
       '<td>'+(b.expense?'NT$'+b.expense.toLocaleString():'—')+'</td>'+
       '<td><span class="badge '+bc+'">'+status+'</span></td>'+
