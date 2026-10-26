@@ -12,9 +12,8 @@
   --green:#5a9a6a;--red:#c05040;--yellow:#c8a040;
 }
 *{box-sizing:border-box;margin:0;padding:0;}
-body{font-family:'Noto Sans TC',sans-serif;background:var(--bg);color:var(--text);min-height:100vh;font-size:14px;}
+body{font-family:'Noto Sans TC',sans-serif;background:var(--bg);color:var(--text);min-height:100vh;font-size:13px;}
 
-/* LOGIN */
 #loginScreen{display:flex;align-items:center;justify-content:center;min-height:100vh;background:radial-gradient(ellipse at 50% 40%,rgba(224,112,80,0.08),transparent 70%),var(--bg);}
 .login-box{width:360px;padding:2.5rem;background:var(--surface);border:1px solid var(--border);border-radius:20px;}
 .login-logo{font-family:'Cormorant Garamond',serif;font-size:1.6rem;color:var(--gold);text-align:center;margin-bottom:0.3rem;letter-spacing:0.1em;}
@@ -26,75 +25,50 @@ body{font-family:'Noto Sans TC',sans-serif;background:var(--bg);color:var(--text
 .login-btn:hover{background:var(--gold-lt);}
 .login-err{color:var(--red);font-size:0.85rem;text-align:center;margin-top:0.8rem;min-height:1.2em;}
 
-/* TOPBAR */
 #adminScreen{display:none;}
 .topbar{display:flex;align-items:center;justify-content:space-between;padding:0 1.5rem;height:52px;background:var(--surface);border-bottom:1px solid var(--border);position:sticky;top:0;z-index:100;}
 .topbar-logo{font-family:'Cormorant Garamond',serif;font-size:1.15rem;color:var(--gold);letter-spacing:0.1em;}
 .logout-btn{padding:5px 14px;background:transparent;border:1px solid var(--border);border-radius:8px;color:var(--text-dim);font-size:0.8rem;cursor:pointer;font-family:inherit;}
 .logout-btn:hover{border-color:var(--gold);color:var(--gold);}
 
-/* TABS */
 .tabs{display:flex;gap:4px;padding:0.8rem 1.5rem 0;border-bottom:1px solid var(--border);}
 .tab{padding:7px 18px;border-radius:8px 8px 0 0;cursor:pointer;font-size:0.85rem;color:var(--text-dim);border:1px solid transparent;border-bottom:none;}
 .tab.active{color:var(--gold);background:var(--surface);border-color:var(--border);}
 .content{padding:1.2rem 1.5rem;}
 
-/* STATS */
 .stats-bar{display:grid;grid-template-columns:repeat(4,1fr);gap:0.8rem;margin-bottom:1.2rem;}
 .stat-card{background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:0.9rem 1rem;}
 .stat-label{font-size:0.72rem;color:var(--text-dim);margin-bottom:4px;}
 .stat-value{font-family:'Cormorant Garamond',serif;font-size:1.7rem;color:var(--gold-lt);}
 .stat-sub{font-size:0.72rem;color:var(--text-dim);}
 
-/* FILTER */
 .filter-bar{display:flex;gap:0.7rem;align-items:center;margin-bottom:1rem;flex-wrap:wrap;}
 .filter-bar input,.filter-bar select{padding:7px 10px;background:var(--surface);border:1px solid var(--border);border-radius:7px;color:var(--text);font-size:0.82rem;outline:none;font-family:inherit;}
 .filter-bar input{width:160px;}
 .filter-bar input:focus,.filter-bar select:focus{border-color:rgba(224,112,80,0.4);}
 
-/* BOOKING CARDS */
-.booking-list{display:flex;flex-direction:column;gap:0.7rem;}
-.booking-card{background:var(--surface);border:1px solid var(--border);border-radius:12px;overflow:hidden;}
-.card-header{display:flex;align-items:center;justify-content:space-between;padding:0.8rem 1rem;cursor:pointer;gap:1rem;}
-.card-header:hover{background:rgba(224,112,80,0.03);}
-.card-id{font-size:0.72rem;color:var(--text-dim);min-width:28px;}
-.card-main{flex:1;display:grid;grid-template-columns:1.5fr 1fr 1fr 1fr 1fr;gap:0.5rem;align-items:center;}
-.card-name{font-weight:500;color:var(--text);}
-.card-date{font-size:0.82rem;color:var(--text-dim);}
-.card-fee{font-size:0.85rem;color:var(--gold-lt);}
-.card-actions{display:flex;align-items:center;gap:0.5rem;}
-.badge{display:inline-block;padding:2px 9px;border-radius:20px;font-size:0.72rem;font-weight:500;}
-.badge-pending{background:rgba(200,160,64,0.15);color:var(--yellow);}
-.badge-confirmed{background:rgba(90,154,106,0.15);color:var(--green);}
-.badge-done{background:rgba(90,90,100,0.2);color:var(--text-dim);}
-.badge-cancel{background:rgba(192,80,64,0.15);color:var(--red);}
-.badge-editor{background:rgba(224,112,80,0.15);color:var(--gold-lt);}
-.badge-viewer{background:rgba(90,90,100,0.2);color:var(--text-dim);}
-.expand-btn{font-size:0.72rem;color:var(--text-dim);padding:3px 8px;border:1px solid var(--border);border-radius:5px;background:transparent;cursor:pointer;font-family:inherit;}
-.edit-btn{font-size:0.72rem;color:var(--gold);padding:3px 10px;border:1px solid rgba(224,112,80,0.4);border-radius:5px;background:transparent;cursor:pointer;font-family:inherit;}
-.edit-btn:hover{background:rgba(224,112,80,0.1);}
+.table-wrap{overflow-x:auto;}
+table{width:100%;border-collapse:collapse;font-size:0.82rem;min-width:900px;}
+thead tr{border-bottom:2px solid var(--border);}
+th{padding:8px 10px;text-align:left;font-size:0.7rem;color:var(--text-dim);font-weight:400;white-space:nowrap;background:var(--surface);position:sticky;top:0;}
+td{padding:8px 10px;border-bottom:1px solid rgba(58,48,40,0.5);vertical-align:middle;white-space:nowrap;}
+tr:hover td{background:rgba(224,112,80,0.03);}
+td.wrap{white-space:normal;max-width:160px;word-break:break-all;}
 
-/* CARD DETAIL */
-.card-detail{display:none;padding:0 1rem 1rem;border-top:1px solid var(--border);}
-.card-detail.open{display:block;}
-.detail-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:0.8rem;padding-top:0.8rem;}
-.detail-item{}
-.detail-label{font-size:0.7rem;color:var(--text-dim);margin-bottom:3px;letter-spacing:0.05em;}
-.detail-value{font-size:0.85rem;color:var(--text);}
-.detail-value.gold{color:var(--gold-lt);}
-.detail-value.note{font-size:0.82rem;color:var(--text-dim);line-height:1.6;}
-.birds-detail{grid-column:1/-1;background:rgba(0,0,0,0.15);border-radius:8px;padding:0.7rem 0.9rem;}
-.bird-row-detail{display:flex;gap:1rem;font-size:0.82rem;padding:3px 0;border-bottom:1px solid rgba(58,48,40,0.4);}
-.bird-row-detail:last-child{border-bottom:none;}
+.action-btn{padding:3px 9px;border-radius:5px;font-size:0.75rem;cursor:pointer;border:1px solid var(--border);background:transparent;color:var(--text-dim);font-family:inherit;margin-right:3px;}
+.action-btn:hover{border-color:var(--gold);color:var(--gold);}
+.action-btn.danger:hover{border-color:var(--red);color:var(--red);}
 
-/* MODAL */
+.add-btn{padding:7px 16px;background:var(--gold);color:#1a1410;border:none;border-radius:7px;font-size:0.82rem;font-weight:700;cursor:pointer;font-family:inherit;margin-bottom:1rem;}
+.add-btn:hover{background:var(--gold-lt);}
+
 .modal-overlay{display:none;position:fixed;inset:0;background:rgba(10,8,6,0.85);z-index:200;align-items:center;justify-content:center;}
 .modal-overlay.open{display:flex;}
-.modal{background:var(--surface);border:1px solid var(--border);border-radius:16px;padding:1.6rem;width:500px;max-width:95vw;max-height:90vh;overflow-y:auto;}
+.modal{background:var(--surface);border:1px solid var(--border);border-radius:16px;padding:1.6rem;width:440px;max-width:95vw;max-height:90vh;overflow-y:auto;}
 .modal-title{font-size:0.95rem;font-weight:500;color:var(--text);margin-bottom:1rem;}
 .modal label{display:block;font-size:0.75rem;color:var(--text-dim);margin-bottom:4px;margin-top:0.7rem;}
 .modal input,.modal select,.modal textarea{width:100%;padding:8px 11px;background:var(--bg);border:1px solid var(--border);border-radius:7px;color:var(--text);font-size:0.88rem;outline:none;font-family:inherit;}
-.modal textarea{resize:vertical;min-height:75px;}
+.modal textarea{resize:vertical;min-height:70px;}
 .modal input:focus,.modal select:focus,.modal textarea:focus{border-color:rgba(224,112,80,0.4);}
 .modal-btns{display:flex;gap:0.7rem;margin-top:1.2rem;justify-content:flex-end;}
 .btn-save{padding:7px 20px;background:var(--gold);color:#1a1410;border:none;border-radius:7px;font-size:0.85rem;font-weight:700;cursor:pointer;font-family:inherit;}
@@ -102,34 +76,25 @@ body{font-family:'Noto Sans TC',sans-serif;background:var(--bg);color:var(--text
 .btn-cancel{padding:7px 14px;background:transparent;border:1px solid var(--border);border-radius:7px;color:var(--text-dim);font-size:0.85rem;cursor:pointer;font-family:inherit;}
 .btn-cancel:hover{border-color:var(--gold);color:var(--gold);}
 
-/* REPORT */
 .report-header{display:flex;align-items:center;gap:1rem;margin-bottom:1.2rem;}
 .report-header select{padding:7px 10px;background:var(--surface);border:1px solid var(--border);border-radius:7px;color:var(--text);font-size:0.85rem;outline:none;font-family:inherit;}
 .report-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:0.8rem;margin-bottom:1.2rem;}
 .report-card{background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:1rem;text-align:center;}
 .rc-label{font-size:0.72rem;color:var(--text-dim);margin-bottom:6px;}
 .rc-value{font-family:'Cormorant Garamond',serif;font-size:1.8rem;color:var(--gold-lt);}
-.report-table-wrap{background:var(--surface);border:1px solid var(--border);border-radius:12px;overflow:hidden;}
-.report-table-title{padding:0.8rem 1rem;border-bottom:1px solid var(--border);font-size:0.85rem;color:var(--text-dim);}
-table{width:100%;border-collapse:collapse;font-size:0.82rem;}
-thead tr{border-bottom:1px solid var(--border);}
-th{padding:8px 10px;text-align:left;font-size:0.7rem;color:var(--text-dim);font-weight:400;white-space:nowrap;}
-td{padding:8px 10px;border-bottom:1px solid rgba(58,48,40,0.4);vertical-align:middle;}
+.section-wrap{background:var(--surface);border:1px solid var(--border);border-radius:12px;overflow:hidden;margin-bottom:1.2rem;}
+.section-title{padding:0.8rem 1rem;border-bottom:1px solid var(--border);font-size:0.85rem;color:var(--text-dim);}
 
-/* ACCOUNTS */
-.add-btn{padding:7px 16px;background:var(--gold);color:#1a1410;border:none;border-radius:7px;font-size:0.82rem;font-weight:700;cursor:pointer;font-family:inherit;margin-bottom:1rem;}
-.add-btn:hover{background:var(--gold-lt);}
-.action-btn{padding:3px 9px;border-radius:5px;font-size:0.75rem;cursor:pointer;border:1px solid var(--border);background:transparent;color:var(--text-dim);font-family:inherit;margin-right:3px;}
-.action-btn:hover{border-color:var(--gold);color:var(--gold);}
-.action-btn.danger:hover{border-color:var(--red);color:var(--red);}
+.badge-editor{background:rgba(224,112,80,0.15);color:var(--gold-lt);}
+.badge-viewer{background:rgba(90,90,100,0.2);color:var(--text-dim);}
+.badge{display:inline-block;padding:2px 9px;border-radius:20px;font-size:0.72rem;font-weight:500;}
 
 .empty{text-align:center;padding:2rem;color:var(--text-dim);}
 .loading{text-align:center;padding:2rem;color:var(--text-dim);}
+
 @media(max-width:768px){
   .stats-bar{grid-template-columns:repeat(2,1fr);}
   .report-grid{grid-template-columns:repeat(2,1fr);}
-  .card-main{grid-template-columns:1fr 1fr;}
-  .detail-grid{grid-template-columns:repeat(2,1fr);}
 }
 </style>
 </head>
@@ -159,6 +124,7 @@ td{padding:8px 10px;border-bottom:1px solid rgba(58,48,40,0.4);vertical-align:mi
 
   <div class="tabs" id="tabBar">
     <div class="tab active" onclick="switchTab('list')">📋 預約列表</div>
+    <div class="tab" onclick="switchTab('expense')">💸 支出列表</div>
     <div class="tab" onclick="switchTab('report')">📊 月報表</div>
   </div>
 
@@ -166,22 +132,57 @@ td{padding:8px 10px;border-bottom:1px solid rgba(58,48,40,0.4);vertical-align:mi
   <div id="tabList" class="content">
     <div class="stats-bar">
       <div class="stat-card"><div class="stat-label">本月預約</div><div class="stat-value" id="s1">—</div><div class="stat-sub">筆</div></div>
-      <div class="stat-card"><div class="stat-label">待確認</div><div class="stat-value" id="s2">—</div><div class="stat-sub">筆</div></div>
-      <div class="stat-card"><div class="stat-label">本月估算收入</div><div class="stat-value" id="s3">—</div><div class="stat-sub">NT$</div></div>
-      <div class="stat-card"><div class="stat-label">本月實收</div><div class="stat-value" id="s4">—</div><div class="stat-sub">NT$</div></div>
+      <div class="stat-card"><div class="stat-label">本月估算收入</div><div class="stat-value" id="s2">—</div><div class="stat-sub">NT$</div></div>
+      <div class="stat-card"><div class="stat-label">本月實收</div><div class="stat-value" id="s3">—</div><div class="stat-sub">NT$</div></div>
+      <div class="stat-card"><div class="stat-label">本月估算支出</div><div class="stat-value" id="s4">—</div><div class="stat-sub">NT$</div></div>
     </div>
     <div class="filter-bar">
       <input type="text" id="filterName" placeholder="搜尋姓名 / 電話" oninput="renderList()"/>
-      <select id="filterStatus" onchange="renderList()">
-        <option value="">全部狀態</option>
-        <option value="確認中">確認中</option>
-        <option value="已確認">已確認</option>
-        <option value="已完成">已完成</option>
-        <option value="已取消">已取消</option>
-      </select>
       <input type="month" id="filterMonth" onchange="renderList()"/>
     </div>
-    <div class="booking-list" id="bookingList"><div class="loading">載入中…</div></div>
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr>
+            <th>#</th>
+            <th>LINE名稱</th>
+            <th>電話</th>
+            <th>鳥寶</th>
+            <th>入托日期</th>
+            <th>接回日期</th>
+            <th>估算費用</th>
+            <th>附加費</th>
+            <th>VIP費用</th>
+            <th>總費用</th>
+            <th>客戶備註</th>
+            <th>管理員備註</th>
+            <th>建立時間</th>
+            <th>操作</th>
+          </tr>
+        </thead>
+        <tbody id="bookingTbody"><tr><td colspan="14" class="loading">載入中…</td></tr></tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- 支出列表 -->
+  <div id="tabExpense" class="content" style="display:none;">
+    <button class="add-btn" id="addExpenseBtn" onclick="openAddExpense()">＋ 新增支出</button>
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr>
+            <th>#</th>
+            <th>支出日期</th>
+            <th>支出金額</th>
+            <th>支出說明</th>
+            <th>建立時間</th>
+            <th>操作</th>
+          </tr>
+        </thead>
+        <tbody id="expenseTbody"><tr><td colspan="6" class="loading">載入中…</td></tr></tbody>
+      </table>
+    </div>
   </div>
 
   <!-- 月報表 -->
@@ -198,20 +199,31 @@ td{padding:8px 10px;border-bottom:1px solid rgba(58,48,40,0.4);vertical-align:mi
       <div class="report-card"><div class="rc-label">淨收入</div><div class="rc-value" id="r5">—</div><div style="font-size:0.7rem;color:var(--text-dim);">NT$</div></div>
       <div class="report-card"><div class="rc-label">平均每筆費用</div><div class="rc-value" id="r6">—</div><div style="font-size:0.7rem;color:var(--text-dim);">NT$</div></div>
     </div>
-    <div class="report-table-wrap">
-      <div class="report-table-title">本月預約明細</div>
-      <table>
-        <thead><tr><th>#</th><th>飼主</th><th>入住</th><th>接回</th><th>鳥寶</th><th>估算費用</th><th>附加費</th><th>VIP費</th><th>總費用</th><th>實收</th><th>支出</th><th>狀態</th></tr></thead>
-        <tbody id="reportTbody"></tbody>
-      </table>
+    <div class="section-wrap">
+      <div class="section-title">本月預約明細</div>
+      <div class="table-wrap">
+        <table style="min-width:700px;">
+          <thead><tr><th>#</th><th>LINE名稱</th><th>入托</th><th>接回</th><th>鳥寶</th><th>估算費用</th><th>附加費</th><th>VIP費</th><th>總費用</th><th>實收</th></tr></thead>
+          <tbody id="reportBookingTbody"></tbody>
+        </table>
+      </div>
+    </div>
+    <div class="section-wrap">
+      <div class="section-title">本月支出明細</div>
+      <div class="table-wrap">
+        <table style="min-width:400px;">
+          <thead><tr><th>#</th><th>支出日期</th><th>支出金額</th><th>支出說明</th></tr></thead>
+          <tbody id="reportExpenseTbody"></tbody>
+        </table>
+      </div>
     </div>
   </div>
 
   <!-- 帳號管理 -->
   <div id="tabAccounts" class="content" style="display:none;">
     <button class="add-btn" onclick="openAddAccount()">＋ 新增帳號</button>
-    <div class="report-table-wrap">
-      <table>
+    <div class="table-wrap">
+      <table style="min-width:500px;">
         <thead><tr><th>#</th><th>帳號</th><th>顯示名稱</th><th>權限</th><th>建立時間</th><th>操作</th></tr></thead>
         <tbody id="accountTbody"><tr><td colspan="6" class="loading">載入中…</td></tr></tbody>
       </table>
@@ -224,26 +236,33 @@ td{padding:8px 10px;border-bottom:1px solid rgba(58,48,40,0.4);vertical-align:mi
   <div class="modal">
     <div class="modal-title">編輯預約</div>
     <input type="hidden" id="editId"/>
-    <label>狀態</label>
-    <select id="editStatus">
-      <option value="確認中">確認中</option>
-      <option value="已確認">已確認</option>
-      <option value="已完成">已完成</option>
-      <option value="已取消">已取消</option>
-    </select>
     <label>VIP費用 (NT$)</label>
     <input type="number" id="editVipFee" placeholder="0"/>
     <label>實收金額 (NT$)</label>
     <input type="number" id="editIncome" placeholder="0"/>
-    <label>支出金額 (NT$)</label>
-    <input type="number" id="editExpense" placeholder="0"/>
-    <label>支出說明</label>
-    <input type="text" id="editExpenseNote" placeholder="例：獸醫費、耗材…"/>
     <label>管理員備註</label>
     <textarea id="editAdminNote" placeholder="內部備註，客戶不會看到"></textarea>
     <div class="modal-btns">
       <button class="btn-cancel" onclick="closeModal('editModal')">取消</button>
       <button class="btn-save" onclick="saveEdit()">儲存</button>
+    </div>
+  </div>
+</div>
+
+<!-- 支出 Modal -->
+<div class="modal-overlay" id="expenseModal">
+  <div class="modal">
+    <div class="modal-title" id="expenseModalTitle">新增支出</div>
+    <input type="hidden" id="expenseEditId"/>
+    <label>支出日期</label>
+    <input type="date" id="expenseDate"/>
+    <label>支出金額 (NT$)</label>
+    <input type="number" id="expenseAmount" placeholder="0"/>
+    <label>支出說明</label>
+    <textarea id="expenseNote" placeholder="例：飼料、醫療費、耗材…"></textarea>
+    <div class="modal-btns">
+      <button class="btn-cancel" onclick="closeModal('expenseModal')">取消</button>
+      <button class="btn-save" onclick="saveExpense()">儲存</button>
     </div>
   </div>
 </div>
@@ -276,6 +295,7 @@ var SUPABASE_URL='https://hxbaanirskvcljflfusx.supabase.co';
 var SUPABASE_KEY='eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imh4YmFhbmlyc2t2Y2xqZmxmdXN4Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3OTI5OTk4NDMsImV4cCI6MjEwODU3NTg0M30.rn4uuKECikgLf0KVzrXG-I8G9HZC_vkhC36Eb7H898Y';
 var currentUser=null;
 var allBookings=[];
+var allExpenses=[];
 
 async function hashPassword(pass){
   var enc=new TextEncoder().encode(pass);
@@ -303,7 +323,7 @@ async function doLogin(){
 }
 
 function doLogout(){
-  currentUser=null;allBookings=[];
+  currentUser=null;allBookings=[];allExpenses=[];
   document.getElementById('loginScreen').style.display='flex';
   document.getElementById('adminScreen').style.display='none';
   document.getElementById('loginUser').value='';
@@ -320,148 +340,94 @@ function initAdmin(){
     t.className='tab';t.setAttribute('onclick',"switchTab('accounts')");t.textContent='👤 帳號管理';
     document.getElementById('tabBar').appendChild(t);
   }
+  // viewer 隱藏新增支出按鈕
+  if(currentUser.role!=='editor'){
+    document.getElementById('addExpenseBtn').style.display='none';
+  }
   buildReportMonthSelect();
-  loadBookings();
+  loadAll();
 }
 
-function switchTab(tab){
-  ['list','report','accounts'].forEach(function(t){
-    var el=document.getElementById('tab'+t.charAt(0).toUpperCase()+t.slice(1));
-    if(el)el.style.display=t===tab?'block':'none';
-  });
-  document.querySelectorAll('.tab').forEach(function(t,i){
-    t.classList.toggle('active',['list','report','accounts'][i]===tab);
-  });
-  if(tab==='report')renderReport();
-  if(tab==='accounts')loadAccounts();
-}
-
-function loadBookings(){
-  fetch(SUPABASE_URL+'/rest/v1/bookings?order=created_at.desc&limit=500',{
-    headers:{'apikey':SUPABASE_KEY,'Authorization':'Bearer '+SUPABASE_KEY}
-  }).then(function(r){return r.json();}).then(function(data){
-    allBookings=data||[];
-    updateStats();renderList();
+function loadAll(){
+  Promise.all([
+    fetch(SUPABASE_URL+'/rest/v1/bookings?order=created_at.desc&limit=500',{headers:{'apikey':SUPABASE_KEY,'Authorization':'Bearer '+SUPABASE_KEY}}).then(function(r){return r.json();}),
+    fetch(SUPABASE_URL+'/rest/v1/expenses?order=expense_date.desc&limit=500',{headers:{'apikey':SUPABASE_KEY,'Authorization':'Bearer '+SUPABASE_KEY}}).then(function(r){return r.json();})
+  ]).then(function(results){
+    allBookings=results[0]||[];
+    allExpenses=results[1]||[];
+    updateStats();
+    renderList();
   }).catch(function(){
-    document.getElementById('bookingList').innerHTML='<div class="empty">載入失敗，請重新整理</div>';
+    document.getElementById('bookingTbody').innerHTML='<tr><td colspan="14" class="empty">載入失敗</td></tr>';
   });
 }
 
 function updateStats(){
   var now=new Date();
   var ym=now.getFullYear()+'-'+String(now.getMonth()+1).padStart(2,'0');
-  var m=allBookings.filter(function(b){return b.created_at&&b.created_at.startsWith(ym);});
-  document.getElementById('s1').textContent=m.length;
-  document.getElementById('s2').textContent=m.filter(function(b){return !b.status||b.status==='確認中';}).length;
-  document.getElementById('s3').textContent=m.reduce(function(s,b){return s+(b.total_fee||0);},0).toLocaleString();
-  document.getElementById('s4').textContent=m.reduce(function(s,b){return s+(b.income||0);},0).toLocaleString();
+  var mb=allBookings.filter(function(b){return b.checkin_date&&b.checkin_date.startsWith(ym);});
+  var me=allExpenses.filter(function(e){return e.expense_date&&e.expense_date.startsWith(ym);});
+  document.getElementById('s1').textContent=mb.length;
+  document.getElementById('s2').textContent=mb.reduce(function(s,b){return s+(b.total_fee||0);},0).toLocaleString();
+  document.getElementById('s3').textContent=mb.reduce(function(s,b){return s+(b.income||0);},0).toLocaleString();
+  document.getElementById('s4').textContent=me.reduce(function(s,e){return s+(e.amount||0);},0).toLocaleString();
+}
+
+function switchTab(tab){
+  ['list','expense','report','accounts'].forEach(function(t){
+    var el=document.getElementById('tab'+t.charAt(0).toUpperCase()+t.slice(1));
+    if(el)el.style.display=t===tab?'block':'none';
+  });
+  document.querySelectorAll('.tab').forEach(function(t,i){
+    t.classList.toggle('active',['list','expense','report','accounts'][i]===tab);
+  });
+  if(tab==='expense')renderExpenseList();
+  if(tab==='report')renderReport();
+  if(tab==='accounts')loadAccounts();
 }
 
 function renderList(){
   var nameF=document.getElementById('filterName').value.trim().toLowerCase();
-  var statusF=document.getElementById('filterStatus').value;
   var monthF=document.getElementById('filterMonth').value;
   var isEditor=currentUser&&currentUser.role==='editor';
 
   var filtered=allBookings.filter(function(b){
-    var mn=!nameF||[(b.line_name||''),(b.fb_name||''),(b.phone||'')].some(function(s){return s.toLowerCase().includes(nameF);});
-    var ms=!statusF||(b.status||'確認中')===statusF;
+    var mn=!nameF||[(b.line_name||''),(b.phone||'')].some(function(s){return s.toLowerCase().includes(nameF);});
     var mm=!monthF||(b.checkin_date&&b.checkin_date.startsWith(monthF));
-    return mn&&ms&&mm;
+    return mn&&mm;
   });
 
-  if(!filtered.length){document.getElementById('bookingList').innerHTML='<div class="empty">沒有符合的預約</div>';return;}
+  if(!filtered.length){document.getElementById('bookingTbody').innerHTML='<tr><td colspan="14" class="empty">沒有符合的預約</td></tr>';return;}
 
   var html='';
   filtered.forEach(function(b,idx){
-    var status=b.status||'確認中';
-    var bc=status==='已確認'?'badge-confirmed':status==='已完成'?'badge-done':status==='已取消'?'badge-cancel':'badge-pending';
-    var birds=Array.isArray(b.birds)?b.birds:[];
-    var birdsText=birds.length?birds.map(function(bi){return bi.name+'×'+bi.count;}).join('、'):'—';
-
-    // birds detail rows
-    var birdsDetailHtml='';
-    if(birds.length){
-      birdsDetailHtml='<div class="birds-detail">';
-      birds.forEach(function(bi){
-        birdsDetailHtml+=
-          '<div class="bird-row-detail">'+
-          '<span style="min-width:80px;color:var(--text);">'+bi.name+'</span>'+
-          '<span style="min-width:100px;color:var(--text-dim);">'+bi.species+'</span>'+
-          '<span style="min-width:50px;">×'+bi.count+'隻</span>'+
-          '<span style="color:var(--gold-lt);">NT$'+bi.price+'/晚</span>'+
-          '</div>';
-      });
-      birdsDetailHtml+='</div>';
-    }
-
-    var addonText=[];
-    if(b.addon_med)addonText.push('灌奶/塗藥');
-    if(b.addon_meal)addonText.push('3-4餐');
-
-    html+=
-      '<div class="booking-card" id="card-'+b.id+'">'+
-      '<div class="card-header" onclick="toggleCard('+b.id+')">'+
-        '<span class="card-id">#'+(idx+1)+'</span>'+
-        '<div class="card-main">'+
-          '<div>'+
-            '<div class="card-name">'+(b.line_name||'—')+'</div>'+
-            '<div class="card-date">'+(b.phone||'')+'</div>'+
-          '</div>'+
-          '<div class="card-date">'+(b.checkin_date||'—')+'<br>→ '+(b.checkout_date||'—')+'</div>'+
-          '<div class="card-date">'+birdsText+'</div>'+
-          '<div class="card-fee">'+(b.total_fee?'NT$'+b.total_fee.toLocaleString():'—')+'</div>'+
-          '<span class="badge '+bc+'">'+status+'</span>'+
-        '</div>'+
-        '<div class="card-actions">'+
-          (isEditor?'<button class="edit-btn" onclick="event.stopPropagation();openEdit('+b.id+')">編輯</button>':'')+
-          '<button class="expand-btn" id="expbtn-'+b.id+'">▼</button>'+
-        '</div>'+
-      '</div>'+
-      '<div class="card-detail" id="detail-'+b.id+'">'+
-        '<div class="detail-grid">'+
-          '<div class="detail-item"><div class="detail-label">預約編號</div><div class="detail-value">#'+b.id+'</div></div>'+
-          '<div class="detail-item"><div class="detail-label">LINE 名稱</div><div class="detail-value">'+(b.line_name||'—')+'</div></div>'+
-          '<div class="detail-item"><div class="detail-label">FB 名稱</div><div class="detail-value">'+(b.fb_name||'—')+'</div></div>'+
-          '<div class="detail-item"><div class="detail-label">聯絡電話</div><div class="detail-value">'+(b.phone||'—')+'</div></div>'+
-          '<div class="detail-item"><div class="detail-label">入托日期</div><div class="detail-value">'+(b.checkin_date||'—')+'</div></div>'+
-          '<div class="detail-item"><div class="detail-label">接回日期</div><div class="detail-value">'+(b.checkout_date||'—')+'</div></div>'+
-          '<div class="detail-item"><div class="detail-label">附加服務</div><div class="detail-value">'+(addonText.length?addonText.join('、'):'無')+'</div></div>'+
-          '<div class="detail-item"><div class="detail-label">建立時間</div><div class="detail-value">'+(b.created_at?b.created_at.slice(0,16).replace('T',' '):'—')+'</div></div>'+
-          birdsDetailHtml+
-          '<div class="detail-item"><div class="detail-label">估算費用</div><div class="detail-value gold">'+(b.base_fee?'NT$'+b.base_fee.toLocaleString():'—')+'</div></div>'+
-          '<div class="detail-item"><div class="detail-label">附加費</div><div class="detail-value gold">'+(b.addon_fee?'NT$'+b.addon_fee.toLocaleString():'—')+'</div></div>'+
-          '<div class="detail-item"><div class="detail-label">VIP費用</div><div class="detail-value gold">'+(b.vip_fee?'NT$'+b.vip_fee.toLocaleString():'—')+'</div></div>'+
-          '<div class="detail-item"><div class="detail-label">總費用</div><div class="detail-value gold" style="font-size:1rem;font-weight:500;">'+(b.total_fee?'NT$'+b.total_fee.toLocaleString():'—')+'</div></div>'+
-          '<div class="detail-item"><div class="detail-label">實收金額</div><div class="detail-value gold">'+(b.income?'NT$'+b.income.toLocaleString():'—')+'</div></div>'+
-          '<div class="detail-item"><div class="detail-label">支出金額</div><div class="detail-value">'+(b.expense?'NT$'+b.expense.toLocaleString():'—')+'</div></div>'+
-          '<div class="detail-item" style="grid-column:span 2;"><div class="detail-label">支出說明</div><div class="detail-value note">'+(b.expense_note||'—')+'</div></div>'+
-          '<div class="detail-item" style="grid-column:1/-1;"><div class="detail-label">客戶備註</div><div class="detail-value note">'+(b.customer_note||'—')+'</div></div>'+
-          '<div class="detail-item" style="grid-column:1/-1;"><div class="detail-label">管理員備註</div><div class="detail-value note">'+(b.admin_note||'—')+'</div></div>'+
-        '</div>'+
-      '</div>'+
-      '</div>';
+    var birds=Array.isArray(b.birds)?b.birds.map(function(bi){return bi.species+' '+bi.name;}).join('、'):'—';
+    html+='<tr>'+
+      '<td style="color:var(--text-dim);">'+(idx+1)+'</td>'+
+      '<td>'+(b.line_name||'—')+'</td>'+
+      '<td>'+(b.phone||'—')+'</td>'+
+      '<td class="wrap">'+(birds)+'</td>'+
+      '<td>'+(b.checkin_date||'—')+'</td>'+
+      '<td>'+(b.checkout_date||'—')+'</td>'+
+      '<td style="color:var(--gold-lt);">'+(b.base_fee?'NT$'+b.base_fee.toLocaleString():'—')+'</td>'+
+      '<td>'+(b.addon_fee?'NT$'+b.addon_fee.toLocaleString():'—')+'</td>'+
+      '<td>'+(b.vip_fee?'NT$'+b.vip_fee.toLocaleString():'—')+'</td>'+
+      '<td style="color:var(--gold-lt);font-weight:500;">'+(b.total_fee?'NT$'+b.total_fee.toLocaleString():'—')+'</td>'+
+      '<td class="wrap" style="color:var(--text-dim);">'+(b.customer_note||'—')+'</td>'+
+      '<td class="wrap" style="color:var(--text-dim);">'+(b.admin_note||'—')+'</td>'+
+      '<td style="color:var(--text-dim);">'+(b.created_at?b.created_at.slice(0,10):'—')+'</td>'+
+      '<td>'+(isEditor?'<button class="action-btn" onclick="openEdit('+b.id+')">編輯</button>':'')+'</td>'+
+      '</tr>';
   });
-  document.getElementById('bookingList').innerHTML=html;
-}
-
-function toggleCard(id){
-  var detail=document.getElementById('detail-'+id);
-  var btn=document.getElementById('expbtn-'+id);
-  var isOpen=detail.classList.contains('open');
-  detail.classList.toggle('open',!isOpen);
-  btn.textContent=isOpen?'▼':'▲';
+  document.getElementById('bookingTbody').innerHTML=html;
 }
 
 function openEdit(id){
   var b=allBookings.find(function(x){return x.id===id;});
   if(!b)return;
   document.getElementById('editId').value=id;
-  document.getElementById('editStatus').value=b.status||'確認中';
   document.getElementById('editVipFee').value=b.vip_fee||'';
   document.getElementById('editIncome').value=b.income||'';
-  document.getElementById('editExpense').value=b.expense||'';
-  document.getElementById('editExpenseNote').value=b.expense_note||'';
   document.getElementById('editAdminNote').value=b.admin_note||'';
   document.getElementById('editModal').classList.add('open');
 }
@@ -470,14 +436,11 @@ function saveEdit(){
   var id=parseInt(document.getElementById('editId').value);
   var vip=parseInt(document.getElementById('editVipFee').value)||0;
   var b=allBookings.find(function(x){return x.id===id;});
-  var newTotal=b?(b.base_fee||0)+(b.addon_fee||0)+vip:0;
+  var newTotal=b?(b.base_fee||0)+(b.addon_fee||0)+vip:vip;
   var payload={
-    status:document.getElementById('editStatus').value,
     vip_fee:vip,
-    total_fee:newTotal||b.total_fee,
+    total_fee:newTotal,
     income:parseInt(document.getElementById('editIncome').value)||0,
-    expense:parseInt(document.getElementById('editExpense').value)||0,
-    expense_note:document.getElementById('editExpenseNote').value.trim(),
     admin_note:document.getElementById('editAdminNote').value.trim()
   };
   fetch(SUPABASE_URL+'/rest/v1/bookings?id=eq.'+id,{
@@ -490,7 +453,153 @@ function saveEdit(){
       if(idx>-1)Object.assign(allBookings[idx],payload);
       closeModal('editModal');updateStats();renderList();
     } else {alert('儲存失敗');}
-  }).catch(function(){alert('儲存失敗');});
+  });
+}
+
+// ── 支出 ──
+function renderExpenseList(){
+  if(!allExpenses.length){document.getElementById('expenseTbody').innerHTML='<tr><td colspan="6" class="empty">尚無支出記錄</td></tr>';return;}
+  var html='';
+  var isEditor=currentUser&&currentUser.role==='editor';
+  allExpenses.forEach(function(e,idx){
+    html+='<tr>'+
+      '<td style="color:var(--text-dim);">'+(idx+1)+'</td>'+
+      '<td>'+(e.expense_date||'—')+'</td>'+
+      '<td style="color:var(--gold-lt);">NT$'+(e.amount||0).toLocaleString()+'</td>'+
+      '<td class="wrap">'+(e.note||'—')+'</td>'+
+      '<td style="color:var(--text-dim);">'+(e.created_at?e.created_at.slice(0,10):'—')+'</td>'+
+      '<td>'+(isEditor?'<button class="action-btn" onclick="openEditExpense('+e.id+')">編輯</button><button class="action-btn danger" onclick="deleteExpense('+e.id+')">刪除</button>':'')+'</td>'+
+      '</tr>';
+  });
+  document.getElementById('expenseTbody').innerHTML=html;
+}
+
+function openAddExpense(){
+  document.getElementById('expenseModalTitle').textContent='新增支出';
+  document.getElementById('expenseEditId').value='';
+  var today=new Date().toISOString().slice(0,10);
+  document.getElementById('expenseDate').value=today;
+  document.getElementById('expenseAmount').value='';
+  document.getElementById('expenseNote').value='';
+  document.getElementById('expenseModal').classList.add('open');
+}
+
+function openEditExpense(id){
+  var e=allExpenses.find(function(x){return x.id===id;});
+  if(!e)return;
+  document.getElementById('expenseModalTitle').textContent='編輯支出';
+  document.getElementById('expenseEditId').value=id;
+  document.getElementById('expenseDate').value=e.expense_date||'';
+  document.getElementById('expenseAmount').value=e.amount||'';
+  document.getElementById('expenseNote').value=e.note||'';
+  document.getElementById('expenseModal').classList.add('open');
+}
+
+function saveExpense(){
+  var id=document.getElementById('expenseEditId').value;
+  var payload={
+    expense_date:document.getElementById('expenseDate').value,
+    amount:parseInt(document.getElementById('expenseAmount').value)||0,
+    note:document.getElementById('expenseNote').value.trim()
+  };
+  if(!payload.expense_date){alert('請選擇支出日期');return;}
+  if(!payload.amount){alert('請輸入支出金額');return;}
+
+  var url=id?SUPABASE_URL+'/rest/v1/expenses?id=eq.'+id:SUPABASE_URL+'/rest/v1/expenses';
+  var method=id?'PATCH':'POST';
+
+  fetch(url,{
+    method:method,
+    headers:{'apikey':SUPABASE_KEY,'Authorization':'Bearer '+SUPABASE_KEY,'Content-Type':'application/json','Prefer':'return=minimal'},
+    body:JSON.stringify(payload)
+  }).then(function(r){
+    if(r.ok){
+      closeModal('expenseModal');
+      fetch(SUPABASE_URL+'/rest/v1/expenses?order=expense_date.desc&limit=500',{
+        headers:{'apikey':SUPABASE_KEY,'Authorization':'Bearer '+SUPABASE_KEY}
+      }).then(function(r){return r.json();}).then(function(data){
+        allExpenses=data||[];
+        updateStats();renderExpenseList();
+      });
+    } else {alert('儲存失敗');}
+  });
+}
+
+function deleteExpense(id){
+  if(!confirm('確定要刪除這筆支出嗎？'))return;
+  fetch(SUPABASE_URL+'/rest/v1/expenses?id=eq.'+id,{
+    method:'DELETE',
+    headers:{'apikey':SUPABASE_KEY,'Authorization':'Bearer '+SUPABASE_KEY}
+  }).then(function(r){
+    if(r.ok){
+      allExpenses=allExpenses.filter(function(e){return e.id!==id;});
+      updateStats();renderExpenseList();
+    } else {alert('刪除失敗');}
+  });
+}
+
+// ── 月報表 ──
+function buildReportMonthSelect(){
+  var sel=document.getElementById('reportMonth');
+  var now=new Date();
+  for(var i=0;i<12;i++){
+    var d=new Date(now.getFullYear(),now.getMonth()-i,1);
+    var val=d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0');
+    var opt=document.createElement('option');
+    opt.value=val;opt.textContent=d.getFullYear()+'年'+(d.getMonth()+1)+'月';
+    if(i===0)opt.selected=true;
+    sel.appendChild(opt);
+  }
+}
+
+function renderReport(){
+  var month=document.getElementById('reportMonth').value;
+  var bdata=allBookings.filter(function(b){return b.checkin_date&&b.checkin_date.startsWith(month);});
+  var edata=allExpenses.filter(function(e){return e.expense_date&&e.expense_date.startsWith(month);});
+
+  var totalFee=bdata.reduce(function(s,b){return s+(b.total_fee||0);},0);
+  var totalInc=bdata.reduce(function(s,b){return s+(b.income||0);},0);
+  var totalExp=edata.reduce(function(s,e){return s+(e.amount||0);},0);
+
+  document.getElementById('r1').textContent=bdata.length;
+  document.getElementById('r2').textContent=totalFee.toLocaleString();
+  document.getElementById('r3').textContent=totalInc.toLocaleString();
+  document.getElementById('r4').textContent=totalExp.toLocaleString();
+  document.getElementById('r5').textContent=(totalInc-totalExp).toLocaleString();
+  document.getElementById('r6').textContent=(bdata.length?Math.round(totalFee/bdata.length):0).toLocaleString();
+
+  // 預約明細
+  var bhtml='';
+  if(!bdata.length){bhtml='<tr><td colspan="10" class="empty">此月份無預約</td></tr>';}
+  else{bdata.forEach(function(b,idx){
+    var birds=Array.isArray(b.birds)?b.birds.map(function(bi){return bi.species+' '+bi.name;}).join('、'):'—';
+    bhtml+='<tr>'+
+      '<td style="color:var(--text-dim);">'+(idx+1)+'</td>'+
+      '<td>'+(b.line_name||'—')+'</td>'+
+      '<td>'+(b.checkin_date||'—')+'</td>'+
+      '<td>'+(b.checkout_date||'—')+'</td>'+
+      '<td class="wrap">'+birds+'</td>'+
+      '<td>'+(b.base_fee?'NT$'+b.base_fee.toLocaleString():'—')+'</td>'+
+      '<td>'+(b.addon_fee?'NT$'+b.addon_fee.toLocaleString():'—')+'</td>'+
+      '<td>'+(b.vip_fee?'NT$'+b.vip_fee.toLocaleString():'—')+'</td>'+
+      '<td style="color:var(--gold-lt);">'+(b.total_fee?'NT$'+b.total_fee.toLocaleString():'—')+'</td>'+
+      '<td>'+(b.income?'NT$'+b.income.toLocaleString():'—')+'</td>'+
+      '</tr>';
+  });}
+  document.getElementById('reportBookingTbody').innerHTML=bhtml;
+
+  // 支出明細
+  var ehtml='';
+  if(!edata.length){ehtml='<tr><td colspan="4" class="empty">此月份無支出</td></tr>';}
+  else{edata.forEach(function(e,idx){
+    ehtml+='<tr>'+
+      '<td style="color:var(--text-dim);">'+(idx+1)+'</td>'+
+      '<td>'+(e.expense_date||'—')+'</td>'+
+      '<td style="color:var(--gold-lt);">NT$'+(e.amount||0).toLocaleString()+'</td>'+
+      '<td class="wrap">'+(e.note||'—')+'</td>'+
+      '</tr>';
+  });}
+  document.getElementById('reportExpenseTbody').innerHTML=ehtml;
 }
 
 // ── 帳號管理 ──
@@ -571,56 +680,6 @@ function deleteAccount(id,username){
     method:'DELETE',
     headers:{'apikey':SUPABASE_KEY,'Authorization':'Bearer '+SUPABASE_KEY}
   }).then(function(r){if(r.ok)loadAccounts();else alert('刪除失敗');});
-}
-
-// ── 月報表 ──
-function buildReportMonthSelect(){
-  var sel=document.getElementById('reportMonth');
-  var now=new Date();
-  for(var i=0;i<12;i++){
-    var d=new Date(now.getFullYear(),now.getMonth()-i,1);
-    var val=d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0');
-    var opt=document.createElement('option');
-    opt.value=val;opt.textContent=d.getFullYear()+'年'+(d.getMonth()+1)+'月';
-    if(i===0)opt.selected=true;
-    sel.appendChild(opt);
-  }
-}
-
-function renderReport(){
-  var month=document.getElementById('reportMonth').value;
-  var data=allBookings.filter(function(b){return b.checkin_date&&b.checkin_date.startsWith(month);});
-  var totalFee=data.reduce(function(s,b){return s+(b.total_fee||0);},0);
-  var totalInc=data.reduce(function(s,b){return s+(b.income||0);},0);
-  var totalExp=data.reduce(function(s,b){return s+(b.expense||0);},0);
-  document.getElementById('r1').textContent=data.length;
-  document.getElementById('r2').textContent=totalFee.toLocaleString();
-  document.getElementById('r3').textContent=totalInc.toLocaleString();
-  document.getElementById('r4').textContent=totalExp.toLocaleString();
-  document.getElementById('r5').textContent=(totalInc-totalExp).toLocaleString();
-  document.getElementById('r6').textContent=(data.length?Math.round(totalFee/data.length):0).toLocaleString();
-  var html='';
-  if(!data.length){html='<tr><td colspan="12" class="empty">此月份無資料</td></tr>';}
-  else{data.forEach(function(b,idx){
-    var status=b.status||'確認中';
-    var bc=status==='已確認'?'badge-confirmed':status==='已完成'?'badge-done':status==='已取消'?'badge-cancel':'badge-pending';
-    var birds=Array.isArray(b.birds)?b.birds.map(function(bi){return bi.name+'×'+bi.count;}).join('、'):'—';
-    html+='<tr>'+
-      '<td style="color:var(--text-dim);">'+(idx+1)+'</td>'+
-      '<td>'+(b.line_name||'—')+'</td>'+
-      '<td>'+(b.checkin_date||'—')+'</td>'+
-      '<td>'+(b.checkout_date||'—')+'</td>'+
-      '<td>'+birds+'</td>'+
-      '<td>'+(b.base_fee?'NT$'+b.base_fee.toLocaleString():'—')+'</td>'+
-      '<td>'+(b.addon_fee?'NT$'+b.addon_fee.toLocaleString():'—')+'</td>'+
-      '<td>'+(b.vip_fee?'NT$'+b.vip_fee.toLocaleString():'—')+'</td>'+
-      '<td style="color:var(--gold-lt);">'+(b.total_fee?'NT$'+b.total_fee.toLocaleString():'—')+'</td>'+
-      '<td>'+(b.income?'NT$'+b.income.toLocaleString():'—')+'</td>'+
-      '<td>'+(b.expense?'NT$'+b.expense.toLocaleString():'—')+'</td>'+
-      '<td><span class="badge '+bc+'">'+status+'</span></td>'+
-      '</tr>';
-  });}
-  document.getElementById('reportTbody').innerHTML=html;
 }
 
 function closeModal(id){document.getElementById(id).classList.remove('open');}
