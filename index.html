@@ -1604,6 +1604,8 @@ function pickDate(which,dateStr){
       document.getElementById('dispCheckout').textContent='請選日期';
       document.getElementById('trigCheckout').classList.add('empty');
     }
+    // 自動開啟接回日曆
+    setTimeout(function(){ openCal('checkout'); }, 80);
   }
   calcPrice();
 }
