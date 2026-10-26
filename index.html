@@ -1163,8 +1163,7 @@ function queryBooking(){
         '<p class="qr-not-found">查無此電話的預約紀錄</p>'+
         '<ol style="font-size:0.97rem;color:var(--warm);margin-top:14px;line-height:2.1;padding-left:1.4em;">'+
         '<li>請確認電話號碼是否正確</li>'+
-        '<li>查詢結果如顯示：<span style="color:var(--gold-lt);font-weight:500;">確認中</span>　即表示預約完成尚待確認</li>'+
-        '<li>查詢結果如顯示：<span style="color:rgba(80,180,120,0.95);font-weight:500;">已確認</span>　即表示已經預約完成，請依約入宿喔</li>'+
+        '<li>查詢結果如顯示：<span style="color:rgba(80,180,120,0.95);font-weight:500;">已確認</span>　即表示預約成功，請依約入宿喔</li>'+
         '</ol>'+
         '<p style="font-size:1.03rem;color:var(--warm);margin-top:14px;line-height:1.9;">'+
         '如還有其他疑問，歡迎透過 '+
@@ -1181,7 +1180,7 @@ function queryBooking(){
         '<div style="'+(idx>0?'margin-top:1.2rem;padding-top:1.2rem;border-top:1px solid rgba(224,112,80,0.12);':'')+'">' +
         '<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:0.9rem;">'+
           '<span style="font-size:0.78rem;letter-spacing:0.28em;text-transform:uppercase;color:rgba(224,112,80,0.5);">預約紀錄 #'+(idx+1)+'</span>'+
-          '<span style="font-size:0.95rem;font-weight:500;color:var(--gold-lt);letter-spacing:0.1em;">確認中</span>'+
+          '<span style="font-size:0.95rem;font-weight:500;color:rgba(80,180,120,0.95);letter-spacing:0.1em;">已確認</span>'+
         '</div>'+
         '<div class="qr-label">飼主姓名</div>'+
         '<div class="qr-val">'+b.line_name+'</div>'+
@@ -1683,7 +1682,8 @@ function submitForm(e){
     addon_fee:addonFee,
     vip_fee:0,
     total_fee:totalFeeVal,
-    customer_note:customerNote
+    customer_note:customerNote,
+    status:'已確認'
   };
 
   fetch(SUPABASE_URL+'/rest/v1/bookings',{
