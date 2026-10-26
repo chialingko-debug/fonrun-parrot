@@ -422,7 +422,7 @@ function saveEdit(){
   var id=parseInt(document.getElementById('editId').value);
   var vip=parseInt(document.getElementById('editVipFee').value)||0;
   var b=allBookings.find(function(x){return x.id===id;});
-  var newTotal=b?(b.base_fee||0)+(b.addon_fee||0)+vip:vip;
+  var newTotal=vip>0 ? vip : (b?(b.base_fee||0)+(b.addon_fee||0):0);
   var payload={
     vip_fee:vip,
     total_fee:newTotal,
