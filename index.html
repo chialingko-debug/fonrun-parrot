@@ -10,9 +10,9 @@
 
 <style>
 :root{
-  --ink:#1a1a18;--deep:#0e1a12;--forest:#1c3528;--moss:#2d5040;--sage:#4a7a60;
-  --gold:#c9a84c;--gold-lt:#e8c97a;--gold-dk:#8a6820;
-  --cream:#f5f0e8;--parch:#ede5d0;--warm:#d4c9a8;
+  --ink:#f5ede0;--deep:#2a1f15;--forest:#3a2c20;--moss:#4a3828;--sage:#8a6848;
+  --gold:#e07050;--gold-lt:#f09070;--gold-dk:#b04830;
+  --cream:#f0e0cc;--parch:#e8d0b8;--warm:#c8a888;
   --r:16px;
 }
 *{box-sizing:border-box;margin:0;padding:0;}
@@ -33,8 +33,8 @@ nav{
   position:fixed;top:0;left:0;right:0;z-index:300;
   display:flex;align-items:center;justify-content:space-between;
   padding:0 2.5rem;height:68px;
-  background:rgba(14,26,18,0.88);backdrop-filter:blur(18px);
-  border-bottom:1px solid rgba(201,168,76,0.2);
+  background:rgba(42,31,21,0.92);backdrop-filter:blur(18px);
+  border-bottom:1px solid rgba(224,112,80,0.2);
 }
 .nav-logo{
   font-family:'Cormorant Garamond',serif;font-size:1.4rem;font-weight:600;
@@ -43,7 +43,7 @@ nav{
 }
 .nav-badge{
   font-size:0.9rem;font-weight:300;color:var(--gold-lt);
-  border:1px solid rgba(201,168,76,0.35);padding:3px 10px;border-radius:20px;
+  border:1px solid rgba(224,112,80,0.35);padding:3px 10px;border-radius:20px;
   letter-spacing:0.08em;font-family:'Zen Maru Gothic',sans-serif;
 }
 .nav-links{display:flex;gap:2rem;align-items:center;}
@@ -62,33 +62,33 @@ nav{
 .hamburger{display:none;background:none;border:none;color:var(--gold);font-size:1.5rem;cursor:pointer;}
 .mob-menu{
   display:none;position:fixed;top:68px;left:0;right:0;z-index:299;
-  background:rgba(10,18,13,0.97);border-bottom:1px solid rgba(201,168,76,0.15);
+  background:rgba(42,31,21,0.97);border-bottom:1px solid rgba(224,112,80,0.15);
   padding:1.5rem 2.5rem;flex-direction:column;gap:1rem;
 }
 .mob-menu.open{display:flex;}
-.mob-menu a{color:var(--warm);text-decoration:none;font-size:1.13rem;letter-spacing:0.1em;padding:0.5rem 0;border-bottom:1px solid rgba(201,168,76,0.08);}
+.mob-menu a{color:var(--warm);text-decoration:none;font-size:1.13rem;letter-spacing:0.1em;padding:0.5rem 0;border-bottom:1px solid rgba(224,112,80,0.08);}
 
 /* HERO */
 .hero{
   min-height:100vh;position:relative;display:flex;align-items:center;
   padding:100px 2.5rem 5rem;overflow:hidden;
   background:
-    radial-gradient(ellipse 65% 55% at 82% 28%,rgba(74,122,96,0.2) 0%,transparent 65%),
-    radial-gradient(ellipse 45% 65% at 8% 82%,rgba(201,168,76,0.07) 0%,transparent 55%),
+    radial-gradient(ellipse 65% 55% at 82% 28%,rgba(224,112,80,0.18) 0%,transparent 65%),
+    radial-gradient(ellipse 45% 65% at 8% 82%,rgba(160,100,60,0.12) 0%,transparent 55%),
     var(--deep);
 }
 .hero-ring{
-  position:absolute;border-radius:50%;border:1px solid rgba(201,168,76,0.1);pointer-events:none;
+  position:absolute;border-radius:50%;border:1px solid rgba(224,112,80,0.1);pointer-events:none;
 }
 .r1{width:620px;height:620px;top:-110px;right:-160px;}
-.r2{width:420px;height:420px;top:40px;right:40px;border-color:rgba(201,168,76,0.05);}
-.r3{width:180px;height:180px;bottom:90px;left:4%;border-color:rgba(74,122,96,0.18);}
+.r2{width:420px;height:420px;top:40px;right:40px;border-color:rgba(224,112,80,0.05);}
+.r3{width:180px;height:180px;bottom:90px;left:4%;border-color:rgba(180,100,60,0.18);}
 
 .hero-vtext{
   position:absolute;right:1.5rem;top:50%;transform:translateY(-50%);
   writing-mode:vertical-rl;text-orientation:mixed;
   font-family:'Cormorant Garamond',serif;font-size:0.8rem;letter-spacing:0.35em;
-  color:rgba(201,168,76,0.2);pointer-events:none;user-select:none;
+  color:rgba(224,112,80,0.2);pointer-events:none;user-select:none;
 }
 
 .hero-inner{
@@ -126,19 +126,19 @@ nav{
   display:inline-flex;align-items:center;gap:8px;
   background:transparent;color:var(--gold);padding:12px 28px;border-radius:30px;
   font-family:'Zen Maru Gothic',sans-serif;font-weight:400;font-size:1.01rem;
-  letter-spacing:0.1em;text-decoration:none;border:1px solid rgba(201,168,76,0.45);
+  letter-spacing:0.1em;text-decoration:none;border:1px solid rgba(224,112,80,0.45);
   transition:border-color 0.2s,background 0.2s;
 }
-.btn-outline:hover{border-color:var(--gold);background:rgba(201,168,76,0.08);}
+.btn-outline:hover{border-color:var(--gold);background:rgba(224,112,80,0.08);}
 
 .hero-art{position:relative;display:flex;justify-content:center;align-items:center;}
 .medallion{
   width:310px;height:310px;border-radius:50%;
-  background:radial-gradient(circle at 35% 35%,rgba(74,122,96,0.5),transparent 60%),
-    radial-gradient(circle,rgba(40,75,58,0.92),rgba(14,26,18,0.97));
-  border:1px solid rgba(201,168,76,0.28);
+  background:radial-gradient(circle at 35% 35%,rgba(224,112,80,0.3),transparent 60%),
+    radial-gradient(circle,rgba(58,44,32,0.95),rgba(42,31,21,0.98));
+  border:1px solid rgba(224,112,80,0.28);
   display:flex;align-items:center;justify-content:center;font-size:7.5rem;
-  box-shadow:0 0 0 10px rgba(201,168,76,0.04),0 0 0 28px rgba(201,168,76,0.02),0 36px 80px rgba(0,0,0,0.55);
+  box-shadow:0 0 0 10px rgba(224,112,80,0.04),0 0 0 28px rgba(224,112,80,0.02),0 36px 80px rgba(0,0,0,0.55);
   animation:breathe 6s ease-in-out infinite;position:relative;
 }
 @keyframes breathe{
@@ -146,12 +146,12 @@ nav{
 }
 .medallion::before{
   content:'';position:absolute;inset:-14px;border-radius:50%;
-  border:1px dashed rgba(201,168,76,0.12);animation:spin 35s linear infinite;
+  border:1px dashed rgba(224,112,80,0.12);animation:spin 35s linear infinite;
 }
 @keyframes spin{to{transform:rotate(360deg);}}
 .chip{
-  position:absolute;background:rgba(10,18,13,0.92);
-  border:1px solid rgba(201,168,76,0.2);border-radius:22px;
+  position:absolute;background:rgba(42,31,21,0.92);
+  border:1px solid rgba(224,112,80,0.2);border-radius:22px;
   padding:8px 14px;font-size:0.89rem;letter-spacing:0.1em;
   color:var(--gold-lt);white-space:nowrap;backdrop-filter:blur(8px);
 }
@@ -170,38 +170,38 @@ nav{
 .mi{
   display:inline-flex;align-items:center;gap:8px;
   font-size:0.91rem;letter-spacing:0.16em;font-weight:500;
-  color:var(--deep);margin-right:2.5rem;
+  color:#f5ede0;margin-right:2.5rem;
 }
 .md{width:4px;height:4px;background:rgba(30,50,40,0.35);border-radius:50%;display:inline-block;}
 
 /* SECTIONS */
 section{padding:6rem 2.5rem;position:relative;}
 .sec{max-width:1060px;margin:0 auto;}
-.sec-alt{background:linear-gradient(180deg,rgba(28,53,40,0.22) 0%,rgba(14,26,18,0.1) 100%);}
-.sec-dark{background:rgba(8,15,10,0.35);}
+.sec-alt{background:linear-gradient(180deg,rgba(58,44,32,0.35) 0%,rgba(42,31,21,0.1) 100%);}
+.sec-dark{background:rgba(20,14,8,0.4);}
 .extra-checks{display:flex;flex-direction:column;gap:8px;margin-bottom:1rem;}
 .extra-item{
   display:flex;align-items:center;gap:12px;
   padding:12px 14px;cursor:pointer;
-  background:rgba(8,16,11,0.45);border:1px solid rgba(201,168,76,0.1);
+  background:rgba(20,14,8,0.45);border:1px solid rgba(224,112,80,0.15);
   border-radius:16px;transition:border-color 0.2s,background 0.2s;
 }
-.extra-item:hover{border-color:rgba(201,168,76,0.3);background:rgba(28,53,40,0.5);}
+.extra-item:hover{border-color:rgba(224,112,80,0.4);background:rgba(58,40,24,0.5);}
 .extra-item input[type="checkbox"]{
   width:18px;height:18px;flex-shrink:0;accent-color:var(--gold);cursor:pointer;
 }
 .extra-count-wrap{
   display:flex;align-items:center;gap:6px;margin-left:auto;flex-shrink:0;
 }
-.extra-count-label{font-size:0.95rem;color:rgba(201,168,76,0.55);letter-spacing:0.1em;}
+.extra-count-label{font-size:0.95rem;color:rgba(224,112,80,0.55);letter-spacing:0.1em;}
 .extra-count-input{
-  width:56px;padding:5px 8px;background:rgba(8,16,11,0.65);
-  border:1px solid rgba(201,168,76,0.2);border-radius:14px;
+  width:56px;padding:5px 8px;background:rgba(20,14,8,0.65);
+  border:1px solid rgba(224,112,80,0.2);border-radius:14px;
   font-family:'Zen Maru Gothic',sans-serif;font-size:1.12rem;
   color:var(--cream);text-align:center;outline:none;
   transition:border-color 0.2s;
 }
-.extra-count-input:focus{border-color:rgba(201,168,76,0.5);}
+.extra-count-input:focus{border-color:rgba(224,112,80,0.5);}
 .extra-item input[type="checkbox"]:checked+.extra-box{opacity:1;}
 .extra-box{display:flex;flex-direction:column;gap:2px;opacity:0.7;transition:opacity 0.2s;}
 .extra-item input[type="checkbox"]:checked~.extra-box,.extra-item:hover .extra-box{opacity:1;}
@@ -211,7 +211,7 @@ section{padding:6rem 2.5rem;position:relative;}
 .agree-row{
   display:flex;align-items:flex-start;gap:12px;
   margin:0.8rem 0 1.2rem;padding:1rem 1.2rem;
-  background:rgba(201,168,76,0.05);border:1px solid rgba(201,168,76,0.18);border-radius:16px;
+  background:rgba(224,112,80,0.06);border:1px solid rgba(224,112,80,0.2);border-radius:16px;
 }
 .agree-row input[type="checkbox"]{
   width:18px;height:18px;flex-shrink:0;margin-top:3px;
@@ -223,12 +223,12 @@ section{padding:6rem 2.5rem;position:relative;}
 .sec-no{
   display:block;font-family:'Cormorant Garamond',serif;
   font-size:4.5rem;font-weight:300;line-height:1;
-  color:rgba(201,168,76,0.1);letter-spacing:0.05em;margin-bottom:-1.8rem;
+  color:rgba(224,112,80,0.1);letter-spacing:0.05em;margin-bottom:-1.8rem;
 }
 .sec-label{
   display:inline-block;font-size:0.82rem;letter-spacing:0.36em;
   text-transform:uppercase;color:var(--gold);
-  padding-bottom:6px;border-bottom:1px solid rgba(201,168,76,0.28);margin-bottom:0.8rem;
+  padding-bottom:6px;border-bottom:1px solid rgba(224,112,80,0.28);margin-bottom:0.8rem;
 }
 .sec-title{
   font-family:'Cormorant Garamond',serif;
@@ -244,20 +244,20 @@ section{padding:6rem 2.5rem;position:relative;}
 /* PRICING */
 .price-note-bar{
   display:flex;align-items:center;gap:10px;
-  background:rgba(201,168,76,0.07);border:1px solid rgba(201,168,76,0.18);
+  background:rgba(224,112,80,0.08);border:1px solid rgba(224,112,80,0.2);
   border-radius:16px;padding:11px 18px;margin-bottom:2rem;
   font-size:1.03rem;color:var(--gold-lt);letter-spacing:0.08em;
 }
 /* PRICING TABLE - compact cards on mobile */
 .price-table-wrap{overflow-x:auto;margin-bottom:2.5rem;}
 .price-table{width:100%;border-collapse:collapse;font-size:1.15rem;}
-.price-table thead tr{border-bottom:1px solid rgba(201,168,76,0.25);}
+.price-table thead tr{border-bottom:1px solid rgba(224,112,80,0.25);}
 .price-table th{
   padding:11px 16px;text-align:left;font-size:0.9rem;
   letter-spacing:0.28em;text-transform:uppercase;color:var(--gold);font-weight:400;
 }
-.price-table td{padding:12px 16px;border-bottom:1px solid rgba(201,168,76,0.07);color:var(--warm);font-weight:300;vertical-align:middle;}
-.price-table tr:hover td{background:rgba(201,168,76,0.04);}
+.price-table td{padding:12px 16px;border-bottom:1px solid rgba(224,112,80,0.07);color:var(--warm);font-weight:300;vertical-align:middle;}
+.price-table tr:hover td{background:rgba(224,112,80,0.04);}
 .price-num{font-family:'Cormorant Garamond',serif;font-size:1.5rem;font-weight:600;color:var(--gold-lt);white-space:nowrap;}
 
 /* Mobile: stack price + species as card rows */
@@ -265,7 +265,7 @@ section{padding:6rem 2.5rem;position:relative;}
   .price-table thead{display:none;}
   .price-table,.price-table tbody,.price-table tr,.price-table td{display:block;width:100%;}
   .price-table tr{
-    background:rgba(28,53,40,0.3);border:1px solid rgba(201,168,76,0.1);
+    background:rgba(42,28,18,0.5);border:1px solid rgba(224,112,80,0.12);
     border-radius:18px;padding:12px 14px;margin-bottom:8px;
   }
   .price-table tr:hover td{background:none;}
@@ -275,7 +275,7 @@ section{padding:6rem 2.5rem;position:relative;}
 }
 
 /* BOOKING TABS */
-.btabs{display:flex;gap:5px;margin-bottom:2rem;background:rgba(10,18,13,0.65);border-radius:24px;padding:5px;border:1px solid rgba(201,168,76,0.14);}
+.btabs{display:flex;gap:5px;margin-bottom:2rem;background:rgba(20,14,8,0.5);border-radius:24px;padding:5px;border:1px solid rgba(224,112,80,0.14);}
 .btab{
   flex:1;padding:11px 8px;text-align:center;cursor:pointer;
   font-size:1.03rem;letter-spacing:0.1em;color:rgba(212,201,168,0.55);font-weight:400;
@@ -285,7 +285,7 @@ section{padding:6rem 2.5rem;position:relative;}
 .btab:hover{color:var(--cream);}
 .btab.active{
   background:var(--gold);color:var(--deep);font-weight:600;
-  box-shadow:0 4px 18px rgba(201,168,76,0.32);
+  box-shadow:0 4px 18px rgba(224,112,80,0.32);
 }
 .btab-panel{display:none;opacity:0;}
 .btab-panel.active{
@@ -298,7 +298,7 @@ section{padding:6rem 2.5rem;position:relative;}
 }
 .btab-panel.active::before{
   content:'';display:block;height:1px;
-  background:linear-gradient(90deg,transparent 0%,rgba(201,168,76,0.3) 15%,rgba(232,201,122,0.95) 50%,rgba(201,168,76,0.3) 85%,transparent 100%);
+  background:linear-gradient(90deg,transparent 0%,rgba(224,112,80,0.3) 15%,rgba(240,144,110,0.95) 50%,rgba(224,112,80,0.3) 85%,transparent 100%);
   margin-bottom:1.6rem;border-radius:2px;
   animation:lightSweep 0.7s ease-out 0.05s both;
   transform-origin:left center;
@@ -312,17 +312,17 @@ section{padding:6rem 2.5rem;position:relative;}
 /* Query/Cancel result boxes */
 .query-result{
   display:none;margin-top:1.5rem;padding:1.4rem;
-  background:rgba(201,168,76,0.05);border:1px solid rgba(201,168,76,0.22);border-radius:16px;
+  background:rgba(224,112,80,0.06);border:1px solid rgba(224,112,80,0.25);border-radius:16px;
 }
 .query-result.show{display:block;}
-.qr-label{font-size:0.8rem;letter-spacing:0.28em;text-transform:uppercase;color:rgba(201,168,76,0.55);margin-bottom:0.4rem;}
+.qr-label{font-size:0.8rem;letter-spacing:0.28em;text-transform:uppercase;color:rgba(224,112,80,0.55);margin-bottom:0.4rem;}
 .qr-val{font-size:1.15rem;color:var(--cream);margin-bottom:0.8rem;line-height:1.7;}
 .qr-status{
   display:inline-block;font-size:1.01rem;letter-spacing:0.12em;
   padding:4px 12px;border-radius:12px;font-weight:500;
 }
-.qr-status.confirmed{background:rgba(74,122,96,0.25);color:rgba(140,210,170,1);border:1px solid rgba(74,122,96,0.3);}
-.qr-status.pending{background:rgba(201,168,76,0.15);color:var(--gold-lt);border:1px solid rgba(201,168,76,0.3);}
+.qr-status.confirmed{background:rgba(180,100,60,0.25);color:rgba(140,210,170,1);border:1px solid rgba(180,100,60,0.3);}
+.qr-status.pending{background:rgba(224,112,80,0.15);color:var(--gold-lt);border:1px solid rgba(224,112,80,0.3);}
 .qr-not-found{font-size:1.12rem;color:rgba(220,110,110,0.85);}
 
 .discount-row{
@@ -330,11 +330,11 @@ section{padding:6rem 2.5rem;position:relative;}
   margin-bottom:2rem;
 }
 .disc-cell{
-  background:rgba(12,22,15,0.85);padding:1.5rem 1rem;text-align:center;
-  border:1px solid rgba(201,168,76,0.12);border-radius:20px;
+  background:rgba(20,14,8,0.7);padding:1.5rem 1rem;text-align:center;
+  border:1px solid rgba(224,112,80,0.12);border-radius:20px;
   transition:background 0.2s,box-shadow 0.2s;
 }
-.disc-cell:hover{background:rgba(28,53,40,0.85);box-shadow:0 6px 20px rgba(201,168,76,0.08);}
+.disc-cell:hover{background:rgba(58,40,24,0.85);box-shadow:0 6px 20px rgba(224,112,80,0.1);}
 .disc-pct{
   font-family:'Cormorant Garamond',serif;font-size:2.3rem;font-weight:300;
   color:var(--gold);line-height:1;display:block;
@@ -342,8 +342,8 @@ section{padding:6rem 2.5rem;position:relative;}
 .disc-label{font-size:0.89rem;color:var(--warm);letter-spacing:0.1em;margin-top:5px;display:block;font-weight:300;}
 
 .price-warn{
-  border-left:3px solid rgba(201,168,76,0.35);padding:1rem 1.5rem;
-  background:rgba(201,168,76,0.04);border-radius:0 16px 16px 0;font-size:0.97rem;color:var(--warm);line-height:2;font-weight:300;
+  border-left:3px solid rgba(224,112,80,0.5);padding:1rem 1.5rem;
+  background:rgba(224,112,80,0.05);border-radius:0 16px 16px 0;font-size:0.97rem;color:var(--warm);line-height:2;font-weight:300;
 }
 .price-warn strong{color:var(--gold-lt);display:block;margin-bottom:4px;font-weight:500;}
 
@@ -351,29 +351,29 @@ section{padding:6rem 2.5rem;position:relative;}
 .rules-grid{display:flex;flex-direction:column;}
 .rule-item{
   display:flex;gap:2rem;padding:1.5rem 0;
-  border-bottom:1px solid rgba(201,168,76,0.07);align-items:flex-start;
+  border-bottom:1px solid rgba(224,112,80,0.07);align-items:flex-start;
 }
 .rule-n{
   font-family:'Cormorant Garamond',serif;font-size:2.6rem;font-weight:300;
-  color:rgba(201,168,76,0.18);line-height:1;flex-shrink:0;width:48px;text-align:right;
+  color:rgba(224,112,80,0.18);line-height:1;flex-shrink:0;width:48px;text-align:right;
 }
 .rule-text{font-size:1.1rem;color:var(--warm);line-height:2.1;font-weight:300;}
 .rule-text strong{color:var(--gold-lt);font-weight:500;}
 .rule-agree{
   margin-top:2rem;padding:1.2rem 2rem;text-align:center;
-  border:1px solid rgba(201,168,76,0.2);border-radius:22px;
+  border:1px solid rgba(224,112,80,0.2);border-radius:22px;
   font-size:1.03rem;letter-spacing:0.18em;color:var(--gold);
-  background:rgba(201,168,76,0.04);
+  background:rgba(224,112,80,0.04);
 }
 
 /* FAQ */
 .faq-list{display:flex;flex-direction:column;}
 .faq-item{
-  background:rgba(8,16,11,0.28);border:1px solid rgba(201,168,76,0.08);
+  background:rgba(20,14,8,0.35);border:1px solid rgba(224,112,80,0.1);
   border-radius:18px;overflow:hidden;margin-bottom:6px;
   transition:border-color 0.2s;
 }
-.faq-item:hover,.faq-item.open{border-color:rgba(201,168,76,0.2);}
+.faq-item:hover,.faq-item.open{border-color:rgba(224,112,80,0.2);}
 .faq-q{
   display:flex;justify-content:space-between;align-items:center;
   padding:1.2rem 1.4rem;cursor:pointer;gap:1rem;
@@ -399,7 +399,7 @@ section{padding:6rem 2.5rem;position:relative;}
 .booking-steps{display:flex;flex-direction:column;}
 .bstep{
   display:flex;gap:1.5rem;padding:1.2rem 0;
-  border-bottom:1px solid rgba(201,168,76,0.07);align-items:flex-start;
+  border-bottom:1px solid rgba(224,112,80,0.07);align-items:flex-start;
 }
 .bstep-n{
   font-family:'Cormorant Garamond',serif;font-size:1.8rem;font-weight:300;
@@ -409,13 +409,13 @@ section{padding:6rem 2.5rem;position:relative;}
 .bstep p{font-size:1.03rem;color:var(--warm);font-weight:300;line-height:1.9;}
 .booking-note{
   margin-top:2rem;padding:1.2rem 1.4rem;
-  background:rgba(74,122,96,0.1);border:1px solid rgba(74,122,96,0.22);
+  background:rgba(180,100,60,0.1);border:1px solid rgba(180,100,60,0.22);
   border-radius:16px;font-size:1.03rem;color:rgba(170,215,195,0.9);line-height:2;font-weight:300;
 }
 .booking-note strong{display:block;color:rgba(180,220,200,1);margin-bottom:4px;font-weight:500;}
 
 .form-card{
-  background:rgba(28,53,40,0.32);border:1px solid rgba(201,168,76,0.16);
+  background:rgba(58,40,24,0.32);border:1px solid rgba(224,112,80,0.16);
   border-radius:26px;padding:2.5rem;backdrop-filter:blur(12px);
   box-shadow:0 8px 40px rgba(0,0,0,0.22);
 }
@@ -423,17 +423,17 @@ section{padding:6rem 2.5rem;position:relative;}
 .fg{display:flex;flex-direction:column;gap:5px;margin-bottom:1rem;}
 .fg label{
   font-size:0.81rem;letter-spacing:0.22em;text-transform:uppercase;
-  color:rgba(201,168,76,0.55);font-weight:400;
+  color:rgba(224,112,80,0.55);font-weight:400;
 }
 .fg input,.fg select,.fg textarea{
-  padding:10px 14px;background:rgba(8,16,11,0.65);
-  border:1px solid rgba(201,168,76,0.14);border-radius:14px;
+  padding:10px 14px;background:rgba(20,14,8,0.65);
+  border:1px solid rgba(224,112,80,0.14);border-radius:14px;
   font-family:'Zen Maru Gothic',sans-serif;font-size:0.90rem;
   color:var(--cream);width:100%;transition:border-color 0.2s;outline:none;
 }
 .fg input::placeholder{color:rgba(212,201,168,0.28);}
 .fg input:focus,.fg select:focus,.fg textarea:focus{
-  border-color:rgba(201,168,76,0.45);background:rgba(8,16,11,0.85);
+  border-color:rgba(224,112,80,0.45);background:rgba(24,14,8,0.85);
 }
 .fg select option{background:#1c3528;color:var(--cream);}
 /* 時間選單未選時，顏色與「請選擇日期」一致 */
@@ -448,8 +448,8 @@ section{padding:6rem 2.5rem;position:relative;}
 .date-trigger{
   display:flex;align-items:center;justify-content:space-between;
   padding:10px 14px;
-  background:rgba(8,16,11,0.65);
-  border:1px solid rgba(201,168,76,0.18);
+  background:rgba(20,14,8,0.65);
+  border:1px solid rgba(224,112,80,0.18);
   border-radius:14px;
   font-family:'Zen Maru Gothic',sans-serif;font-size:0.90rem;
   color:var(--cream);width:100%;cursor:pointer;
@@ -458,9 +458,9 @@ section{padding:6rem 2.5rem;position:relative;}
 }
 .date-trigger.empty{color:rgba(212,201,168,0.35);}
 .date-trigger:hover,.date-trigger.open{
-  border-color:rgba(201,168,76,0.5);
-  background:rgba(8,16,11,0.88);
-  box-shadow:0 0 0 3px rgba(201,168,76,0.08);
+  border-color:rgba(224,112,80,0.5);
+  background:rgba(24,14,8,0.88);
+  box-shadow:0 0 0 3px rgba(224,112,80,0.08);
 }
 .date-trigger-icon{font-size:0.97rem;opacity:0.5;flex-shrink:0;margin-left:6px;transition:opacity 0.2s;}
 .date-trigger:hover .date-trigger-icon,.date-trigger.open .date-trigger-icon{opacity:1;}
@@ -470,9 +470,9 @@ section{padding:6rem 2.5rem;position:relative;}
   display:none;
   position:absolute;top:calc(100% + 8px);left:0;z-index:9999;
   background:rgba(10,20,14,0.98);
-  border:1px solid rgba(201,168,76,0.3);
+  border:1px solid rgba(224,112,80,0.3);
   border-radius:20px;padding:18px;width:300px;
-  box-shadow:0 28px 64px rgba(0,0,0,0.72),0 0 0 1px rgba(201,168,76,0.06);
+  box-shadow:0 28px 64px rgba(0,0,0,0.72),0 0 0 1px rgba(224,112,80,0.06);
   animation:calIn 0.2s cubic-bezier(0.22,1,0.36,1);
 }
 .cal-popup.open{display:block;}
@@ -482,14 +482,14 @@ section{padding:6rem 2.5rem;position:relative;}
 .cal-header{
   display:flex;align-items:center;justify-content:space-between;
   margin-bottom:14px;padding-bottom:12px;
-  border-bottom:1px solid rgba(201,168,76,0.12);
+  border-bottom:1px solid rgba(224,112,80,0.12);
 }
 .cal-nav{
-  background:none;border:none;color:rgba(201,168,76,0.6);
+  background:none;border:none;color:rgba(224,112,80,0.6);
   cursor:pointer;font-size:1.15rem;padding:4px 10px;border-radius:10px;
   transition:background 0.15s,color 0.15s;line-height:1;
 }
-.cal-nav:hover{background:rgba(201,168,76,0.1);color:var(--gold);}
+.cal-nav:hover{background:rgba(224,112,80,0.1);color:var(--gold);}
 .cal-title{
   font-family:'Cormorant Garamond',serif;font-size:1.2rem;
   font-weight:300;color:var(--gold-lt);letter-spacing:0.08em;
@@ -502,7 +502,7 @@ section{padding:6rem 2.5rem;position:relative;}
 }
 .cal-wd{
   text-align:center;font-size:0.77rem;letter-spacing:0.18em;
-  color:rgba(201,168,76,0.38);padding:4px 0;font-weight:400;
+  color:rgba(224,112,80,0.38);padding:4px 0;font-weight:400;
 }
 
 /* day grid */
@@ -515,15 +515,15 @@ section{padding:6rem 2.5rem;position:relative;}
   border:none;background:none;font-family:'Zen Maru Gothic',sans-serif;
 }
 .cal-day:hover:not(.disabled):not(.selected){
-  background:rgba(201,168,76,0.13);color:var(--cream);transform:scale(1.08);
+  background:rgba(224,112,80,0.13);color:var(--cream);transform:scale(1.08);
 }
 .cal-day.today{
-  background:rgba(74,122,96,0.2);color:rgba(140,210,170,0.95);
-  border:1px solid rgba(74,122,96,0.38);
+  background:rgba(180,100,60,0.2);color:rgba(140,210,170,0.95);
+  border:1px solid rgba(180,100,60,0.38);
 }
 .cal-day.selected{
   background:var(--gold)!important;color:var(--deep)!important;
-  font-weight:600;box-shadow:0 4px 14px rgba(201,168,76,0.4);
+  font-weight:600;box-shadow:0 4px 14px rgba(224,112,80,0.4);
   transform:scale(1.1);border:none;
 }
 .cal-day.disabled{color:rgba(212,201,168,0.15);cursor:not-allowed;}
@@ -531,21 +531,21 @@ section{padding:6rem 2.5rem;position:relative;}
 
 .bird-rows{display:flex;flex-direction:column;gap:10px;margin-bottom:1rem;}
 .bird-row{
-  background:rgba(8,16,11,0.45);border:1px solid rgba(201,168,76,0.12);
+  background:rgba(24,14,8,0.45);border:1px solid rgba(224,112,80,0.12);
   border-radius:18px;padding:16px 14px 14px;
   display:grid;
   grid-template-columns:1.8fr 0.6fr 1fr 80px auto;
   gap:10px;align-items:end;
   transition:border-color 0.2s,background 0.2s;
 }
-.bird-row:hover{border-color:rgba(201,168,76,0.22);background:rgba(8,16,11,0.6);}
+.bird-row:hover{border-color:rgba(224,112,80,0.22);background:rgba(24,14,8,0.6);}
 .bird-row .fg{margin-bottom:0;}
 
 /* price display field */
 .bird-price-display{
   padding:6px 8px;
-  background:rgba(201,168,76,0.06);
-  border:1px solid rgba(201,168,76,0.18);
+  background:rgba(224,112,80,0.06);
+  border:1px solid rgba(224,112,80,0.18);
   border-radius:14px;
   font-family:'Cormorant Garamond',serif;
   font-size:1.12rem;font-weight:300;
@@ -558,14 +558,14 @@ section{padding:6rem 2.5rem;position:relative;}
   transition:color 0.2s,background 0.2s;
 }
 .bird-price-display.empty{
-  color:rgba(201,168,76,0.22);
+  color:rgba(224,112,80,0.22);
   font-family:'Zen Maru Gothic',sans-serif;
   font-size:0.83rem;letter-spacing:0.1em;
 }
 .bird-price-display.filled{
   color:var(--gold-lt);
-  background:rgba(201,168,76,0.09);
-  border-color:rgba(201,168,76,0.3);
+  background:rgba(224,112,80,0.09);
+  border-color:rgba(224,112,80,0.3);
 }
 .btn-remove-bird{
   background:rgba(160,50,50,0.12);border:1px solid rgba(160,50,50,0.28);
@@ -576,24 +576,24 @@ section{padding:6rem 2.5rem;position:relative;}
 .btn-add-bird{
   display:inline-flex;align-items:center;gap:8px;
   background:transparent;color:var(--sage);
-  border:1px dashed rgba(74,122,96,0.38);border-radius:22px;
+  border:1px dashed rgba(180,100,60,0.38);border-radius:22px;
   padding:10px 18px;font-size:1.01rem;letter-spacing:0.14em;
   cursor:pointer;margin-bottom:1.2rem;transition:all 0.2s;font-family:inherit;
 }
-.btn-add-bird:hover{border-color:var(--sage);background:rgba(74,122,96,0.1);color:var(--cream);}
+.btn-add-bird:hover{border-color:var(--sage);background:rgba(180,100,60,0.1);color:var(--cream);}
 
 .price-calc-box{
-  display:none;background:rgba(201,168,76,0.05);
-  border:1px solid rgba(201,168,76,0.22);border-radius:16px;
+  display:none;background:rgba(224,112,80,0.05);
+  border:1px solid rgba(224,112,80,0.22);border-radius:16px;
   padding:1.4rem;margin:0.4rem 0 1.2rem;
 }
 .price-calc-box.show{display:block;}
-.calc-label{font-size:0.78rem;letter-spacing:0.3em;text-transform:uppercase;color:rgba(201,168,76,0.55);margin-bottom:0.5rem;}
+.calc-label{font-size:0.78rem;letter-spacing:0.3em;text-transform:uppercase;color:rgba(224,112,80,0.55);margin-bottom:0.5rem;}
 .calc-total{
   font-family:'Cormorant Garamond',serif;font-size:2.3rem;font-weight:300;
   color:var(--gold-lt);line-height:1;margin-bottom:0.6rem;
 }
-.calc-breakdown{font-size:0.89rem;color:var(--warm);line-height:2;font-weight:300;padding-top:0.5rem;border-top:1px solid rgba(201,168,76,0.1);}
+.calc-breakdown{font-size:0.89rem;color:var(--warm);line-height:2;font-weight:300;padding-top:0.5rem;border-top:1px solid rgba(224,112,80,0.1);}
 .calc-discount{font-size:0.92rem;color:rgba(130,200,155,0.9);margin-top:5px;font-weight:400;}
 
 .form-submit{
@@ -617,18 +617,18 @@ section{padding:6rem 2.5rem;position:relative;}
   gap:10px;margin-bottom:2.5rem;
 }
 .contact-card{
-  background:rgba(12,22,15,0.82);padding:2rem 1.5rem;text-align:center;
-  border:1px solid rgba(201,168,76,0.1);border-radius:22px;
+  background:rgba(28,18,10,0.82);padding:2rem 1.5rem;text-align:center;
+  border:1px solid rgba(224,112,80,0.1);border-radius:22px;
   transition:background 0.2s,box-shadow 0.2s,transform 0.2s;
 }
-.contact-card:hover{background:rgba(28,53,40,0.88);box-shadow:0 8px 28px rgba(201,168,76,0.08);transform:translateY(-2px);}
+.contact-card:hover{background:rgba(58,40,24,0.88);box-shadow:0 8px 28px rgba(224,112,80,0.08);transform:translateY(-2px);}
 .contact-card .ci{font-size:1.7rem;display:block;margin-bottom:0.8rem;opacity:0.75;}
 .contact-card h3{font-size:0.83rem;letter-spacing:0.22em;text-transform:uppercase;color:var(--gold);margin-bottom:0.6rem;font-weight:400;}
 .contact-card p,.contact-card a{font-size:1.1rem;color:var(--warm);text-decoration:none;display:block;line-height:1.8;font-weight:300;}
 .contact-card a:hover{color:var(--gold-lt);}
 
 .transport-box{
-  background:rgba(28,53,40,0.28);border:1px solid rgba(201,168,76,0.1);
+  background:rgba(58,40,24,0.28);border:1px solid rgba(224,112,80,0.1);
   border-radius:22px;padding:2.2rem;display:grid;grid-template-columns:1fr 1fr;gap:2.5rem;
 }
 .transport-col h4{font-size:0.83rem;letter-spacing:0.22em;text-transform:uppercase;color:var(--gold);margin-bottom:1rem;font-weight:400;}
@@ -637,10 +637,10 @@ section{padding:6rem 2.5rem;position:relative;}
 /* FOOTER */
 footer{
   background:rgba(5,10,7,0.98);padding:3rem 2.5rem;text-align:center;
-  border-top:1px solid rgba(201,168,76,0.1);
+  border-top:1px solid rgba(224,112,80,0.1);
 }
 .footer-logo{font-family:'Cormorant Garamond',serif;font-size:2rem;font-weight:300;color:var(--gold);letter-spacing:0.18em;margin-bottom:0.4rem;}
-.footer-tagline{font-size:0.82rem;letter-spacing:0.32em;color:rgba(201,168,76,0.25);text-transform:uppercase;margin-bottom:1.5rem;}
+.footer-tagline{font-size:0.82rem;letter-spacing:0.32em;color:rgba(224,112,80,0.25);text-transform:uppercase;margin-bottom:1.5rem;}
 .footer-links{display:flex;justify-content:center;gap:2rem;margin-bottom:2rem;flex-wrap:wrap;}
 .footer-links a{color:rgba(212,201,168,0.35);text-decoration:none;font-size:0.91rem;letter-spacing:0.12em;transition:color 0.2s;}
 .footer-links a:hover{color:var(--gold);}
@@ -682,7 +682,7 @@ footer p{font-size:0.88rem;color:rgba(212,201,168,0.22);line-height:2.1;}
 <nav>
   <a class="nav-logo" href="#">
     鳳潤鳥宿
-    <span class="nav-badge">Fonrun Parrot Inn</span>
+    <span class="nav-badge">Fonrun Bird Inn</span>
   </a>
   <div class="nav-links">
     <a href="#pricing">住宿費用</a>
@@ -706,12 +706,12 @@ footer p{font-size:0.88rem;color:rgba(212,201,168,0.22);line-height:2.1;}
   <div class="hero-ring r1"></div>
   <div class="hero-ring r2"></div>
   <div class="hero-ring r3"></div>
-  <div class="hero-vtext">FONRUN PARROT INN · 鳳潤鳥宿 · BANQIAO · NEW TAIPEI CITY</div>
+  <div class="hero-vtext">FONRUN BIRD INN · 鳳潤鳥宿 · BANQIAO · NEW TAIPEI CITY</div>
   <div class="hero-inner">
     <div>
       <div class="hero-eyebrow">新北市板橋區・鸚鵡寄宿</div>
-      <h1>出遊放心去，<br>寶貝住進<em>鳳潤</em></h1>
-      <p class="hero-sub">鳳潤鳥宿 · Fonrun Parrot Inn</p>
+      <h1>出遊放心去<br>寶貝住<em>鳳潤</em></h1>
+      <p class="hero-sub">鳳潤鳥宿 · Fonrun Bird Inn</p>
       <p>我們把每一隻鸚鵡都當作自己的孩子。放風互動、每日鮮食補充、專業照顧，讓您的羽毛寶貝每天都快樂健康。</p>
       <div class="hero-btns">
         <a href="#booking" class="btn-primary">立即預約寄宿</a>
@@ -736,14 +736,14 @@ footer p{font-size:0.88rem;color:rgba(212,201,168,0.22);line-height:2.1;}
     <span class="mi">💸 無須訂金・入住當日結清 <span class="md"></span></span>
     <span class="mi">📞 0901-221-586 <span class="md"></span></span>
     <span class="mi">LINE @399kyhwr <span class="md"></span></span>
-    <span class="mi">鳳潤鳥宿 · Fonrun Parrot Inn <span class="md"></span></span>
+    <span class="mi">鳳潤鳥宿 · Fonrun Bird Inn <span class="md"></span></span>
     <span class="mi">🦜 接受各種鸚鵡品種 <span class="md"></span></span>
     
     <span class="mi">🕐 接送時間 11:00–20:00 <span class="md"></span></span>
     <span class="mi">💸 無須訂金・入住當日結清 <span class="md"></span></span>
     <span class="mi">📞 0901-221-586 <span class="md"></span></span>
     <span class="mi">LINE @399kyhwr <span class="md"></span></span>
-    <span class="mi">鳳潤鳥宿 · Fonrun Parrot Inn <span class="md"></span></span>
+    <span class="mi">鳳潤鳥宿 · Fonrun Bird Inn <span class="md"></span></span>
   </div>
 </div>
 
@@ -783,7 +783,7 @@ footer p{font-size:0.88rem;color:rgba(212,201,168,0.22);line-height:2.1;}
     <div class="price-warn">
       <strong>◈ 折扣不適用情況</strong>
       1月、2月、7月、8月，以及中華民國國定連假（3日以上），均不適用長住折扣。折扣依行政院公布之行事曆為準。<br>
-      <div style="margin-top:1.8rem;padding:14px 20px;background:rgba(201,168,76,0.08);border:1px solid rgba(201,168,76,0.35);border-radius:14px;text-align:center;">
+      <div style="margin-top:1.8rem;padding:14px 20px;background:rgba(224,112,80,0.08);border:1px solid rgba(224,112,80,0.35);border-radius:14px;text-align:center;">
         <span style="font-size:1.15rem;font-weight:500;color:var(--gold-lt);letter-spacing:0.04em;">⚠️ 費用自 115.06.01 起適用，鳳潤鳥宿保留隨時修改之權利，恕不另行通知。</span>
       </div>
     </div>
@@ -852,7 +852,7 @@ footer p{font-size:0.88rem;color:rgba(212,201,168,0.22);line-height:2.1;}
               <div class="fg">
                 <label>LINE 名稱 *</label>
                 <input type="text" name="line_name" required placeholder="您的 LINE 顯示名稱"/>
-                <span style="font-size:0.95rem;color:rgba(201,168,76,0.7);margin-top:4px;line-height:1.7;display:block;">請加入官方 LINE 為好友 <a href="https://line.me/R/ti/p/@399kyhwr" target="_blank" style="color:var(--gold-lt);text-decoration:underline;text-underline-offset:3px;">@399kyhwr</a>，便於聯繫</span>
+                <span style="font-size:0.95rem;color:rgba(224,112,80,0.7);margin-top:4px;line-height:1.7;display:block;">請加入官方 LINE 為好友 <a href="https://line.me/R/ti/p/@399kyhwr" target="_blank" style="color:var(--gold-lt);text-decoration:underline;text-underline-offset:3px;">@399kyhwr</a>，便於聯繫</span>
               </div>
               <div class="fg">
                 <label>FB 名稱 *</label>
@@ -890,7 +890,7 @@ footer p{font-size:0.88rem;color:rgba(212,201,168,0.22);line-height:2.1;}
                 </div>
               </div>
               <div style="margin-bottom:0.4rem;">
-                <label style="font-size:0.81rem;letter-spacing:0.22em;text-transform:uppercase;color:rgba(201,168,76,0.55);">寄宿鳥兒 *</label>
+                <label style="font-size:0.81rem;letter-spacing:0.22em;text-transform:uppercase;color:rgba(224,112,80,0.55);">寄宿鳥兒 *</label>
               </div>
               <div class="bird-rows" id="birdRows"></div>
               <button type="button" class="btn-add-bird" onclick="addBirdRow()">＋ 新增鳥種</button>
@@ -898,7 +898,7 @@ footer p{font-size:0.88rem;color:rgba(212,201,168,0.22);line-height:2.1;}
 
               <!-- 附加費用 -->
               <div style="margin-bottom:0.5rem;margin-top:0.3rem;">
-                <label style="font-size:0.81rem;letter-spacing:0.22em;text-transform:uppercase;color:rgba(201,168,76,0.55);">附加服務（選填）</label>
+                <label style="font-size:0.81rem;letter-spacing:0.22em;text-transform:uppercase;color:rgba(224,112,80,0.55);">附加服務（選填）</label>
               </div>
               <div class="extra-checks">
                 <label class="extra-item">
@@ -1069,7 +1069,7 @@ footer p{font-size:0.88rem;color:rgba(212,201,168,0.22);line-height:2.1;}
 
 <footer>
   <div class="footer-logo">鳳潤鳥宿</div>
-  <div class="footer-tagline">Fonrun Parrot Inn · Banqiao · New Taipei City</div>
+  <div class="footer-tagline">Fonrun Bird Inn · Banqiao · New Taipei City</div>
   <div class="footer-links">
     <a href="#pricing">住宿費用</a>
     <a href="#rules">入住須知</a>
@@ -1178,10 +1178,10 @@ function queryBooking(){
                         b.status==='已確認'?'rgba(80,180,120,0.9)':
                         'var(--gold-lt)';
         html+=
-          '<div style="'+(idx>0?'margin-top:1.2rem;padding-top:1.2rem;border-top:1px solid rgba(201,168,76,0.12);':'')+'">' +
+          '<div style="'+(idx>0?'margin-top:1.2rem;padding-top:1.2rem;border-top:1px solid rgba(224,112,80,0.12);':'')+'">' +
           // 狀態 badge
           '<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:0.9rem;">'+
-            '<span style="font-size:0.78rem;letter-spacing:0.28em;text-transform:uppercase;color:rgba(201,168,76,0.5);">預約紀錄 #'+(idx+1)+'</span>'+
+            '<span style="font-size:0.78rem;letter-spacing:0.28em;text-transform:uppercase;color:rgba(224,112,80,0.5);">預約紀錄 #'+(idx+1)+'</span>'+
             '<span style="font-size:0.95rem;font-weight:500;color:'+statusColor+';letter-spacing:0.1em;">'+b.status+'</span>'+
           '</div>'+
           // 主人姓名
@@ -1434,7 +1434,7 @@ function calcPrice(){
   });
   if(breakdown.length>1){
     var t=document.createElement('div');
-    t.style.cssText='font-weight:500;color:var(--cream);margin-top:6px;padding-top:6px;border-top:1px dashed rgba(201,168,76,0.18);';
+    t.style.cssText='font-weight:500;color:var(--cream);margin-top:6px;padding-top:6px;border-top:1px dashed rgba(224,112,80,0.18);';
     t.textContent='小計（折前）＝ '+fmt(grandBase);
     bd.appendChild(t);
     breakdownLines.push('小計（折前）＝ '+fmt(grandBase));
