@@ -950,14 +950,14 @@ footer p{font-size:0.88rem;color:rgba(212,201,168,0.22);line-height:2.1;}
               <h3>預約成功！</h3>
               <p style="margin-bottom:1rem;">您的預約編號為</p>
               <div style="font-family:'Cormorant Garamond',serif;font-size:2rem;font-weight:600;color:var(--gold-lt);letter-spacing:0.15em;margin-bottom:1.2rem;" id="bookingNoDisplay">—</div>
-              <p>請記下此編號，可至「查詢預約」輸入電話查詢詳細狀態。<br><br>期待迎接您的羽毛寶貝 🦜</p>
+              <p>請記下此編號，可至「查詢預約」輸入預約編號查詢詳細狀態。<br><br>期待迎接您的羽毛寶貝 🦜</p>
             </div>
           </div>
 
           <!-- TAB: 查詢預約 -->
           <div class="btab-panel" id="panel-query">
-            <p style="font-size:1.1rem;color:var(--warm);margin-bottom:1.5rem;line-height:2;font-weight:300;">輸入您當初預約時填寫的聯絡電話，即可查詢您的預約狀態。</p>
-            <div class="fg"><label>聯絡電話 *</label><input type="tel" id="qPhone" placeholder="例：0912345678" oninput="clearQueryResult()"/></div>
+            <p style="font-size:1.1rem;color:var(--warm);margin-bottom:1.5rem;line-height:2;font-weight:300;">輸入您的預約編號，即可查詢您的預約狀態。</p>
+            <div class="fg"><label>預約編號 *</label><input type="text" id="qPhone" placeholder="例：FR20261026001" oninput="clearQueryResult()"/></div>
             <button type="button" class="form-submit" onclick="queryBooking()" style="margin-top:0;">查詢預約</button>
             <div class="query-result" id="queryResult"></div>
           </div>
@@ -1141,18 +1141,18 @@ function clearQueryResult(){
 }
 
 function queryBooking(){
-  var raw=document.getElementById('qPhone').value.replace(/\D/g,'');
+  var raw=document.getElementById('qPhone').value.trim().toUpperCase();
   var r=document.getElementById('queryResult');
 
-  if(raw.length<8){
-    r.innerHTML='<p class="qr-not-found">請輸入正確的電話號碼。</p>';
+  if(raw.length<5){
+    r.innerHTML='<p class="qr-not-found">請輸入正確的預約編號。</p>';
     r.classList.add('show');return;
   }
 
   r.innerHTML='<p style="font-size:1.08rem;color:var(--warm);text-align:center;padding:1rem 0;">查詢中，請稍候…</p>';
   r.classList.add('show');
 
-  fetch(SUPABASE_URL+'/rest/v1/bookings?phone=eq.'+encodeURIComponent(raw)+'&order=created_at.desc',{
+  fetch(SUPABASE_URL+'/rest/v1/bookings?booking_no=eq.'+encodeURIComponent(raw)+'&order=created_at.desc',{
     headers:{
       'apikey':SUPABASE_KEY,
       'Authorization':'Bearer '+SUPABASE_KEY
@@ -1162,9 +1162,9 @@ function queryBooking(){
   .then(function(data){
     if(!data||data.length===0){
       r.innerHTML=
-        '<p class="qr-not-found">查無此電話的預約紀錄</p>'+
+        '<p class="qr-not-found">查無此預約編號的紀錄</p>'+
         '<ol style="font-size:0.97rem;color:var(--warm);margin-top:14px;line-height:2.1;padding-left:1.4em;">'+
-        '<li>請確認電話號碼是否正確</li>'+
+        '<li>請確認預約編號是否正確（格式：FR20261026001）</li>'+
         '<li>查詢結果如顯示：<span style="color:rgba(80,180,120,0.95);font-weight:500;">已確認</span>　即表示預約成功，請依約入宿喔</li>'+
         '</ol>'+
         '<p style="font-size:1.03rem;color:var(--warm);margin-top:14px;line-height:1.9;">'+
