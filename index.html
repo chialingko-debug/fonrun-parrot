@@ -1720,6 +1720,16 @@ function submitForm(e){
         form.style.display='none';
         succ.classList.add('show');
         succ.scrollIntoView({behavior:'smooth',block:'start'});
+
+        // 寫入 Google 日曆（背景執行，不影響送出流程）
+        var calPayload=Object.assign({},payload,{booking_no:bookingNo});
+        fetch('https://script.google.com/macros/s/AKfycbza4kT1B1JWhzXN9KYVsoGzPIPJcDPXQsp_ajuNIwSKremlu-Aj_7kem0iiCdt70VI/exec',{
+          method:'POST',
+          headers:{'Content-Type':'text/plain'},
+          body:JSON.stringify(calPayload)
+        }).catch(function(err){
+          console.warn('日曆寫入失敗（不影響預約）',err);
+        });
       } else {
         return res.text().then(function(t){throw new Error(t);});
       }
