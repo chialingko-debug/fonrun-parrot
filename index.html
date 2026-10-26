@@ -1133,8 +1133,6 @@ function switchTab(name){
   }
 }
 
-var GAS_URL='https://script.google.com/macros/s/AKfycbwUmd8yIErbEaKTTLQCXwIGQ_6_b7--ZmuPlPDHx0CbJYpOHJdLyS83JRqVbZTf3ssC/exec';
-
 function clearQueryResult(){
   var r=document.getElementById('queryResult');
   r.classList.remove('show');r.innerHTML='';
@@ -1149,73 +1147,67 @@ function queryBooking(){
     r.classList.add('show');return;
   }
 
-  // 顯示載入中
   r.innerHTML='<p style="font-size:1.08rem;color:var(--warm);text-align:center;padding:1rem 0;">查詢中，請稍候…</p>';
   r.classList.add('show');
 
-  var url=GAS_URL+'?action=query&phone='+encodeURIComponent(raw)+'&t='+Date.now();
-
-  fetch(url,{cache:'no-store'})
-    .then(function(res){return res.json();})
-    .then(function(data){
-      if(!data||data.length===0){
-        r.innerHTML=
-          '<p class="qr-not-found">查無此電話的預約紀錄</p>'+
-          '<ol style="font-size:0.97rem;color:var(--warm);margin-top:14px;line-height:2.1;padding-left:1.4em;">'+
-          '<li>請確認電話號碼是否正確</li>'+
-          '<li>查詢結果如顯示：<span style="color:var(--gold-lt);font-weight:500;">確認中</span>　即表示預約完成尚待確認</li>'+
-          '<li>查詢結果如顯示：<span style="color:rgba(80,180,120,0.95);font-weight:500;">已確認</span>　即表示已經預約完成，請依約入宿喔</li>'+
-          '</ol>'+
-          '<p style="font-size:1.03rem;color:var(--warm);margin-top:14px;line-height:1.9;">'+
-          '如還有其他疑問，歡迎透過 '+
-          '<a href="https://line.me/R/ti/p/@399kyhwr" target="_blank" style="color:var(--gold-lt)">LINE @399kyhwr</a> 聯繫我們。</p>';
-        return;
-      }
-
-      var html='';
-      data.forEach(function(b,idx){
-        var statusColor=b.status==='已取消'?'rgba(220,80,80,0.85)':
-                        b.status==='已確認'?'rgba(80,180,120,0.9)':
-                        'var(--gold-lt)';
-        html+=
-          '<div style="'+(idx>0?'margin-top:1.2rem;padding-top:1.2rem;border-top:1px solid rgba(224,112,80,0.12);':'')+'">' +
-          // 狀態 badge
-          '<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:0.9rem;">'+
-            '<span style="font-size:0.78rem;letter-spacing:0.28em;text-transform:uppercase;color:rgba(224,112,80,0.5);">預約紀錄 #'+(idx+1)+'</span>'+
-            '<span style="font-size:0.95rem;font-weight:500;color:'+statusColor+';letter-spacing:0.1em;">'+b.status+'</span>'+
-          '</div>'+
-          // 主人姓名
-          '<div class="qr-label">飼主姓名</div>'+
-          '<div class="qr-val">'+b.name+'</div>'+
-          // 鳥寶名
-          '<div class="qr-label" style="margin-top:0.6rem;">鳥寶資訊</div>'+
-          '<div class="qr-val">'+b.birds+'</div>'+
-          // 入住時間
-          '<div style="display:grid;grid-template-columns:1fr 1fr;gap:0.8rem;margin-top:0.6rem;">'+
-            '<div>'+
-              '<div class="qr-label">🏠 入住時間</div>'+
-              '<div class="qr-val" style="font-size:1.13rem;">'+b.checkin+'</div>'+
-              '<div style="font-size:1.03rem;color:var(--sage);">'+b.cinTime+'</div>'+
-            '</div>'+
-            '<div>'+
-              '<div class="qr-label">🚗 接鳥時間</div>'+
-              '<div class="qr-val" style="font-size:1.13rem;">'+b.checkout+'</div>'+
-              '<div style="font-size:1.03rem;color:var(--sage);">'+b.coutTime+'</div>'+
-            '</div>'+
-          '</div>'+
-          // 費用
-          (b.fee?'<div class="qr-label" style="margin-top:0.6rem;">費用試算</div>'+
-          '<div style="font-family:\'Cormorant Garamond\',serif;font-size:1.45rem;font-weight:300;color:var(--gold-lt);">'+b.fee+'</div>':'')+ 
-          '</div>';
-      });
-
-      r.innerHTML=html;
-    })
-    .catch(function(err){
+  fetch(SUPABASE_URL+'/rest/v1/bookings?phone=eq.'+encodeURIComponent(raw)+'&order=created_at.desc',{
+    headers:{
+      'apikey':SUPABASE_KEY,
+      'Authorization':'Bearer '+SUPABASE_KEY
+    }
+  })
+  .then(function(res){return res.json();})
+  .then(function(data){
+    if(!data||data.length===0){
       r.innerHTML=
-        '<p class="qr-not-found">查詢失敗，請稍後再試。</p>'+
-        '<p style="font-size:1.01rem;color:rgba(212,201,168,0.4);margin-top:6px;">'+err+'</p>';
+        '<p class="qr-not-found">查無此電話的預約紀錄</p>'+
+        '<ol style="font-size:0.97rem;color:var(--warm);margin-top:14px;line-height:2.1;padding-left:1.4em;">'+
+        '<li>請確認電話號碼是否正確</li>'+
+        '<li>查詢結果如顯示：<span style="color:var(--gold-lt);font-weight:500;">確認中</span>　即表示預約完成尚待確認</li>'+
+        '<li>查詢結果如顯示：<span style="color:rgba(80,180,120,0.95);font-weight:500;">已確認</span>　即表示已經預約完成，請依約入宿喔</li>'+
+        '</ol>'+
+        '<p style="font-size:1.03rem;color:var(--warm);margin-top:14px;line-height:1.9;">'+
+        '如還有其他疑問，歡迎透過 '+
+        '<a href="https://line.me/R/ti/p/@399kyhwr" target="_blank" style="color:var(--gold-lt)">LINE @399kyhwr</a> 聯繫我們。</p>';
+      return;
+    }
+
+    var html='';
+    data.forEach(function(b,idx){
+      var birds=Array.isArray(b.birds)?b.birds.map(function(bird){
+        return bird.name+'（'+bird.species+'）×'+bird.count;
+      }).join('、'):(b.birds||'');
+      html+=
+        '<div style="'+(idx>0?'margin-top:1.2rem;padding-top:1.2rem;border-top:1px solid rgba(224,112,80,0.12);':'')+'">' +
+        '<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:0.9rem;">'+
+          '<span style="font-size:0.78rem;letter-spacing:0.28em;text-transform:uppercase;color:rgba(224,112,80,0.5);">預約紀錄 #'+(idx+1)+'</span>'+
+          '<span style="font-size:0.95rem;font-weight:500;color:var(--gold-lt);letter-spacing:0.1em;">確認中</span>'+
+        '</div>'+
+        '<div class="qr-label">飼主姓名</div>'+
+        '<div class="qr-val">'+b.line_name+'</div>'+
+        '<div class="qr-label" style="margin-top:0.6rem;">鳥寶資訊</div>'+
+        '<div class="qr-val">'+birds+'</div>'+
+        '<div style="display:grid;grid-template-columns:1fr 1fr;gap:0.8rem;margin-top:0.6rem;">'+
+          '<div>'+
+            '<div class="qr-label">🏠 入住日期</div>'+
+            '<div class="qr-val" style="font-size:1.13rem;">'+b.checkin_date+'</div>'+
+          '</div>'+
+          '<div>'+
+            '<div class="qr-label">🚗 接鳥日期</div>'+
+            '<div class="qr-val" style="font-size:1.13rem;">'+b.checkout_date+'</div>'+
+          '</div>'+
+        '</div>'+
+        (b.total_fee?'<div class="qr-label" style="margin-top:0.6rem;">估算費用</div>'+
+        '<div style="font-family:\'Cormorant Garamond\',serif;font-size:1.45rem;font-weight:300;color:var(--gold-lt);">NT$ '+b.total_fee.toLocaleString()+'</div>':'')+ 
+        '</div>';
     });
+    r.innerHTML=html;
+  })
+  .catch(function(err){
+    r.innerHTML=
+      '<p class="qr-not-found">查詢失敗，請稍後再試。</p>'+
+      '<p style="font-size:1.01rem;color:rgba(212,201,168,0.4);margin-top:6px;">'+err+'</p>';
+  });
 }
 
 function formatPhone(s){
@@ -1634,7 +1626,7 @@ window.addEventListener('DOMContentLoaded',function(){
 });
 
 var SUPABASE_URL='https://hxbaanirskvcljflfusx.supabase.co';
-var SUPABASE_KEY='sb_publishable_gaXzCH2LlptcjVWvaXMWTg_fmeeg9uR';
+var SUPABASE_KEY='eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imh4YmFhbmlyc2t2Y2xqZmxmdXN4Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3OTI5OTk4NDMsImV4cCI6MjEwODU3NTg0M30.rn4uuKECikgLf0KVzrXG-I8G9HZC_vkhC36Eb7H898Y';
 
 function submitForm(e){
   e.preventDefault();
@@ -1679,6 +1671,7 @@ function submitForm(e){
   var customerNote=noteEl?noteEl.value.trim():'';
 
   var payload={
+    phone:form.querySelector('[name="phone"]').value.trim(),
     line_name:form.querySelector('[name="line_name"]').value.trim(),
     fb_name:form.querySelector('[name="fb_name"]').value.trim(),
     checkin_date:document.getElementById('fCheckin').value,

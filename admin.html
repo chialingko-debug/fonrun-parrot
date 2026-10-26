@@ -1,0 +1,567 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>鳳潤鳥宿・後台管理</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@300;400;500;700&family=Cormorant+Garamond:wght@300;400;600&display=swap" rel="stylesheet"/>
+<style>
+:root{
+  --bg:#1a1410;
+  --surface:#241e18;
+  --surface2:#2e2620;
+  --border:#3a3028;
+  --gold:#e07050;
+  --gold-lt:#f09070;
+  --text:#e8d8c0;
+  --text-dim:#a08868;
+  --green:#5a9a6a;
+  --red:#c05040;
+  --yellow:#c8a040;
+}
+*{box-sizing:border-box;margin:0;padding:0;}
+body{font-family:'Noto Sans TC',sans-serif;background:var(--bg);color:var(--text);min-height:100vh;font-size:15px;}
+
+/* LOGIN */
+#loginScreen{
+  display:flex;align-items:center;justify-content:center;min-height:100vh;
+  background:radial-gradient(ellipse at 50% 40%,rgba(224,112,80,0.08),transparent 70%),var(--bg);
+}
+.login-box{
+  width:360px;padding:2.5rem;
+  background:var(--surface);border:1px solid var(--border);border-radius:20px;
+}
+.login-logo{
+  font-family:'Cormorant Garamond',serif;font-size:1.6rem;font-weight:300;
+  color:var(--gold);text-align:center;margin-bottom:0.3rem;letter-spacing:0.1em;
+}
+.login-sub{font-size:0.8rem;color:var(--text-dim);text-align:center;margin-bottom:2rem;letter-spacing:0.2em;}
+.login-box label{display:block;font-size:0.8rem;color:var(--text-dim);margin-bottom:6px;letter-spacing:0.12em;}
+.login-box input{
+  width:100%;padding:10px 14px;background:var(--bg);border:1px solid var(--border);
+  border-radius:10px;color:var(--text);font-size:0.95rem;outline:none;margin-bottom:1rem;
+  transition:border-color 0.2s;font-family:'Noto Sans TC',sans-serif;
+}
+.login-box input:focus{border-color:rgba(224,112,80,0.5);}
+.login-btn{
+  width:100%;padding:11px;background:var(--gold);color:#1a1410;border:none;
+  border-radius:10px;font-size:0.95rem;font-weight:700;cursor:pointer;
+  transition:background 0.2s;font-family:'Noto Sans TC',sans-serif;letter-spacing:0.1em;
+}
+.login-btn:hover{background:var(--gold-lt);}
+.login-err{color:var(--red);font-size:0.85rem;text-align:center;margin-top:0.8rem;min-height:1.2em;}
+
+/* ADMIN */
+#adminScreen{display:none;}
+.topbar{
+  display:flex;align-items:center;justify-content:space-between;
+  padding:0 1.5rem;height:56px;
+  background:var(--surface);border-bottom:1px solid var(--border);
+  position:sticky;top:0;z-index:100;
+}
+.topbar-logo{font-family:'Cormorant Garamond',serif;font-size:1.2rem;color:var(--gold);letter-spacing:0.1em;}
+.topbar-right{display:flex;align-items:center;gap:1rem;}
+.logout-btn{
+  padding:6px 14px;background:transparent;border:1px solid var(--border);
+  border-radius:8px;color:var(--text-dim);font-size:0.82rem;cursor:pointer;
+  transition:border-color 0.2s,color 0.2s;font-family:'Noto Sans TC',sans-serif;
+}
+.logout-btn:hover{border-color:var(--gold);color:var(--gold);}
+
+.tabs{display:flex;gap:4px;padding:1rem 1.5rem 0;border-bottom:1px solid var(--border);}
+.tab{
+  padding:8px 20px;border-radius:10px 10px 0 0;cursor:pointer;
+  font-size:0.88rem;color:var(--text-dim);border:1px solid transparent;border-bottom:none;
+  transition:color 0.2s,background 0.2s;
+}
+.tab:hover{color:var(--text);}
+.tab.active{color:var(--gold);background:var(--surface);border-color:var(--border);}
+
+.content{padding:1.5rem;}
+
+/* STATS BAR */
+.stats-bar{display:grid;grid-template-columns:repeat(4,1fr);gap:1rem;margin-bottom:1.5rem;}
+.stat-card{
+  background:var(--surface);border:1px solid var(--border);border-radius:14px;
+  padding:1rem 1.2rem;
+}
+.stat-label{font-size:0.75rem;color:var(--text-dim);letter-spacing:0.1em;margin-bottom:6px;}
+.stat-value{font-family:'Cormorant Garamond',serif;font-size:1.8rem;font-weight:300;color:var(--gold-lt);}
+.stat-sub{font-size:0.78rem;color:var(--text-dim);margin-top:2px;}
+
+/* FILTER BAR */
+.filter-bar{
+  display:flex;gap:0.8rem;align-items:center;margin-bottom:1rem;flex-wrap:wrap;
+}
+.filter-bar input,.filter-bar select{
+  padding:8px 12px;background:var(--surface);border:1px solid var(--border);
+  border-radius:8px;color:var(--text);font-size:0.85rem;outline:none;
+  font-family:'Noto Sans TC',sans-serif;
+}
+.filter-bar input:focus,.filter-bar select:focus{border-color:rgba(224,112,80,0.4);}
+.filter-bar input{width:180px;}
+
+/* TABLE */
+.table-wrap{overflow-x:auto;}
+table{width:100%;border-collapse:collapse;font-size:0.85rem;}
+thead tr{border-bottom:2px solid var(--border);}
+th{padding:10px 12px;text-align:left;font-size:0.75rem;color:var(--text-dim);font-weight:400;letter-spacing:0.1em;white-space:nowrap;}
+td{padding:10px 12px;border-bottom:1px solid rgba(58,48,40,0.5);vertical-align:top;}
+tr:hover td{background:rgba(224,112,80,0.03);}
+.badge{
+  display:inline-block;padding:2px 10px;border-radius:20px;font-size:0.75rem;font-weight:500;
+}
+.badge-pending{background:rgba(200,160,64,0.15);color:var(--yellow);}
+.badge-confirmed{background:rgba(90,154,106,0.15);color:var(--green);}
+.badge-done{background:rgba(90,90,100,0.2);color:var(--text-dim);}
+.badge-cancel{background:rgba(192,80,64,0.15);color:var(--red);}
+
+.action-btn{
+  padding:4px 10px;border-radius:6px;font-size:0.78rem;cursor:pointer;
+  border:1px solid var(--border);background:transparent;color:var(--text-dim);
+  transition:all 0.15s;font-family:'Noto Sans TC',sans-serif;
+}
+.action-btn:hover{border-color:var(--gold);color:var(--gold);}
+
+/* MODAL */
+.modal-overlay{
+  display:none;position:fixed;inset:0;background:rgba(10,8,6,0.8);z-index:200;
+  align-items:center;justify-content:center;
+}
+.modal-overlay.open{display:flex;}
+.modal{
+  background:var(--surface);border:1px solid var(--border);border-radius:16px;
+  padding:1.8rem;width:520px;max-width:95vw;max-height:90vh;overflow-y:auto;
+}
+.modal-title{font-size:1rem;font-weight:500;color:var(--text);margin-bottom:1.2rem;letter-spacing:0.05em;}
+.modal label{display:block;font-size:0.78rem;color:var(--text-dim);margin-bottom:5px;margin-top:0.8rem;}
+.modal input,.modal select,.modal textarea{
+  width:100%;padding:9px 12px;background:var(--bg);border:1px solid var(--border);
+  border-radius:8px;color:var(--text);font-size:0.9rem;outline:none;
+  font-family:'Noto Sans TC',sans-serif;
+}
+.modal textarea{resize:vertical;min-height:80px;}
+.modal input:focus,.modal select:focus,.modal textarea:focus{border-color:rgba(224,112,80,0.4);}
+.modal-btns{display:flex;gap:0.8rem;margin-top:1.5rem;justify-content:flex-end;}
+.btn-save{
+  padding:8px 22px;background:var(--gold);color:#1a1410;border:none;border-radius:8px;
+  font-size:0.88rem;font-weight:700;cursor:pointer;font-family:'Noto Sans TC',sans-serif;
+}
+.btn-save:hover{background:var(--gold-lt);}
+.btn-cancel{
+  padding:8px 16px;background:transparent;border:1px solid var(--border);
+  border-radius:8px;color:var(--text-dim);font-size:0.88rem;cursor:pointer;
+  font-family:'Noto Sans TC',sans-serif;
+}
+.btn-cancel:hover{border-color:var(--gold);color:var(--gold);}
+
+/* REPORT */
+.report-header{display:flex;align-items:center;gap:1rem;margin-bottom:1.5rem;}
+.report-header select{
+  padding:8px 12px;background:var(--surface);border:1px solid var(--border);
+  border-radius:8px;color:var(--text);font-size:0.88rem;outline:none;
+  font-family:'Noto Sans TC',sans-serif;
+}
+.report-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1rem;margin-bottom:1.5rem;}
+.report-card{
+  background:var(--surface);border:1px solid var(--border);border-radius:14px;
+  padding:1.2rem;text-align:center;
+}
+.report-card .rc-label{font-size:0.78rem;color:var(--text-dim);margin-bottom:8px;}
+.report-card .rc-value{font-family:'Cormorant Garamond',serif;font-size:2rem;font-weight:300;color:var(--gold-lt);}
+.report-card .rc-unit{font-size:0.8rem;color:var(--text-dim);margin-left:4px;}
+
+.report-table-wrap{background:var(--surface);border:1px solid var(--border);border-radius:14px;overflow:hidden;}
+.report-table-title{padding:1rem 1.2rem;border-bottom:1px solid var(--border);font-size:0.88rem;color:var(--text-dim);}
+
+.loading{text-align:center;padding:2rem;color:var(--text-dim);font-size:0.9rem;}
+.empty{text-align:center;padding:3rem;color:var(--text-dim);font-size:0.9rem;}
+
+@media(max-width:768px){
+  .stats-bar{grid-template-columns:repeat(2,1fr);}
+  .report-grid{grid-template-columns:repeat(2,1fr);}
+  .filter-bar input{width:140px;}
+}
+</style>
+</head>
+<body>
+
+<!-- 登入畫面 -->
+<div id="loginScreen">
+  <div class="login-box">
+    <div class="login-logo">鳳潤鳥宿</div>
+    <div class="login-sub">後台管理系統</div>
+    <label>帳號</label>
+    <input type="text" id="loginUser" placeholder="請輸入帳號" autocomplete="username"/>
+    <label>密碼</label>
+    <input type="password" id="loginPass" placeholder="請輸入密碼" autocomplete="current-password" onkeydown="if(event.key==='Enter')doLogin()"/>
+    <button class="login-btn" onclick="doLogin()">登入</button>
+    <div class="login-err" id="loginErr"></div>
+  </div>
+</div>
+
+<!-- 後台主畫面 -->
+<div id="adminScreen">
+  <div class="topbar">
+    <div class="topbar-logo">鳳潤鳥宿・後台</div>
+    <div class="topbar-right">
+      <span style="font-size:0.82rem;color:var(--text-dim);" id="topDate"></span>
+      <button class="logout-btn" onclick="doLogout()">登出</button>
+    </div>
+  </div>
+
+  <div class="tabs">
+    <div class="tab active" onclick="switchTab('list')">📋 預約列表</div>
+    <div class="tab" onclick="switchTab('report')">📊 月報表</div>
+  </div>
+
+  <!-- 預約列表 -->
+  <div id="tabList" class="content">
+    <div class="stats-bar" id="statsBar">
+      <div class="stat-card"><div class="stat-label">本月預約</div><div class="stat-value" id="s1">—</div><div class="stat-sub">筆</div></div>
+      <div class="stat-card"><div class="stat-label">待確認</div><div class="stat-value" id="s2">—</div><div class="stat-sub">筆</div></div>
+      <div class="stat-card"><div class="stat-label">本月估算收入</div><div class="stat-value" id="s3">—</div><div class="stat-sub">NT$</div></div>
+      <div class="stat-card"><div class="stat-label">本月實收</div><div class="stat-value" id="s4">—</div><div class="stat-sub">NT$</div></div>
+    </div>
+
+    <div class="filter-bar">
+      <input type="text" id="filterName" placeholder="搜尋姓名 / 電話" oninput="renderList()"/>
+      <select id="filterStatus" onchange="renderList()">
+        <option value="">全部狀態</option>
+        <option value="確認中">確認中</option>
+        <option value="已確認">已確認</option>
+        <option value="已完成">已完成</option>
+        <option value="已取消">已取消</option>
+      </select>
+      <input type="month" id="filterMonth" onchange="renderList()"/>
+    </div>
+
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr>
+            <th>#</th>
+            <th>飼主</th>
+            <th>電話</th>
+            <th>鳥寶</th>
+            <th>入住</th>
+            <th>接回</th>
+            <th>估算費用</th>
+            <th>實收</th>
+            <th>狀態</th>
+            <th>操作</th>
+          </tr>
+        </thead>
+        <tbody id="bookingTbody">
+          <tr><td colspan="10" class="loading">載入中…</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- 月報表 -->
+  <div id="tabReport" class="content" style="display:none;">
+    <div class="report-header">
+      <span style="font-size:0.9rem;color:var(--text-dim);">選擇月份</span>
+      <select id="reportMonth" onchange="renderReport()"></select>
+    </div>
+    <div class="report-grid" id="reportGrid">
+      <div class="report-card"><div class="rc-label">總預約筆數</div><div class="rc-value" id="r1">—</div></div>
+      <div class="report-card"><div class="rc-label">估算總收入</div><div class="rc-value" id="r2">—</div><div class="rc-unit" style="font-size:0.75rem;color:var(--text-dim);">NT$</div></div>
+      <div class="report-card"><div class="rc-label">實收金額</div><div class="rc-value" id="r3">—</div><div class="rc-unit" style="font-size:0.75rem;color:var(--text-dim);">NT$</div></div>
+      <div class="report-card"><div class="rc-label">支出金額</div><div class="rc-value" id="r4">—</div><div class="rc-unit" style="font-size:0.75rem;color:var(--text-dim);">NT$</div></div>
+      <div class="report-card"><div class="rc-label">淨收入</div><div class="rc-value" id="r5">—</div><div class="rc-unit" style="font-size:0.75rem;color:var(--text-dim);">NT$</div></div>
+      <div class="report-card"><div class="rc-label">平均每筆費用</div><div class="rc-value" id="r6">—</div><div class="rc-unit" style="font-size:0.75rem;color:var(--text-dim);">NT$</div></div>
+    </div>
+    <div class="report-table-wrap">
+      <div class="report-table-title">本月預約明細</div>
+      <table>
+        <thead>
+          <tr>
+            <th>#</th><th>飼主</th><th>入住</th><th>接回</th><th>鳥寶</th><th>估算費用</th><th>實收</th><th>支出</th><th>狀態</th>
+          </tr>
+        </thead>
+        <tbody id="reportTbody"></tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+<!-- 編輯 Modal -->
+<div class="modal-overlay" id="editModal">
+  <div class="modal">
+    <div class="modal-title">編輯預約</div>
+    <input type="hidden" id="editId"/>
+
+    <label>狀態</label>
+    <select id="editStatus">
+      <option value="確認中">確認中</option>
+      <option value="已確認">已確認</option>
+      <option value="已完成">已完成</option>
+      <option value="已取消">已取消</option>
+    </select>
+
+    <label>實收金額 (NT$)</label>
+    <input type="number" id="editIncome" placeholder="0"/>
+
+    <label>支出金額 (NT$)</label>
+    <input type="number" id="editExpense" placeholder="0"/>
+
+    <label>支出說明</label>
+    <input type="text" id="editExpenseNote" placeholder="例：獸醫費、耗材…"/>
+
+    <label>管理員備註</label>
+    <textarea id="editAdminNote" placeholder="內部備註，客戶不會看到"></textarea>
+
+    <div class="modal-btns">
+      <button class="btn-cancel" onclick="closeModal()">取消</button>
+      <button class="btn-save" onclick="saveEdit()">儲存</button>
+    </div>
+  </div>
+</div>
+
+<script>
+// ── 設定 ──
+var SUPABASE_URL='https://hxbaanirskvcljflfusx.supabase.co';
+var SUPABASE_KEY='eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imh4YmFhbmlyc2t2Y2xqZmxmdXN4Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3OTI5OTk4NDMsImV4cCI6MjEwODU3NTg0M30.rn4uuKECikgLf0KVzrXG-I8G9HZC_vkhC36Eb7H898Y';
+
+// ── 帳號密碼（在前端設定，適合個人使用）──
+var ADMIN_USER='fonrun';
+var ADMIN_PASS='parrot2024';
+
+var allBookings=[];
+var currentTab='list';
+
+// ── 登入 ──
+function doLogin(){
+  var u=document.getElementById('loginUser').value.trim();
+  var p=document.getElementById('loginPass').value;
+  if(u===ADMIN_USER&&p===ADMIN_PASS){
+    document.getElementById('loginScreen').style.display='none';
+    document.getElementById('adminScreen').style.display='block';
+    initAdmin();
+  } else {
+    document.getElementById('loginErr').textContent='帳號或密碼錯誤';
+  }
+}
+
+function doLogout(){
+  document.getElementById('loginScreen').style.display='flex';
+  document.getElementById('adminScreen').style.display='none';
+  document.getElementById('loginUser').value='';
+  document.getElementById('loginPass').value='';
+}
+
+// ── 初始化 ──
+function initAdmin(){
+  var now=new Date();
+  document.getElementById('topDate').textContent=now.getFullYear()+'/'+(now.getMonth()+1)+'/'+now.getDate();
+  var ym=now.getFullYear()+'-'+String(now.getMonth()+1).padStart(2,'0');
+  document.getElementById('filterMonth').value=ym;
+  buildReportMonthSelect();
+  loadBookings();
+}
+
+// ── 切換 Tab ──
+function switchTab(tab){
+  currentTab=tab;
+  document.querySelectorAll('.tab').forEach(function(t,i){
+    t.classList.toggle('active',['list','report'][i]===tab);
+  });
+  document.getElementById('tabList').style.display=tab==='list'?'block':'none';
+  document.getElementById('tabReport').style.display=tab==='report'?'block':'none';
+  if(tab==='report') renderReport();
+}
+
+// ── 載入資料 ──
+function loadBookings(){
+  fetch(SUPABASE_URL+'/rest/v1/bookings?order=created_at.desc&limit=500',{
+    headers:{'apikey':SUPABASE_KEY,'Authorization':'Bearer '+SUPABASE_KEY}
+  })
+  .then(function(r){return r.json();})
+  .then(function(data){
+    allBookings=data||[];
+    updateStats();
+    renderList();
+  })
+  .catch(function(){
+    document.getElementById('bookingTbody').innerHTML='<tr><td colspan="10" class="empty">載入失敗，請重新整理</td></tr>';
+  });
+}
+
+// ── 統計數字 ──
+function updateStats(){
+  var now=new Date();
+  var thisMonth=now.getFullYear()+'-'+String(now.getMonth()+1).padStart(2,'0');
+  var monthData=allBookings.filter(function(b){
+    return b.created_at&&b.created_at.startsWith(thisMonth);
+  });
+  document.getElementById('s1').textContent=monthData.length;
+  document.getElementById('s2').textContent=monthData.filter(function(b){return !b.status||b.status==='確認中';}).length;
+  var est=monthData.reduce(function(s,b){return s+(b.total_fee||0);},0);
+  var inc=monthData.reduce(function(s,b){return s+(b.income||0);},0);
+  document.getElementById('s3').textContent=est?est.toLocaleString():'0';
+  document.getElementById('s4').textContent=inc?inc.toLocaleString():'0';
+}
+
+// ── 渲染列表 ──
+function renderList(){
+  var nameFilter=document.getElementById('filterName').value.trim().toLowerCase();
+  var statusFilter=document.getElementById('filterStatus').value;
+  var monthFilter=document.getElementById('filterMonth').value;
+
+  var filtered=allBookings.filter(function(b){
+    var matchName=!nameFilter||
+      (b.line_name&&b.line_name.toLowerCase().includes(nameFilter))||
+      (b.fb_name&&b.fb_name.toLowerCase().includes(nameFilter))||
+      (b.phone&&b.phone.includes(nameFilter));
+    var matchStatus=!statusFilter||(b.status||'確認中')===statusFilter;
+    var matchMonth=!monthFilter||
+      (b.checkin_date&&b.checkin_date.startsWith(monthFilter));
+    return matchName&&matchStatus&&matchMonth;
+  });
+
+  if(filtered.length===0){
+    document.getElementById('bookingTbody').innerHTML='<tr><td colspan="10" class="empty">沒有符合的預約</td></tr>';
+    return;
+  }
+
+  var html='';
+  filtered.forEach(function(b,idx){
+    var status=b.status||'確認中';
+    var badgeClass=status==='已確認'?'badge-confirmed':status==='已完成'?'badge-done':status==='已取消'?'badge-cancel':'badge-pending';
+    var birds=Array.isArray(b.birds)?b.birds.map(function(bi){return bi.name+'×'+bi.count;}).join('、'):'—';
+    html+=
+      '<tr>'+
+      '<td style="color:var(--text-dim);">'+(idx+1)+'</td>'+
+      '<td><div>'+(b.line_name||'—')+'</div>'+(b.fb_name?'<div style="font-size:0.78rem;color:var(--text-dim);">FB: '+b.fb_name+'</div>':'')+'</td>'+
+      '<td>'+(b.phone||'—')+'</td>'+
+      '<td style="max-width:120px;">'+birds+'</td>'+
+      '<td style="white-space:nowrap;">'+(b.checkin_date||'—')+'</td>'+
+      '<td style="white-space:nowrap;">'+(b.checkout_date||'—')+'</td>'+
+      '<td style="white-space:nowrap;color:var(--gold-lt);">'+(b.total_fee?'NT$ '+b.total_fee.toLocaleString():'—')+'</td>'+
+      '<td style="white-space:nowrap;">'+(b.income?'NT$ '+b.income.toLocaleString():'—')+'</td>'+
+      '<td><span class="badge '+badgeClass+'">'+status+'</span></td>'+
+      '<td><button class="action-btn" onclick="openEdit('+b.id+')">編輯</button></td>'+
+      '</tr>';
+  });
+  document.getElementById('bookingTbody').innerHTML=html;
+}
+
+// ── 編輯 Modal ──
+function openEdit(id){
+  var b=allBookings.find(function(x){return x.id===id;});
+  if(!b)return;
+  document.getElementById('editId').value=id;
+  document.getElementById('editStatus').value=b.status||'確認中';
+  document.getElementById('editIncome').value=b.income||'';
+  document.getElementById('editExpense').value=b.expense||'';
+  document.getElementById('editExpenseNote').value=b.expense_note||'';
+  document.getElementById('editAdminNote').value=b.admin_note||'';
+  document.getElementById('editModal').classList.add('open');
+}
+
+function closeModal(){
+  document.getElementById('editModal').classList.remove('open');
+}
+
+function saveEdit(){
+  var id=parseInt(document.getElementById('editId').value);
+  var payload={
+    status:document.getElementById('editStatus').value,
+    income:parseInt(document.getElementById('editIncome').value)||0,
+    expense:parseInt(document.getElementById('editExpense').value)||0,
+    expense_note:document.getElementById('editExpenseNote').value.trim(),
+    admin_note:document.getElementById('editAdminNote').value.trim()
+  };
+
+  fetch(SUPABASE_URL+'/rest/v1/bookings?id=eq.'+id,{
+    method:'PATCH',
+    headers:{
+      'apikey':SUPABASE_KEY,
+      'Authorization':'Bearer '+SUPABASE_KEY,
+      'Content-Type':'application/json',
+      'Prefer':'return=minimal'
+    },
+    body:JSON.stringify(payload)
+  })
+  .then(function(r){
+    if(r.ok){
+      var idx=allBookings.findIndex(function(x){return x.id===id;});
+      if(idx>-1)Object.assign(allBookings[idx],payload);
+      closeModal();
+      updateStats();
+      renderList();
+    } else {
+      alert('儲存失敗，請重試');
+    }
+  })
+  .catch(function(){alert('儲存失敗，請重試');});
+}
+
+// ── 月報表 ──
+function buildReportMonthSelect(){
+  var sel=document.getElementById('reportMonth');
+  var now=new Date();
+  for(var i=0;i<12;i++){
+    var d=new Date(now.getFullYear(),now.getMonth()-i,1);
+    var val=d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0');
+    var label=d.getFullYear()+'年'+(d.getMonth()+1)+'月';
+    var opt=document.createElement('option');
+    opt.value=val;opt.textContent=label;
+    if(i===0)opt.selected=true;
+    sel.appendChild(opt);
+  }
+}
+
+function renderReport(){
+  var month=document.getElementById('reportMonth').value;
+  var data=allBookings.filter(function(b){
+    return b.checkin_date&&b.checkin_date.startsWith(month);
+  });
+
+  var totalFee=data.reduce(function(s,b){return s+(b.total_fee||0);},0);
+  var totalIncome=data.reduce(function(s,b){return s+(b.income||0);},0);
+  var totalExpense=data.reduce(function(s,b){return s+(b.expense||0);},0);
+  var net=totalIncome-totalExpense;
+  var avg=data.length?Math.round(totalFee/data.length):0;
+
+  document.getElementById('r1').textContent=data.length;
+  document.getElementById('r2').textContent=totalFee.toLocaleString();
+  document.getElementById('r3').textContent=totalIncome.toLocaleString();
+  document.getElementById('r4').textContent=totalExpense.toLocaleString();
+  document.getElementById('r5').textContent=net.toLocaleString();
+  document.getElementById('r6').textContent=avg.toLocaleString();
+
+  var html='';
+  if(data.length===0){
+    html='<tr><td colspan="9" class="empty">此月份無預約資料</td></tr>';
+  } else {
+    data.forEach(function(b,idx){
+      var status=b.status||'確認中';
+      var badgeClass=status==='已確認'?'badge-confirmed':status==='已完成'?'badge-done':status==='已取消'?'badge-cancel':'badge-pending';
+      var birds=Array.isArray(b.birds)?b.birds.map(function(bi){return bi.name+'×'+bi.count;}).join('、'):'—';
+      html+=
+        '<tr>'+
+        '<td style="color:var(--text-dim);">'+(idx+1)+'</td>'+
+        '<td>'+(b.line_name||'—')+'</td>'+
+        '<td>'+(b.checkin_date||'—')+'</td>'+
+        '<td>'+(b.checkout_date||'—')+'</td>'+
+        '<td>'+birds+'</td>'+
+        '<td>'+(b.total_fee?'NT$ '+b.total_fee.toLocaleString():'—')+'</td>'+
+        '<td>'+(b.income?'NT$ '+b.income.toLocaleString():'—')+'</td>'+
+        '<td>'+(b.expense?'NT$ '+b.expense.toLocaleString():'—')+'</td>'+
+        '<td><span class="badge '+badgeClass+'">'+status+'</span></td>'+
+        '</tr>';
+    });
+  }
+  document.getElementById('reportTbody').innerHTML=html;
+}
+
+// 點外面關 modal
+document.getElementById('editModal').addEventListener('click',function(e){
+  if(e.target===this)closeModal();
+});
+</script>
+</body>
+</html>
