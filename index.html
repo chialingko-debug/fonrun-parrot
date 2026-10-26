@@ -947,8 +947,10 @@ footer p{font-size:0.88rem;color:rgba(212,201,168,0.22);line-height:2.1;}
             </form>
             <div class="form-success" id="fSuccess">
               <div class="sicon">🎉</div>
-              <h3>預約申請已送出</h3>
-              <p>感謝您選擇鳳潤鳥宿，我們會盡快確認空位及細節，歡迎使用查詢預約功能確認是否預約成功。<br><br>期待迎接您的羽毛寶貝 🦜</p>
+              <h3>預約成功！</h3>
+              <p style="margin-bottom:1rem;">您的預約編號為</p>
+              <div style="font-family:'Cormorant Garamond',serif;font-size:2rem;font-weight:600;color:var(--gold-lt);letter-spacing:0.15em;margin-bottom:1.2rem;" id="bookingNoDisplay">—</div>
+              <p>請記下此編號，可至「查詢預約」輸入電話查詢詳細狀態。<br><br>期待迎接您的羽毛寶貝 🦜</p>
             </div>
           </div>
 
@@ -1669,42 +1671,65 @@ function submitForm(e){
   var noteEl=form.querySelector('[name="customer_note"]')||form.querySelector('textarea');
   var customerNote=noteEl?noteEl.value.trim():'';
 
-  var payload={
-    phone:form.querySelector('[name="phone"]').value.trim(),
-    line_name:form.querySelector('[name="line_name"]').value.trim(),
-    fb_name:form.querySelector('[name="fb_name"]').value.trim(),
-    checkin_date:document.getElementById('fCheckin').value,
-    checkout_date:document.getElementById('fCheckout').value,
-    birds:birdsData,
-    addon_med:medChecked,
-    addon_meal:mealChecked,
-    base_fee:baseFee,
-    addon_fee:addonFee,
-    vip_fee:0,
-    total_fee:totalFeeVal,
-    customer_note:customerNote,
-    status:'已確認'
-  };
+  // 產生預約編號：FR+今日日期+同日序號
+  var today=new Date();
+  var ymd=today.getFullYear()+
+    String(today.getMonth()+1).padStart(2,'0')+
+    String(today.getDate()).padStart(2,'0');
+  var datePrefix='FR'+ymd;
 
-  fetch(SUPABASE_URL+'/rest/v1/bookings',{
-    method:'POST',
-    headers:{
-      'Content-Type':'application/json',
-      'apikey':SUPABASE_KEY,
-      'Authorization':'Bearer '+SUPABASE_KEY,
-      'Prefer':'return=minimal'
-    },
-    body:JSON.stringify(payload)
-  }).then(function(res){
-    if(res.ok||res.status===201){
-      form.style.display='none';
-      succ.classList.add('show');
-      succ.scrollIntoView({behavior:'smooth',block:'start'});
-    } else {
-      return res.text().then(function(t){throw new Error(t);});
-    }
+  // 查詢今日已有幾筆，決定序號
+  fetch(SUPABASE_URL+'/rest/v1/bookings?booking_no=like.'+datePrefix+'*&select=booking_no',{
+    headers:{'apikey':SUPABASE_KEY,'Authorization':'Bearer '+SUPABASE_KEY}
+  }).then(function(r){return r.json();}).then(function(existing){
+    var seq=String((existing||[]).length+1).padStart(3,'0');
+    var bookingNo=datePrefix+seq;
+
+    var payload={
+      booking_no:bookingNo,
+      phone:form.querySelector('[name="phone"]').value.trim(),
+      line_name:form.querySelector('[name="line_name"]').value.trim(),
+      fb_name:form.querySelector('[name="fb_name"]').value.trim(),
+      checkin_date:document.getElementById('fCheckin').value,
+      checkout_date:document.getElementById('fCheckout').value,
+      birds:birdsData,
+      addon_med:medChecked,
+      addon_meal:mealChecked,
+      base_fee:baseFee,
+      addon_fee:addonFee,
+      vip_fee:0,
+      total_fee:totalFeeVal,
+      customer_note:customerNote,
+      status:'已確認'
+    };
+
+    fetch(SUPABASE_URL+'/rest/v1/bookings',{
+      method:'POST',
+      headers:{
+        'Content-Type':'application/json',
+        'apikey':SUPABASE_KEY,
+        'Authorization':'Bearer '+SUPABASE_KEY,
+        'Prefer':'return=minimal'
+      },
+      body:JSON.stringify(payload)
+    }).then(function(res){
+      if(res.ok||res.status===201){
+        // 顯示預約編號
+        var noEl=document.getElementById('bookingNoDisplay');
+        if(noEl)noEl.textContent=bookingNo;
+        form.style.display='none';
+        succ.classList.add('show');
+        succ.scrollIntoView({behavior:'smooth',block:'start'});
+      } else {
+        return res.text().then(function(t){throw new Error(t);});
+      }
+    }).catch(function(err){
+      console.error('送出失敗',err);
+      if(submitBtn){submitBtn.disabled=false;submitBtn.textContent='送出預約';}
+      alert('送出失敗，請稍後再試或透過 LINE 聯繫我們。');
+    });
   }).catch(function(err){
-    console.error('送出失敗',err);
+    console.error('編號產生失敗',err);
     if(submitBtn){submitBtn.disabled=false;submitBtn.textContent='送出預約';}
     alert('送出失敗，請稍後再試或透過 LINE 聯繫我們。');
   });

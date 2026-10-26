@@ -145,6 +145,7 @@ td.wrap{white-space:normal;max-width:160px;word-break:break-all;}
         <thead>
           <tr>
             <th>#</th>
+            <th>預約編號</th>
             <th>LINE名稱</th>
             <th>電話</th>
             <th>鳥寶</th>
@@ -160,7 +161,7 @@ td.wrap{white-space:normal;max-width:160px;word-break:break-all;}
             <th>操作</th>
           </tr>
         </thead>
-        <tbody id="bookingTbody"><tr><td colspan="14" class="loading">載入中…</td></tr></tbody>
+        <tbody id="bookingTbody"><tr><td colspan="15" class="loading">載入中…</td></tr></tbody>
       </table>
     </div>
   </div>
@@ -190,6 +191,7 @@ td.wrap{white-space:normal;max-width:160px;word-break:break-all;}
     <div class="report-header">
       <span style="font-size:0.85rem;color:var(--text-dim);">選擇月份</span>
       <select id="reportMonth" onchange="renderReport()"></select>
+      <button class="add-btn" style="margin-bottom:0;" onclick="exportExcel()">⬇ 匯出 Excel</button>
     </div>
     <div class="report-grid">
       <div class="report-card"><div class="rc-label">總預約筆數</div><div class="rc-value" id="r1">—</div></div>
@@ -199,24 +201,7 @@ td.wrap{white-space:normal;max-width:160px;word-break:break-all;}
       <div class="report-card"><div class="rc-label">淨收入</div><div class="rc-value" id="r5">—</div><div style="font-size:0.7rem;color:var(--text-dim);">NT$</div></div>
       <div class="report-card"><div class="rc-label">平均每筆費用</div><div class="rc-value" id="r6">—</div><div style="font-size:0.7rem;color:var(--text-dim);">NT$</div></div>
     </div>
-    <div class="section-wrap">
-      <div class="section-title">本月預約明細</div>
-      <div class="table-wrap">
-        <table style="min-width:700px;">
-          <thead><tr><th>#</th><th>LINE名稱</th><th>入托</th><th>接回</th><th>鳥寶</th><th>估算費用</th><th>附加費</th><th>VIP費</th><th>總費用</th><th>實收</th></tr></thead>
-          <tbody id="reportBookingTbody"></tbody>
-        </table>
-      </div>
-    </div>
-    <div class="section-wrap">
-      <div class="section-title">本月支出明細</div>
-      <div class="table-wrap">
-        <table style="min-width:400px;">
-          <thead><tr><th>#</th><th>支出日期</th><th>支出金額</th><th>支出說明</th></tr></thead>
-          <tbody id="reportExpenseTbody"></tbody>
-        </table>
-      </div>
-    </div>
+    <div style="font-size:0.82rem;color:var(--text-dim);padding:0.5rem 0;">點「匯出 Excel」可下載包含預約明細、支出明細與總營收摘要的完整報表。</div>
   </div>
 
   <!-- 帳號管理 -->
@@ -397,13 +382,14 @@ function renderList(){
     return mn&&mm;
   });
 
-  if(!filtered.length){document.getElementById('bookingTbody').innerHTML='<tr><td colspan="14" class="empty">沒有符合的預約</td></tr>';return;}
+  if(!filtered.length){document.getElementById('bookingTbody').innerHTML='<tr><td colspan="15" class="empty">沒有符合的預約</td></tr>';return;}
 
   var html='';
   filtered.forEach(function(b,idx){
     var birds=Array.isArray(b.birds)?b.birds.map(function(bi){return bi.species+' '+bi.name;}).join('、'):'—';
     html+='<tr>'+
       '<td style="color:var(--text-dim);">'+(idx+1)+'</td>'+
+      '<td style="font-family:monospace;font-size:0.78rem;color:var(--gold-lt);">'+(b.booking_no||'—')+'</td>'+
       '<td>'+(b.line_name||'—')+'</td>'+
       '<td>'+(b.phone||'—')+'</td>'+
       '<td class="wrap">'+(birds)+'</td>'+
@@ -568,38 +554,91 @@ function renderReport(){
   document.getElementById('r5').textContent=(totalInc-totalExp).toLocaleString();
   document.getElementById('r6').textContent=(bdata.length?Math.round(totalFee/bdata.length):0).toLocaleString();
 
-  // 預約明細
-  var bhtml='';
-  if(!bdata.length){bhtml='<tr><td colspan="10" class="empty">此月份無預約</td></tr>';}
-  else{bdata.forEach(function(b,idx){
-    var birds=Array.isArray(b.birds)?b.birds.map(function(bi){return bi.species+' '+bi.name;}).join('、'):'—';
-    bhtml+='<tr>'+
-      '<td style="color:var(--text-dim);">'+(idx+1)+'</td>'+
-      '<td>'+(b.line_name||'—')+'</td>'+
-      '<td>'+(b.checkin_date||'—')+'</td>'+
-      '<td>'+(b.checkout_date||'—')+'</td>'+
-      '<td class="wrap">'+birds+'</td>'+
-      '<td>'+(b.base_fee?'NT$'+b.base_fee.toLocaleString():'—')+'</td>'+
-      '<td>'+(b.addon_fee?'NT$'+b.addon_fee.toLocaleString():'—')+'</td>'+
-      '<td>'+(b.vip_fee?'NT$'+b.vip_fee.toLocaleString():'—')+'</td>'+
-      '<td style="color:var(--gold-lt);">'+(b.total_fee?'NT$'+b.total_fee.toLocaleString():'—')+'</td>'+
-      '<td>'+(b.income?'NT$'+b.income.toLocaleString():'—')+'</td>'+
-      '</tr>';
-  });}
-  document.getElementById('reportBookingTbody').innerHTML=bhtml;
+}
 
-  // 支出明細
-  var ehtml='';
-  if(!edata.length){ehtml='<tr><td colspan="4" class="empty">此月份無支出</td></tr>';}
-  else{edata.forEach(function(e,idx){
-    ehtml+='<tr>'+
-      '<td style="color:var(--text-dim);">'+(idx+1)+'</td>'+
-      '<td>'+(e.expense_date||'—')+'</td>'+
-      '<td style="color:var(--gold-lt);">NT$'+(e.amount||0).toLocaleString()+'</td>'+
-      '<td class="wrap">'+(e.note||'—')+'</td>'+
-      '</tr>';
-  });}
-  document.getElementById('reportExpenseTbody').innerHTML=ehtml;
+function exportExcel(){
+  var month=document.getElementById('reportMonth').value;
+  if(!month){alert('請先選擇月份');return;}
+
+  var bdata=allBookings.filter(function(b){return b.checkin_date&&b.checkin_date.startsWith(month);});
+  var edata=allExpenses.filter(function(e){return e.expense_date&&e.expense_date.startsWith(month);});
+
+  var totalFee=bdata.reduce(function(s,b){return s+(b.total_fee||0);},0);
+  var totalInc=bdata.reduce(function(s,b){return s+(b.income||0);},0);
+  var totalExp=edata.reduce(function(s,e){return s+(e.amount||0);},0);
+  var net=totalInc-totalExp;
+
+  // 建立 CSV 內容（UTF-8 BOM 讓 Excel 正確顯示中文）
+  var BOM='\uFEFF';
+  var lines=[];
+
+  // ── 預約明細 ──
+  lines.push('【預約明細】');
+  lines.push(['預約編號','主人（LINE）','鳥種','附加服務','隻數','入住日期','離宿日期','VIP費用','估算費用','附加費','總費用','客戶備註','管理員備註'].join(','));
+
+  bdata.forEach(function(b){
+    var birds=Array.isArray(b.birds)?b.birds:[];
+    var species=birds.map(function(bi){return bi.species;}).join('、');
+    var names=birds.map(function(bi){return bi.name;}).join('、');
+    var counts=birds.reduce(function(s,bi){return s+(bi.count||1);},0);
+    var addon=[];
+    if(b.addon_med)addon.push('灌奶/塗藥');
+    if(b.addon_meal)addon.push('3-4餐');
+
+    lines.push([
+      b.booking_no||'—',
+      '"'+(b.line_name||'')+'（'+(names||'')+'）"',
+      '"'+species+'"',
+      '"'+(addon.join('、')||'無')+'"',
+      counts,
+      b.checkin_date||'',
+      b.checkout_date||'',
+      b.vip_fee||0,
+      b.base_fee||0,
+      b.addon_fee||0,
+      b.total_fee||0,
+      '"'+(b.customer_note||'').replace(/"/g,'""')+'"',
+      '"'+(b.admin_note||'').replace(/"/g,'""')+'"'
+    ].join(','));
+  });
+
+  lines.push('');
+  lines.push('');
+
+  // ── 支出明細 ──
+  lines.push('【支出明細】');
+  lines.push(['支出日期','支出金額','支出說明'].join(','));
+  edata.forEach(function(e){
+    lines.push([
+      e.expense_date||'',
+      e.amount||0,
+      '"'+(e.note||'').replace(/"/g,'""')+'"'
+    ].join(','));
+  });
+
+  lines.push('');
+  lines.push('');
+
+  // ── 總營收摘要 ──
+  lines.push('【總營收摘要】');
+  lines.push(['項目','金額（NT$）'].join(','));
+  lines.push(['預約筆數',bdata.length].join(','));
+  lines.push(['估算總收入',totalFee].join(','));
+  lines.push(['實收金額',totalInc].join(','));
+  lines.push(['支出金額',totalExp].join(','));
+  lines.push(['淨收入',net].join(','));
+  lines.push(['平均每筆費用',(bdata.length?Math.round(totalFee/bdata.length):0)].join(','));
+
+  var csv=BOM+lines.join('\r\n');
+  var blob=new Blob([csv],{type:'text/csv;charset=utf-8;'});
+  var url=URL.createObjectURL(blob);
+  var a=document.createElement('a');
+  a.href=url;
+  a.download='鳳潤鳥宿_'+month+'_月報表.csv';
+  document.body.appendChild(a);
+  a.click();
+  document.body.removeChild(a);
+  URL.revokeObjectURL(url);
 }
 
 // ── 帳號管理 ──
